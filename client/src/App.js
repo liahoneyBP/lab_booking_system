@@ -7,6 +7,7 @@ import MyBookings from './pages/MyBookings';
 import Schedule from './pages/Schedule';
 import SignIn from './pages/auth/SignIn';
 import SignUp from './pages/auth/SignUp';
+import SignUpComplete from './pages/auth/SignUpComplete';
 
 
 import { ToastContainer } from "react-toastify";
@@ -25,6 +26,7 @@ function App() {
         <Route path="/schedule" element={<Schedule />}></Route>
         <Route path="/sign-up" element={<SignUp />}></Route>
         <Route path="/sign-in" element={<SignIn />}></Route>
+        <Route path="/sign-up/complete" element={<SignUpComplete />}></Route>
       </Routes>
        
     </Router>
