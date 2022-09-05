@@ -8,6 +8,7 @@ import Schedule from './pages/Schedule';
 import SignIn from './pages/auth/SignIn';
 import SignUp from './pages/auth/SignUp';
 import SignUpComplete from './pages/auth/SignUpComplete';
+import ForgotPassword from './pages/auth/ForgotPassword';
 
 
 import { ToastContainer } from "react-toastify";
@@ -54,6 +55,7 @@ function App() {
         <Route path="/sign-up" element={<SignUp />}></Route>
         <Route path="/sign-in" element={<SignIn />}></Route>
         <Route path="/sign-up/complete" element={<SignUpComplete />}></Route>
+        <Route path="/forgot/password" element={<ForgotPassword />}></Route>
       </Routes>
        
     </Router>
