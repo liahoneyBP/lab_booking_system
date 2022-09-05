@@ -1,17 +1,51 @@
 import React, { useState } from "react";
+import { auth } from "../../firebase";
+import { toast } from "react-toastify";
 import { Button } from "antd";
 import { MailOutlined } from "@ant-design/icons";
+import { useDispatch } from "react-redux";
+
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+
+
+import {useNavigate} from 'react-router-dom';
 
 const Login = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const auth = getAuth();
+  const navigate = useNavigate();
+  const [email, setEmail] = useState("gustavogabirea55@gmail.com");
+  const [password, setPassword] = useState("123456");
+  const [loading, setLoading] = useState(false);
+
+  let dispatch = useDispatch();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.table(email, password);
-  };
+    setLoading(true);
+   // console.table(email, password);
+  try {
+    const result = await signInWithEmailAndPassword(auth, email, password);
+    // console.log(result);
+    const { user } = result;
+    const idTokenResult = await user.getIdTokenResult();
 
-  const loginForm = () => (
+    dispatch({
+        type: "LOGGED_IN_USER",
+        payload: {
+            email: user.email,
+            token: idTokenResult.token,
+        },
+    });
+    navigate("/")
+  } catch (error) {
+    console.log(error);
+    toast.error(error.message);
+    setLoading(false);
+  }
+};
+
+
+  const signinForm = () => (
     <form onSubmit={handleSubmit}>
       <div className="form-group">
         <input
@@ -54,8 +88,8 @@ const Login = () => {
     <div className="container p-5">
       <div className="row">
         <div className="col-md-6 offset-md-3">
-          <h4>Login</h4>
-          {loginForm()}
+          <h4>Sign In</h4>
+          {signinForm()}
         </div>
       </div>
     </div>
