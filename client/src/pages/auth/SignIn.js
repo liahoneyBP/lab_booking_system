@@ -1,18 +1,23 @@
 import React, { useState } from "react";
-import { auth } from "../../firebase";
 import { toast } from "react-toastify";
 import { Button } from "antd";
-import { MailOutlined } from "@ant-design/icons";
+import { GoogleOutlined, MailOutlined } from "@ant-design/icons";
 import { useDispatch } from "react-redux";
 
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { 
+    getAuth, 
+    signInWithEmailAndPassword, 
+    signInWithPopup,
+    GoogleAuthProvider } from "firebase/auth";
 
 
 import {useNavigate} from 'react-router-dom';
 
-const Login = () => {
+
+const SignIn = () => {
   const auth = getAuth();
   const navigate = useNavigate();
+  const provider = new GoogleAuthProvider();
   const [email, setEmail] = useState("gustavogabirea55@gmail.com");
   const [password, setPassword] = useState("123456");
   const [loading, setLoading] = useState(false);
@@ -43,6 +48,26 @@ const Login = () => {
     setLoading(false);
   }
 };
+
+const googleSignIn = async () => {
+    signInWithPopup(auth, provider)
+    .then(async (result) => {
+        const { user } = result;
+        const idTokenResult = await user.getIdTokenResult();
+        dispatch({
+            type: "LOGGED_IN_USER",
+            payload: {
+                email: user.email,
+                token: idTokenResult.token,
+            },
+        });
+        navigate("/")
+    })
+    .catch((err) => {
+        console.log(err);
+        toast.error(err.message);
+    });
+}
 
 
   const signinForm = () => (
@@ -88,12 +113,28 @@ const Login = () => {
     <div className="container p-5">
       <div className="row">
         <div className="col-md-6 offset-md-3">
-          <h4>Sign In</h4>
+          {loading ? (
+            <h4 className="text-danger">Loading...</h4>
+          ) : (
+            <h4>Sign In</h4>
+          )}
           {signinForm()}
+
+          <Button 
+            onClick={googleSignIn}
+            type="dark"
+            className="mb-3"
+            block
+            shape="round"
+            icon={<GoogleOutlined />}
+            size="large"
+            >
+                Sign In With Google
+          </Button>
         </div>
       </div>
     </div>
   );
 };
 
-export default Login;
+export default SignIn;
