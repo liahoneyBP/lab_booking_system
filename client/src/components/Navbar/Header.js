@@ -12,7 +12,7 @@ import { Link } from "react-router-dom";
 
 import { getAuth, signOut } from "firebase/auth";
 
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {useNavigate} from 'react-router-dom';
 
 const { SubMenu, Item } = Menu;
@@ -23,6 +23,7 @@ const Header = () => {
 
   let dispatch = useDispatch();
   const navigate = useNavigate();
+  let { user } = useSelector((state) => ({ ...state}));
 
   const handleClick = (e) => {
     console.log(e.key);
@@ -50,6 +51,7 @@ const Header = () => {
         <Link to="/">Home</Link>
       </Item>
 
+
       <Item key="lab" icon={<AppstoreOutlined />}>
         <Link to="/lab">Lab</Link>
       </Item>
@@ -62,21 +64,31 @@ const Header = () => {
         <Link to="/schedule">Schedule</Link>
       </Item>
 
+{!user && (
       <Item key="sign-up" icon={<UserAddOutlined />} className="float-right">
         <Link to="/sign-up">Sign Up</Link>
       </Item>
+)}
 
+{!user && (
       <Item key="sign-in" icon={<UserOutlined />} className="float-right">
         <Link to="/sign-in">Sign In</Link>
       </Item>
+)}
 
-      <SubMenu icon={<SettingOutlined />} title="Username">
+{user && (
+      <SubMenu 
+      icon={<SettingOutlined />} 
+      title={user.email && user.email.split("@")[0]}
+      className="float-right"
+      >
         <Item key="setting:1">Option 1</Item>
         <Item key="setting:2">Option 2</Item>
         <Item icon={<LogoutOutlined />} onClick={logout}>
           Logout
         </Item>
       </SubMenu>
+)}
     </Menu>
   );
 };

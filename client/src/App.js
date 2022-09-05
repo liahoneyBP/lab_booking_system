@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { BrowserRouter as Router , Routes, Route} from "react-router-dom";
-import Navbar from './components/Navbar';
+import Header from './components/Navbar/Header';
 import Home from './pages'
 import Lab from './pages/Lab'
 import MyBookings from './pages/MyBookings';
@@ -44,7 +44,7 @@ function App() {
 
   return (
     <Router>
-      <Navbar />
+      <Header />
       <ToastContainer />
       <Routes>
         <Route path="/" element={<Home />}></Route>
