@@ -11,7 +11,9 @@ import SignUpComplete from './pages/auth/SignUpComplete';
 import ForgotPassword from './pages/auth/ForgotPassword';
 import History from "./pages/user/History";
 import UserRoute from "./components/routes/UserRoute";
+import AdminRoute from "./components/routes/AdminRoute";
 import Password from "./pages/user/Password";
+import AdminDashboard from "./pages/admin/AdminDashboard";
 
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -69,6 +71,7 @@ function App() {
         <Route path="/forgot/password" element={<ForgotPassword />}></Route>
         <Route path="/user/history" element={ <UserRoute><History /></UserRoute> } />
         <Route path="/user/password" element={ <UserRoute><Password /></UserRoute> } />
+        <Route path="/admin/dashboard" element={ <AdminRoute><AdminDashboard /></AdminRoute> } />
         
       </Routes>
       
