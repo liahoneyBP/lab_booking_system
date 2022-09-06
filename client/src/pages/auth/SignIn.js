@@ -34,6 +34,14 @@ const SignIn = () => {
 
   let dispatch = useDispatch();
 
+  const roleBaseRedirect = (res) => {
+    if (res.data.role === "admin") {
+      navigate("/admin/dashboard");
+    } else {
+      navigate("/user/history");
+    }
+  }
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -55,7 +63,8 @@ const SignIn = () => {
           role: res.data.role,
           _id: res.data._id,
         },
-    }); 
+    });
+    roleBaseRedirect(res);
     })
     .catch((err) => console.log(err));
 
