@@ -20,7 +20,7 @@ const SignIn = () => {
   const navigate = useNavigate();
   const provider = new GoogleAuthProvider();
   const [email, setEmail] = useState("gustavogabirea55@gmail.com");
-  const [password, setPassword] = useState("1234567");
+  const [password, setPassword] = useState("123456");
   const [loading, setLoading] = useState(false);
 
 
@@ -57,7 +57,7 @@ const SignIn = () => {
         },
     }); 
     })
-    .catch();
+    .catch((err) => console.log(err));
 
     navigate("/") 
 
