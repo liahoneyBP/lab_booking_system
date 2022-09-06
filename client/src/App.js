@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { Fragment, useEffect } from 'react';
 import { BrowserRouter as Router , Routes, Route} from "react-router-dom";
 import Header from './components/Navbar/Header';
 import Home from './pages'
@@ -9,7 +9,8 @@ import SignIn from './pages/auth/SignIn';
 import SignUp from './pages/auth/SignUp';
 import SignUpComplete from './pages/auth/SignUpComplete';
 import ForgotPassword from './pages/auth/ForgotPassword';
-
+import History from "./pages/user/History";
+import UserRoute from "./components/routes/UserRoute";
 
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -53,6 +54,7 @@ function App() {
 
   return (
     <Router>
+    
       <Header />
       <ToastContainer />
       <Routes>
@@ -64,8 +66,10 @@ function App() {
         <Route path="/sign-in" element={<SignIn />}></Route>
         <Route path="/sign-up/complete" element={<SignUpComplete />}></Route>
         <Route path="/forgot/password" element={<ForgotPassword />}></Route>
+        <Route path="/user/history" element={ <UserRoute><History /></UserRoute> } />
+        
       </Routes>
-       
+      
     </Router>
   );
 }
