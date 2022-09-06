@@ -5,6 +5,9 @@ const bodyParder = require("body-parser");
 const cors = require("cors");
 require("dotenv").config();
 
+// import routes
+const authRoutes = require("./routes/auth");
+
 // app
 const app = express();
 
@@ -17,13 +20,13 @@ mongoose
   .catch((err) => console.log("DB CONNECTION ERR", err));
 
 
-// route
-app.get("/api", (req, res) => {
-    res.json({
-      data: "hey you hit node API",
-    });
-  });
+// middlewares
+app.use(morgan("dev"));
+app.use(bodyParder.json({ limit: "2mb "}));
+app.use(cors());
 
+// routes middleware
+app.use("/api", authRoutes);
 
 // port
 const port = process.env.PORT || 8000;
