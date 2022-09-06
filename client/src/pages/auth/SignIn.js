@@ -6,26 +6,13 @@ import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { useSelector} from "react-redux"
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import { createOrUpdateUser } from "../../functions/auth";
 
 import { 
     getAuth, 
     signInWithEmailAndPassword, 
     signInWithPopup,
     GoogleAuthProvider } from "firebase/auth";
-
-
-    const createOrUpdateUser = async (authtoken) => {
-      return await axios.post(
-        `${process.env.REACT_APP_API}/create-or-update-user`,
-        {},
-        {
-          headers: {
-            authtoken,
-          },
-        }
-      );
-    };
 
 
 const SignIn = () => {
@@ -36,13 +23,16 @@ const SignIn = () => {
   const [password, setPassword] = useState("1234567");
   const [loading, setLoading] = useState(false);
 
-  let dispatch = useDispatch();
 
   const { user } = useSelector((state) => ({ ...state }));
+  
+ 
   useEffect(() => {
     if (user && user.token) navigate("/");
   }, [user]);
 
+
+  let dispatch = useDispatch();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -55,18 +45,22 @@ const SignIn = () => {
     const idTokenResult = await user.getIdTokenResult();
 
     createOrUpdateUser(idTokenResult.token)
-    .then((res) => console.log("CREATE OR UPDATE RES", res))
-    .catch();
-
-  /*  dispatch({
+    .then((res) => {
+      dispatch({
         type: "LOGGED_IN_USER",
         payload: {
-            email: user.email,
-            token: idTokenResult.token,
+          name: res.data.name,
+          email: res.data.email,
+          token: idTokenResult.token,
+          role: res.data.role,
+          _id: res.data._id,
         },
     }); 
+    })
+    .catch();
+
     navigate("/") 
-    */
+
   } catch (error) {
     console.log(error);
     toast.error(error.message);
@@ -79,13 +73,20 @@ const googleSignIn = async () => {
     .then(async (result) => {
         const { user } = result;
         const idTokenResult = await user.getIdTokenResult();
-        dispatch({
+        createOrUpdateUser(idTokenResult.token)
+        .then((res) => {
+          dispatch({
             type: "LOGGED_IN_USER",
             payload: {
-                email: user.email,
-                token: idTokenResult.token,
+              name: res.data.name,
+              email: res.data.email,
+              token: idTokenResult.token,
+              role: res.data.role,
+              _id: res.data._id,
             },
-        });
+          });
+        })
+        
         navigate("/")
     })
     .catch((err) => {

@@ -9,15 +9,11 @@ import { createOrUpdateUser } from "../../functions/auth";
 import {useNavigate} from 'react-router-dom';
 
 
-
-
 const SignUpComplete = () => {
   const navigate = useNavigate();
  
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
-  
 
   const { user } = useSelector((state) => ({ ...state }));
   let dispatch = useDispatch();
