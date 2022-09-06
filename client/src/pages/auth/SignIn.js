@@ -6,6 +6,7 @@ import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { useSelector} from "react-redux"
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 import { 
     getAuth, 
@@ -14,7 +15,17 @@ import {
     GoogleAuthProvider } from "firebase/auth";
 
 
-
+    const createOrUpdateUser = async (authtoken) => {
+      return await axios.post(
+        `${process.env.REACT_APP_API}/create-or-update-user`,
+        {},
+        {
+          headers: {
+            authtoken,
+          },
+        }
+      );
+    };
 
 
 const SignIn = () => {
@@ -43,14 +54,19 @@ const SignIn = () => {
     const { user } = result;
     const idTokenResult = await user.getIdTokenResult();
 
-    dispatch({
+    createOrUpdateUser(idTokenResult.token)
+    .then((res) => console.log("CREATE OR UPDATE RES", res))
+    .catch();
+
+  /*  dispatch({
         type: "LOGGED_IN_USER",
         payload: {
             email: user.email,
             token: idTokenResult.token,
         },
-    });
-    navigate("/")
+    }); 
+    navigate("/") 
+    */
   } catch (error) {
     console.log(error);
     toast.error(error.message);
