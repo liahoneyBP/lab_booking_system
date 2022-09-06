@@ -33,7 +33,7 @@ const SignIn = () => {
   const navigate = useNavigate();
   const provider = new GoogleAuthProvider();
   const [email, setEmail] = useState("gustavogabirea55@gmail.com");
-  const [password, setPassword] = useState("123456");
+  const [password, setPassword] = useState("1234567");
   const [loading, setLoading] = useState(false);
 
   let dispatch = useDispatch();
