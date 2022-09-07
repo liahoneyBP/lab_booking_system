@@ -1,11 +1,15 @@
 import React, { useState } from "react";
 import { Menu } from "antd";
 import {
-  AppstoreOutlined,
+  HomeOutlined,
+  InsertRowBelowOutlined,
   SettingOutlined,
   UserOutlined,
   UserAddOutlined,
   LogoutOutlined,
+  ScheduleOutlined,
+  SolutionOutlined,
+  
 } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 
@@ -47,20 +51,20 @@ const Header = () => {
 
   return (
     <Menu theme="dark" onClick={handleClick} selectedKeys={[current]} mode="horizontal">
-      <Item key="home" icon={<AppstoreOutlined />}>
+      <Item key="home" icon={<HomeOutlined />}>
         <Link to="/">Home</Link>
       </Item>
 
 
-      <Item key="lab" icon={<AppstoreOutlined />}>
+      <Item key="lab" icon={<InsertRowBelowOutlined />}>
         <Link to="/lab">Lab</Link>
       </Item>
 
-      <Item key="mybookings" icon={<AppstoreOutlined />}>
+      <Item key="mybookings" icon={<SolutionOutlined />}>
         <Link to="/mybookings">My Bookings</Link>
       </Item>
 
-      <Item key="schedule" icon={<AppstoreOutlined />}>
+      <Item key="schedule" icon={<ScheduleOutlined />}>
         <Link to="/schedule">Schedule</Link>
       </Item>
 
