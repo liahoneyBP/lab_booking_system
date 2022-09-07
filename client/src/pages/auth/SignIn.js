@@ -1,7 +1,7 @@
 import React, { useState, useEffect} from "react";
 import { toast } from "react-toastify";
 import { Button } from "antd";
-import { GoogleOutlined, MailOutlined } from "@ant-design/icons";
+import { GoogleOutlined, LoginOutlined, LoadingOutlined, FacebookOutlined } from "@ant-design/icons";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { useSelector} from "react-redux"
@@ -12,13 +12,15 @@ import {
     getAuth, 
     signInWithEmailAndPassword, 
     signInWithPopup,
-    GoogleAuthProvider } from "firebase/auth";
+    GoogleAuthProvider,
+    FacebookAuthProvider, } from "firebase/auth";
 
 
 const SignIn = () => {
   const auth = getAuth();
   const navigate = useNavigate();
-  const provider = new GoogleAuthProvider();
+  
+  
   const [email, setEmail] = useState("gustavogabirea55@gmail.com");
   const [password, setPassword] = useState("123456");
   const [loading, setLoading] = useState(false);
@@ -29,7 +31,7 @@ const SignIn = () => {
  
   useEffect(() => {
     if (user && user.token) navigate("/");
-  }, [user]);
+  }, [user, navigate]);
 
 
   let dispatch = useDispatch();
@@ -78,6 +80,7 @@ const SignIn = () => {
 };
 
 const googleSignIn = async () => {
+  const provider = new GoogleAuthProvider();
     signInWithPopup(auth, provider)
     .then(async (result) => {
         const { user } = result;
@@ -102,6 +105,34 @@ const googleSignIn = async () => {
         console.log(err);
         toast.error(err.message);
     });
+}
+
+const facebookSignIn = async () => {
+  const provider = new FacebookAuthProvider();
+  signInWithPopup(auth, provider)
+  .then(async (result) => {
+      const { user } = result;
+      const idTokenResult = await user.getIdTokenResult();
+      createOrUpdateUser(idTokenResult.token)
+      .then((res) => {
+        dispatch({
+          type: "LOGGED_IN_USER",
+          payload: {
+            name: res.data.name,
+            email: res.data.email,
+            token: idTokenResult.token,
+            role: res.data.role,
+            _id: res.data._id,
+          },
+        });
+      })
+      
+      navigate("/")
+  })
+  .catch((err) => {
+      console.log(err);
+      toast.error(err.message);
+  });
 }
 
 
@@ -135,11 +166,11 @@ const googleSignIn = async () => {
         className="mb-3"
         block
         shape="round"
-        icon={<MailOutlined />}
+        icon={<LoginOutlined />}
         size="large"
         disabled={!email || password.length < 6}
       >
-        Login with Email/Password
+        Sign In with Email/Password
       </Button>
     </form>
   );
@@ -149,7 +180,7 @@ const googleSignIn = async () => {
       <div className="row">
         <div className="col-md-6 offset-md-3">
           {loading ? (
-            <h4 className="text-danger">Loading...</h4>
+            <LoadingOutlined style={{ fontSize: '50px', color: '#f5222d' }} />
           ) : (
             <h4>Sign In</h4>
           )}
@@ -165,6 +196,18 @@ const googleSignIn = async () => {
             size="large"
             >
                 Sign In With Google
+          </Button>
+          <Button 
+            disabled
+            onClick={facebookSignIn}
+            type="dark"
+            className="mb-3"
+            block
+            shape="round"
+            icon={<FacebookOutlined />}
+            size="large"
+            >
+                Sign In With Facebook
           </Button>
           <Link to="/forgot/password" className="float-right text-danger">
             Forgot Password

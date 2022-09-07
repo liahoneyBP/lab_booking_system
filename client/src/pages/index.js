@@ -3,14 +3,11 @@ import React from "react";
 const Home = () => {
     return (
         <div
-            style={{
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-                height: '90vh'
-            }}
             >
+                
+                <br />
                 <h1>Home Page Krub</h1>
+                
         </div>
     )
 }
