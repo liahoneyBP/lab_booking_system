@@ -1,6 +1,20 @@
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
+
+const bookingSchema = new Schema({
+  _bookingId: Schema.Types.ObjectId,
+  user: { type: Schema.ObjectId, ref: 'User' },
+  bookingStart: Date,
+  bookingEnd: Date,
+  startHour: Number,
+  duration: Number,
+  recurring: [],
+  businessUnit: { type: String, required: true },
+  purpose: { type: String, required: true },
+  roomId: { type: Schema.ObjectId, ref: 'Room' }
+})
+
 const labSchema = new mongoose.Schema(
   {
     labName: {
@@ -20,6 +34,10 @@ const labSchema = new mongoose.Schema(
     capacity: {
       type: Number,
     },
+    image: {
+      data: Buffer,
+      contentType: String
+    },
     facility: {
        pc: { type: Boolean, default: true},
        mac: { type: Boolean, default: false},
@@ -29,5 +47,6 @@ const labSchema = new mongoose.Schema(
     bookings: [bookingSchema] 
   },
 );
+
 
 module.exports = mongoose.model("Lab", labSchema);
