@@ -15,6 +15,7 @@ const bookingSchema = new Schema({
   roomId: { type: Schema.ObjectId, ref: 'Room' }
 })
 
+
 const labSchema = new mongoose.Schema(
   {
     labName: {

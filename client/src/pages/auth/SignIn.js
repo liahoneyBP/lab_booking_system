@@ -36,13 +36,13 @@ const SignIn = () => {
 
   let dispatch = useDispatch();
 
-  const roleBaseRedirect = (res) => {
+  /* const roleBaseRedirect = (res) => {
     if (res.data.role === "admin") {
       navigate("/admin/dashboard");
     } else {
-      navigate("/user/history");
+      navigate("/user/profile");
     }
-  }
+  } */
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -66,7 +66,7 @@ const SignIn = () => {
           _id: res.data._id,
         },
     });
-    roleBaseRedirect(res);
+  /*  roleBaseRedirect(res); */
     })
     .catch((err) => console.log(err));
 

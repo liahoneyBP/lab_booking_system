@@ -1,7 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const morgan = require("morgan")
-const bodyParder = require("body-parser");
+const bodyParser = require("body-parser");
 const cors = require("cors");
 const { readdirSync } = require("fs");
 require("dotenv").config();
@@ -20,7 +20,8 @@ mongoose
 
 // middlewares
 app.use(morgan("dev"));
-app.use(bodyParder.json({ limit: "2mb "}));
+app.use(bodyParser.json({ limit: '50mb' }));
+app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
 app.use(cors());
 
 // routes middleware autoloading

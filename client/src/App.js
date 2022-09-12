@@ -1,5 +1,5 @@
-import React, { Fragment, useEffect } from 'react';
-import { BrowserRouter as Router , Routes, Route} from "react-router-dom";
+import React, {  Fragment, useEffect } from 'react';
+import { BrowserRouter as Router , Routes, Switch, Route} from "react-router-dom";
 import Header from './components/Navbar/Header';
 import Home from './pages'
 import Lab from './pages/Lab'
@@ -9,7 +9,7 @@ import SignIn from './pages/auth/SignIn';
 import SignUp from './pages/auth/SignUp';
 import SignUpComplete from './pages/auth/SignUpComplete';
 import ForgotPassword from './pages/auth/ForgotPassword';
-import History from "./pages/user/History";
+import Profile from "./pages/user/Profile";
 import UserRoute from "./components/routes/UserRoute";
 import AdminRoute from "./components/routes/AdminRoute";
 import Password from "./pages/user/Password";
@@ -50,31 +50,32 @@ function App() {
     });
     // cleanup
     return () => unsubscribe();
-  }, []);
+  }, [dispatch]);
 
 
 
 
   return (
     <Router>
-    
+      <React.Fragment>
       <Header />
       <ToastContainer />
       <Routes>
         <Route path="/" element={<Home />}></Route>
         <Route path="/lab" element={<Lab />}></Route>
         <Route path="/mybookings" element={<MyBookings />}></Route>
-        <Route path="/schedule" element={<Schedule />}></Route>
+        <Route path="/schedule" element={<Schedule />}> </Route>
         <Route path="/sign-up" element={<SignUp />}></Route>
         <Route path="/sign-in" element={<SignIn />}></Route>
         <Route path="/sign-up/complete" element={<SignUpComplete />}></Route>
         <Route path="/forgot/password" element={<ForgotPassword />}></Route>
-        <Route path="/user/history" element={ <UserRoute><History /></UserRoute> } />
+        <Route path="/user/profile" element={ <UserRoute><Profile /></UserRoute> } />
         <Route path="/user/password" element={ <UserRoute><Password /></UserRoute> } />
-        <Route path="/admin/dashboard" element={ <AdminRoute><AdminDashboard /></AdminRoute> } />
-        
+        <Route  exact path="/admin/dashboard" element={ <AdminRoute><AdminDashboard /></AdminRoute> } />
+
       </Routes>
-      
+  
+      </React.Fragment>
     </Router>
   );
 }
