@@ -11,7 +11,10 @@ exports.create = async (req, res) => {
     res.json(newLab);
   } catch (err) {
     console.log(err);
-    res.status(400).send("Create Lab Failed");
+    // res.status(400).send("Create product failed");
+    res.status(400).json({
+      err: err.message,
+    });
   }
 
 }

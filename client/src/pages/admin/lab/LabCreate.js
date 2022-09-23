@@ -1,15 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import AdminNav from "../../../components/Navbar/AdminNav";
 import { toast } from "react-toastify";
 import { useSelector } from "react-redux";
 import { createLab} from "../../../functions/lab";
 
 const initialState = {
-    labName: "",
-    building: "",
-    details: "",
-    floor: "",
-    capacity: "",
+    labName: "15201QQ",
+    building: "5",
+    details: "ห้องแล็บ Test",
+    floor: "5",
+    capacity: "50",
     images: [],
     equipment: {},
     bookings: [],
@@ -27,15 +27,17 @@ const LabCreate = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     createLab(values, user.token)
-    .then(res => {
-      console.log(res);
-    })
-    .catch((err) => {
-      console.log("ERROR =>",err)
-      if (err.response.status === 400 ) toast.error(err.response.data);
-    });
-    //
-  }
+      .then((response) => {
+        console.log(response);
+        window.alert(`${response.data.labName} is created`);
+        window.location.reload();
+      })
+      .catch((err) => {
+        console.log(err);
+        // if (err.response.status === 400) toast.error(err.response.data);
+        toast.error(err.response.data.err);
+      });
+  };
 
   const handleChange = (e) => {
     setValues({ ...values, [e.target.name]: e.target.value });
@@ -83,6 +85,17 @@ const LabCreate = () => {
                 name="floor"
                 className="form-control"
                 value={floor}
+                onChange={handleChange}
+              />
+            </div>
+
+            <div className="form-group">
+              <label>Capacity</label>
+              <input
+                type="number"
+                name="capacity"
+                className="form-control"
+                value={capacity}
                 onChange={handleChange}
               />
             </div>

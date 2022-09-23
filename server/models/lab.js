@@ -20,6 +20,7 @@ const labSchema = new mongoose.Schema(
   {
     labName: {
       type: String,
+      unique: true,
       trim: true,
       text: true,
       required: true,
