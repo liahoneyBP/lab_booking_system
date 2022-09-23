@@ -14,6 +14,7 @@ import UserRoute from "./components/routes/UserRoute";
 import AdminRoute from "./components/routes/AdminRoute";
 import Password from "./pages/user/Password";
 import AdminDashboard from "./pages/admin/AdminDashboard";
+import LabCreate from "./pages/admin/lab/LabCreate"
 
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -72,6 +73,7 @@ function App() {
         <Route path="/user/profile" element={ <UserRoute><Profile /></UserRoute> } />
         <Route path="/user/password" element={ <UserRoute><Password /></UserRoute> } />
         <Route  exact path="/admin/dashboard" element={ <AdminRoute><AdminDashboard /></AdminRoute> } />
+        <Route  exact path="/admin/lab" element={ <AdminRoute><LabCreate /></AdminRoute> } />
 
       </Routes>
   
