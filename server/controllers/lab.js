@@ -16,7 +16,6 @@ exports.create = async (req, res) => {
 
 }
 
-
 exports.image = async (req,res) => {
    
 }

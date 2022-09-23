@@ -5,11 +5,11 @@ import { useSelector } from "react-redux";
 import { createLab} from "../../../functions/lab";
 
 const initialState = {
-    labName: '',
-    building: '',
-    details: '',
-    floor: '',
-    capacity: '',
+    labName: "",
+    building: "",
+    details: "",
+    floor: "",
+    capacity: "",
     images: [],
     equipment: {},
     bookings: [],
@@ -18,17 +18,28 @@ const initialState = {
 const LabCreate = () => {
   const [values, setValues] = useState(initialState)
 
+  // redux
+  const { user } = useSelector((state) => ({...state}));
+
   // destructure
   const {labName, building, details, floor, capacity, images, equipment, bookings} = values;
   
   const handleSubmit = (e) => {
     e.preventDefault();
+    createLab(values, user.token)
+    .then(res => {
+      console.log(res);
+    })
+    .catch((err) => {
+      console.log("ERROR =>",err)
+      if (err.response.status === 400 ) toast.error(err.response.data);
+    });
     //
   }
 
   const handleChange = (e) => {
-    e.preventDefault();
-    //
+    setValues({ ...values, [e.target.name]: e.target.value });
+    //console.log(e.target.name, " ----- ", e.target.value);
   }
   
   return (

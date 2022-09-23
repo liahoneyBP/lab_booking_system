@@ -46,7 +46,7 @@ const labSchema = new mongoose.Schema(
     images: {
       type: Array,
     },
-    facility: {
+    equipment: {
        pc: { type: Boolean, default: true},
        mac: { type: Boolean, default: false},
        projector: { type: Boolean, default: true},
