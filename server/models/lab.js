@@ -20,7 +20,15 @@ const labSchema = new mongoose.Schema(
   {
     labName: {
       type: String,
+      trim: true,
+      text: true,
       required: true,
+    },
+    slug: {
+      type: String,
+      unique: true,
+      lowercase: true,
+      index: true,
     },
     building: {
       type: Number,
@@ -35,9 +43,8 @@ const labSchema = new mongoose.Schema(
     capacity: {
       type: Number,
     },
-    image: {
-      data: Buffer,
-      contentType: String
+    images: {
+      type: Array,
     },
     facility: {
        pc: { type: Boolean, default: true},
