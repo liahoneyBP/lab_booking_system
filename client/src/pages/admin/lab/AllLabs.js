@@ -41,7 +41,7 @@ const AllLabs = () => {
         )}
           <div className="row">
           {labs.map((lab) => (
-          <div className="col-md-4" key={lab._id} >
+          <div className="col-md-4 pb-3" key={lab._id} >
             <AdminLabCard lab={lab} />
           </div>
         )
