@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from "react";
 import AdminNav from "../../components/Navbar/AdminNav"
 import { getLabsByCount } from "../../functions/lab";
+import AdminLabCard from "../../components/cards/AdminLabCard"
 
 const AdminDashboard = () => {
   const [labs, setLabs] = useState([])
@@ -36,7 +37,17 @@ const AdminDashboard = () => {
         ) : (
           <h4>All Labs</h4>
         )}
-        <div className="col">{JSON.stringify(labs)}</div>
+        <div className="col">
+          <div className="row">
+          {labs.map((lab) => (
+          <div className="col-md-4" key={lab._id} >
+            <AdminLabCard lab={lab} />
+          </div>
+        )
+        )}
+          </div>
+          
+        </div>
       </div>
     </div>
   );
