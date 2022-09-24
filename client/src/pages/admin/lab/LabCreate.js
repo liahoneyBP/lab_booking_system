@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 import { createLab} from "../../../functions/lab";
 import LabCreateForm from "../../../components/forms/LabCreateForm"
 import FileUpload from "../../../components/forms/FileUpload"
+import { LoadingOutlined } from "@ant-design/icons"
 
 const initialState = {
     labName: "15201QQ",
@@ -53,7 +54,7 @@ const LabCreate = () => {
         </div>
 
         <div className="col-md-10">
-          <h4>Lab create</h4>
+         {loading ? <LoadingOutlined className="text-danger h1" /> : <h4>Lab create</h4> }
           <hr />
 
           {JSON.stringify(values.images)}
