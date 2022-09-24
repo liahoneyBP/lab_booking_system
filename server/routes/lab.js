@@ -15,6 +15,10 @@ const {
   } = require("../controllers/lab");
 
 // routes
+
+// create lab
+router.post("/create-lab", authCheck, adminCheck, create);
+
 // get all labs
 router.get("/labs", getlabs);
 
@@ -24,8 +28,7 @@ router.get("/lab/:labId", read);
 // image lab
 router.get('/lab/image/:labId', image);
 
-// create lab
-router.post("/create-lab", authCheck, adminCheck, create);
+
 
 // update lab
 router.put("/update-lab/:labId", authCheck, adminCheck, update);

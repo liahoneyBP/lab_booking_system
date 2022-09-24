@@ -23,7 +23,7 @@ exports.image = async (req,res) => {
    
 }
 
-
+// read all labs
 exports.getlabs = async (req, res) => {
   // let all = await Lab.find({ from: {$gte: new Date()} })
   let all = await Lab.find({ })
