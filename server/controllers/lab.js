@@ -23,15 +23,13 @@ exports.image = async (req,res) => {
    
 }
 
-// read all labs
-exports.getlabs = async (req, res) => {
-  // let all = await Lab.find({ from: {$gte: new Date()} })
-  let all = await Lab.find({ })
-   .limit(24)
-   .select('-image.data')
-   .exec();
-  // console.log(all);
-   res.json(all);
+// listAll labs
+exports.listAll = async (req, res) => {
+  let labs = await Lab.find({})
+  .limit(parseInt(req.params.count))
+  .sort([["createdAt"]])
+  .exec();
+  res.json(labs);
 }
 
 exports.read = async (req,res) => {

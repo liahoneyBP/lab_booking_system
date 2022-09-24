@@ -7,7 +7,7 @@ const { authCheck, adminCheck } = require("../middlewares/auth");
 // controller
 const {
     create,
-    getlabs,
+    listAll,
     read,
     remove,
     update,
@@ -20,7 +20,7 @@ const {
 router.post("/create-lab", authCheck, adminCheck, create);
 
 // get all labs
-router.get("/labs", getlabs);
+router.get("/labs/:count", listAll);
 
 // read lab id
 router.get("/lab/:labId", read);
