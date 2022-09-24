@@ -1,7 +1,7 @@
 import React, {  Fragment, useEffect } from 'react';
 import { BrowserRouter as Router , Routes, Switch, Route} from "react-router-dom";
 import Header from './components/Navbar/Header';
-import Home from './pages'
+import Home from './pages/Home'
 import Lab from './pages/Lab'
 import MyBookings from './pages/MyBookings';
 import Schedule from './pages/Schedule';
