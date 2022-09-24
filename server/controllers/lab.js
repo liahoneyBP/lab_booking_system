@@ -66,6 +66,22 @@ exports.update = async (req,res) => {
 
 }
 
+const handleQuery = async (req, res, query) => {
+  const labs = await Lab.find({ $text : { $search : query}})
+
+  res.json(labs);
+}
+
+// Search / Filter
+exports.searchFilters = async(req, res) => {
+  const {query} = req.body
+
+  if (query) {
+    console.log('query', query)
+    await handleQuery(req, res, query);
+  }
+}
+
 
 
 

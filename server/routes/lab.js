@@ -12,6 +12,7 @@ const {
     remove,
     update,
     image,
+    searchFilters,
   } = require("../controllers/lab");
 
 // routes
@@ -24,6 +25,9 @@ router.get("/labs/:count", listAll);
 
 // read lab id
 router.get("/lab/:labId", read);
+
+// search
+router.post('/search/filters', searchFilters)
 
 // image lab
 router.get('/lab/image/:labId', image);

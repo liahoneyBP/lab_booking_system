@@ -20,6 +20,7 @@ const labSchema = new mongoose.Schema(
   {
     labName: {
       type: String,
+      title: true,
       unique: true,
       trim: true,
       text: true,
@@ -37,6 +38,7 @@ const labSchema = new mongoose.Schema(
     },
     details: {
       type: String,
+      text: true,
     },
     floor: {
       type: Number,
