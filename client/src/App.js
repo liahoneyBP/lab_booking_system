@@ -17,6 +17,7 @@ import AdminDashboard from "./pages/admin/AdminDashboard";
 import LabCreate from "./pages/admin/lab/LabCreate"
 import AllLabs from "./pages/admin/lab/AllLabs"
 
+
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
