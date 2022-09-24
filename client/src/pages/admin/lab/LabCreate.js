@@ -19,6 +19,7 @@ const initialState = {
 
 const LabCreate = () => {
   const [values, setValues] = useState(initialState)
+  const [loading, setLoading] = useState(false);
 
   // redux
   const { user } = useSelector((state) => ({...state}));
@@ -55,8 +56,14 @@ const LabCreate = () => {
           <h4>Lab create</h4>
           <hr />
 
+          {JSON.stringify(values.images)}
+
           <div className="p-3">
-            <FileUpload />
+            <FileUpload
+            values={values}
+            setValues={setValues}
+            setLoading={setLoading}
+            />
           </div>
 
           <LabCreateForm 
