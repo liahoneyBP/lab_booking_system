@@ -1,43 +1,41 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import { getLabsByCount } from "../functions/lab";
-import LabCard from "../components/cards/LabCard"
+import LabCard from "../components/cards/LabCard";
+import Jumbotron from "../components/cards/Jumbotron";
 
 const Home = () => {
-    const [labs, setLabs] = useState([])
-    const [loading, setLoading ] = useState(false);
+  const [labs, setLabs] = useState([]);
+  const [loading, setLoading] = useState(false);
 
-    useEffect(() => {
-        loadAllLabs()
-    }, [])
+  useEffect(() => {
+    loadAllLabs();
+  }, []);
 
-    const loadAllLabs = () => {
-        setLoading(true)
-        getLabsByCount(3)
-        .then(res => {
-            setLabs(res.data);
-            setLoading(false);
-        })
-    }
+  const loadAllLabs = () => {
+    setLoading(true);
+    getLabsByCount(6).then((res) => {
+      setLabs(res.data);
+      setLoading(false);
+    });
+  };
 
+  return (
+    <>
+      <div className="jumbotron text-primary h1 font-weight-bold text-center">
+        <Jumbotron text={["UTCC LAB", "ห้องแล็บสาขาวิทยาการคอมพิวเตอร์", "หอการค้าไทย"]} />
+      </div>
 
-    return (
-        <>
-        <div className="jumbotron">
-            {loading ? (<h4>Loading...</h4>) : <h4>All Labs</h4>}
-        </div>
-
-        <div className="container">
-            <div className="row">
-               {labs.map((lab) => (
-                <div key={lab._id} className="col-md-4">
-                    <LabCard lab={lab} />
-                </div>
-               ))}
+      <div className="container">
+        <div className="row">
+          {labs.map((lab) => (
+            <div key={lab._id} className="col-md-4">
+              <LabCard lab={lab} />
             </div>
+          ))}
         </div>
-        </>
-    
-    )
-}
+      </div>
+    </>
+  );
+};
 
 export default Home;
