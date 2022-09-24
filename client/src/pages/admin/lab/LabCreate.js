@@ -4,6 +4,7 @@ import { toast } from "react-toastify";
 import { useSelector } from "react-redux";
 import { createLab} from "../../../functions/lab";
 import LabCreateForm from "../../../components/forms/LabCreateForm"
+import FileUpload from "../../../components/forms/FileUpload"
 
 const initialState = {
     labName: "15201QQ",
@@ -53,6 +54,10 @@ const LabCreate = () => {
         <div className="col-md-10">
           <h4>Lab create</h4>
           <hr />
+
+          <div className="p-3">
+            <FileUpload />
+          </div>
 
           <LabCreateForm 
           handleSubmit={handleSubmit} 
