@@ -26,9 +26,9 @@ exports.image = async (req,res) => {
 // listAll labs
 exports.listAll = async (req, res) => {
   let labs = await Lab.find({})
-  .limit(parseInt(req.params.count))
-  .sort([["createdAt"]])
-  .exec();
+   .limit(parseInt(req.params.count))
+   .sort([["createdAt"]])
+   .exec();
   res.json(labs);
 }
 
