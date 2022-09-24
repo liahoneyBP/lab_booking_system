@@ -31,7 +31,7 @@ const Lab = () => {
                     <Search />
                 </div>
 
-                <div className="col-md-8 mt-3">
+                <div className="col-md-9 mt-3">
                     {loading ? (
                         <h4 className="text-danger">Loading...</h4>
                     ) : (
