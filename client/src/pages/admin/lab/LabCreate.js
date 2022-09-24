@@ -3,6 +3,7 @@ import AdminNav from "../../../components/Navbar/AdminNav";
 import { toast } from "react-toastify";
 import { useSelector } from "react-redux";
 import { createLab} from "../../../functions/lab";
+import LabCreateForm from "../../../components/forms/LabCreateForm"
 
 const initialState = {
     labName: "15201QQ",
@@ -21,8 +22,6 @@ const LabCreate = () => {
   // redux
   const { user } = useSelector((state) => ({...state}));
 
-  // destructure
-  const {labName, building, details, floor, capacity, images, equipment, bookings} = values;
   
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -55,66 +54,13 @@ const LabCreate = () => {
           <h4>Lab create</h4>
           <hr />
 
-          <form onSubmit={handleSubmit}>
-            <div className="form-group">
-              <label>Lab Name</label>
-              <input
-                type="text"
-                name="labName"
-                className="form-control"
-                value={labName}
-                onChange={handleChange}
-              />
-            </div>
+          <LabCreateForm 
+          handleSubmit={handleSubmit} 
+          handleChange={handleChange} 
+          values={values}
+          />
 
-            <div className="form-group">
-              <label>Building</label>
-              <input
-                type="number"
-                name="building"
-                className="form-control"
-                value={building}
-                onChange={handleChange}
-              />
-            </div>
-
-            <div className="form-group">
-              <label>Floor</label>
-              <input
-                type="number"
-                name="floor"
-                className="form-control"
-                value={floor}
-                onChange={handleChange}
-              />
-            </div>
-
-            <div className="form-group">
-              <label>Capacity</label>
-              <input
-                type="number"
-                name="capacity"
-                className="form-control"
-                value={capacity}
-                onChange={handleChange}
-              />
-            </div>
-
-            <div className="form-group">
-              <label>Details</label>
-              <input
-                type="text"
-                name="details"
-                className="form-control"
-                value={details}
-                onChange={handleChange}
-              />
-            </div>
-
-            
-
-            <button className="btn btn-outline-info">Save</button>
-          </form>
+          
         </div>
       </div>
     </div>
