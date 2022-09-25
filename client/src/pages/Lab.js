@@ -22,6 +22,12 @@ const Lab = () => {
         "15",
     ]);
     const [building, setBuilding] = useState('')
+    
+    const [floors, setFloors] = useState([
+        "2",
+        "3",
+    ])
+    const [floor, setFloor] = useState("");
 
     let dispatch = useDispatch();
     let {search} = useSelector((state) => ({...state}));
@@ -100,6 +106,31 @@ const Lab = () => {
         fetchLabs({ building: e.target.value});
     }
 
+    // 5. load labs based on floor
+    const showFloors = () =>
+    floors.map((f) => (
+        <Radio
+        value={f}
+        name={f}
+        checked={f === floor}
+        onChange={handleFloor}
+        className="pb-1 pl-4 pr-4"
+        >
+           {f}
+        </Radio>
+    ))
+
+    const handleFloor = (e) => {
+        setCapacity([0, 0]);
+        setBuilding("");
+        dispatch({
+            type: "SEARCH_QUERY",
+            payload: { text: ""},
+        });
+        setFloor(e.target.value)
+        fetchLabs({ floor: e.target.value});
+    }
+
 
     return (
         <>
@@ -110,7 +141,7 @@ const Lab = () => {
                     <Search />
                     <hr />
 
-                    <Menu defaultOpenKeys={['1', '2']} mode="inline">
+                    <Menu defaultOpenKeys={['1', '2', '3']} mode="inline">
                         <SubMenu key="1" title={<span className="h6"><DesktopOutlined /> Capacity</span>}>
                             <div className="">
                                 <Slider 
@@ -132,6 +163,16 @@ const Lab = () => {
                         </span>}>
                             <div className="pl-4 pr-4">
                                 {showBuildings()}        
+                            </div>
+                        </SubMenu>
+
+                        <SubMenu 
+                        key="3" 
+                        title={
+                        <span className="h6"><DownSquareOutlined /> Floor
+                        </span>}>
+                            <div className="pl-4 pr-4">
+                                {showFloors()}        
                             </div>
                         </SubMenu>
                     </Menu>
