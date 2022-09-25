@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react";
-import { getLabsByCount } from "../functions/lab";
+import { getLabsByCount, fetchLabsbyFilter } from "../functions/lab";
 import {useSelector, useDispatch} from "react-redux";
 import LabCard from "../components/cards/LabCard";
 
@@ -11,16 +11,37 @@ const Lab = () => {
     const [labs, setLabs] = useState([]);
     const [loading, setLoading] = useState(false);
 
+    let {search} = useSelector((state) => ({...state}));
+    const {text} = search;
+
+
     useEffect(() => {
         loadAllLabs()
     }, [])
-    
+
+    // 1. load labs by fedault on page load
     const loadAllLabs = () => {
         getLabsByCount(6).then(lab => {
             setLabs(lab.data);
             setLoading(false);
         });
     };
+
+    // 2. load labs on user search input
+    useEffect(() => {
+       // console.log('load labs on user search input', text);
+       const delayed = setTimeout(() => {
+        fetchLabs({query: text});
+       }, 300)
+       return () => clearTimeout(delayed);
+       
+    }, [text])
+
+    const fetchLabs = (arg) => {
+        fetchLabsbyFilter(arg).then((res) => {
+            setLabs(res.data);
+        });
+    }
 
     return (
         <>
@@ -35,7 +56,7 @@ const Lab = () => {
                     {loading ? (
                         <h4 className="text-danger">Loading...</h4>
                     ) : (
-                        <h4 className="text-danger">Labs</h4>
+                        <h4 className="text-dark">Labs</h4>
                     )}
 
                     {labs.length < 1 && <p>No Products Found</p>}

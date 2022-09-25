@@ -20,7 +20,7 @@ const LabCard = ({ lab }) => {
         }
         actions={[
           <Link to={`/lab/${slug}`}>
-            <EyeOutlined className="text-warning" /> <br /> View Lab
+            <EyeOutlined className="text-success" /> <br /> View Lab
           </Link>,
           
         ]}
