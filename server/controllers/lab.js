@@ -41,6 +41,12 @@ exports.read = async (req,res) => {
 
 }
 
+exports.readSlug = async (req,res) => {
+  const lab = await Lab.findOne({ slug: req.params.slug})
+   .exec();
+  res.json(lab);
+}
+
 exports.remove = async (req,res) => {
   try {
     const deleted = await Lab.findOneAndRemove({
@@ -84,15 +90,36 @@ const handleCapacity = async(req, res, capacity) => {
     .exec();
 
     res.json(labs);
-    
+
   } catch(err) {
     console.log(err);
   }
 }
 
+const handleBuilding = async(req, res, building) => {
+  const labs = await Lab.find({building})
+  .exec();
+
+  res.json(labs);
+}
+
+const handleFloor = async(req, res, floor) => {
+  const labs = await Lab.find({floor})
+  .exec();
+
+  res.json(labs);
+}
+
+const handleType = async(req, res, type) => {
+  const labs = await Lab.find({type})
+  .exec();
+
+  res.json(labs);
+}
+
 // Search / Filter
 exports.searchFilters = async(req, res) => {
-  const {query, capacity} = req.body
+  const {query, capacity, building, floor, type} = req.body
 
   if (query) {
     console.log('query --->', query)
@@ -104,6 +131,22 @@ exports.searchFilters = async(req, res) => {
     console.log('capacity --->', capacity)
     await handleCapacity(req, res, capacity);
   }
+
+  if (building) {
+    console.log("building --->", building);
+    await handleBuilding(req, res, building);
+  }
+
+  if (floor) {
+    console.log("floor --->", floor);
+    await handleFloor(req, res, floor);
+  }
+
+  if (type) {
+    console.log("type --->", type);
+    await handleType(req, res, type);
+  }
+
 }
 
 
