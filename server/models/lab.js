@@ -35,6 +35,7 @@ const labSchema = new mongoose.Schema(
     building: {
       type: Number,
       required: true,
+      enum: ["1", "15"],
     },
     details: {
       type: String,
@@ -42,6 +43,11 @@ const labSchema = new mongoose.Schema(
     },
     floor: {
       type: Number,
+      enum: ["2", "3"]
+    },
+    type: {
+      type: String,
+      enum: ["Class", "Free Lab"]
     },
     capacity: {
       type: Number,
