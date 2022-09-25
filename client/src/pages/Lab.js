@@ -5,12 +5,25 @@ import LabCard from "../components/cards/LabCard";
 
 import Search from "../components/forms/Search";
 import Jumbotron from "../components/cards/Jumbotron";
+import {Menu, Slider, Radio} from "antd"
+import { DesktopOutlined, DownSquareOutlined  } from "@ant-design/icons";
+
+const {SubMenu, ItemGroup} = Menu;
 
 
 const Lab = () => {
     const [labs, setLabs] = useState([]);
     const [loading, setLoading] = useState(false);
+    const [capacity, setCapacity] = useState([0, 0]);
+    const [ok, setOk] = useState(false);
 
+    const [buildings, setBuildings] = useState([
+        "1",
+        "15",
+    ]);
+    const [building, setBuilding] = useState('')
+
+    let dispatch = useDispatch();
     let {search} = useSelector((state) => ({...state}));
     const {text} = search;
 
@@ -19,6 +32,7 @@ const Lab = () => {
         loadAllLabs()
     }, [])
 
+
     // 1. load labs by fedault on page load
     const loadAllLabs = () => {
         getLabsByCount(6).then(lab => {
@@ -26,6 +40,12 @@ const Lab = () => {
             setLoading(false);
         });
     };
+
+    const fetchLabs = (arg) => {
+        fetchLabsbyFilter(arg).then((res) => {
+            setLabs(res.data);
+        });
+    }
 
     // 2. load labs on user search input
     useEffect(() => {
@@ -37,11 +57,49 @@ const Lab = () => {
        
     }, [text])
 
-    const fetchLabs = (arg) => {
-        fetchLabsbyFilter(arg).then((res) => {
-            setLabs(res.data);
+ 
+    // 3. load labs based on capacity range
+    useEffect(() => {
+        console.log('ok to request')
+        fetchLabs({ capacity });
+    }, [ok])
+
+    const handleSlider = (value) => {
+        dispatch({
+            type: "SEARCH_QUERY",
+            payload: {text: ""},
         });
+        setCapacity(value);
+        setBuilding("");
+        setTimeout(() => {
+           setOk(!ok);
+        }, 300)
     }
+
+    // 4. load labs based on building
+    const showBuildings = () =>
+    buildings.map((b) => (
+        <Radio
+        value={b}
+        name={b}
+        checked={b === building}
+        onChange={handleBuilding}
+        className="pb-1 pl-4 pr-4"
+        >
+           {b}
+        </Radio>
+    ))
+
+    const handleBuilding = (e) => {
+        setCapacity([0, 0]);
+        dispatch({
+            type: "SEARCH_QUERY",
+            payload: { text: ""},
+        });
+        setBuilding(e.target.value)
+        fetchLabs({ building: e.target.value});
+    }
+
 
     return (
         <>
@@ -50,6 +108,33 @@ const Lab = () => {
                 <div className="col-md-2">
                     <h4 className="text-dark p-3">Search/Filter</h4>
                     <Search />
+                    <hr />
+
+                    <Menu defaultOpenKeys={['1', '2']} mode="inline">
+                        <SubMenu key="1" title={<span className="h6"><DesktopOutlined /> Capacity</span>}>
+                            <div className="">
+                                <Slider 
+                                className="ml-4 mr-4" 
+                                tipFormatter={(v) => `${v} ที่นั่ง`} 
+                                range 
+                                value={capacity} 
+                                onChange={handleSlider}
+                                
+                                />
+                                
+                            </div>
+                        </SubMenu>
+
+                        <SubMenu 
+                        key="2" 
+                        title={
+                        <span className="h6"><DownSquareOutlined /> Building
+                        </span>}>
+                            <div className="pl-4 pr-4">
+                                {showBuildings()}        
+                            </div>
+                        </SubMenu>
+                    </Menu>
                 </div>
 
                 <div className="col-md-9 mt-3">
@@ -59,7 +144,7 @@ const Lab = () => {
                         <h4 className="text-dark">Labs</h4>
                     )}
 
-                    {labs.length < 1 && <p>No Products Found</p>}
+                    {labs.length < 1 && <p className="text-danger">No Labs Found, Please Refresh</p>}
                     
                     <div className="row pb-5">
                         {labs.map((lab) => (
