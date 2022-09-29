@@ -3,6 +3,9 @@ import { Card } from "antd";
 import { Link } from "react-router-dom";
 import { FormOutlined  } from "@ant-design/icons";
 
+import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
+import { Carousel } from 'react-responsive-carousel';
+
 const { Meta } = Card;
 
 const SingleLabCard = ({ lab }) => {
@@ -10,7 +13,14 @@ const SingleLabCard = ({ lab }) => {
 
   return (
     <>
-      <div className="col-md-7">image carousel</div>
+      <div className="col-md-7">
+        <Carousel showArrows={true} autoPlay infiniteLoop>
+            {images && images.map((i) => 
+            <img 
+            src={i.url} 
+            key={i.public_id}/>)}
+        </Carousel>
+      </div>
 
       <div className="col-md-5">
         <Card

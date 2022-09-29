@@ -12,6 +12,11 @@ code {
     monospace;
 }
 
+.slider img {
+  height: 550px;
+  object-fit: cover;
+}
+
 
 
 
