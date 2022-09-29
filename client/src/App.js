@@ -1,5 +1,5 @@
 import React, {  Fragment, useEffect } from 'react';
-import { BrowserRouter as Router , Routes, Switch, Route} from "react-router-dom";
+import { BrowserRouter as Router , Routes, useParams, Route} from "react-router-dom";
 import Header from './components/Navbar/Header';
 import Home from './pages/Home'
 import Lab from './pages/Lab'
@@ -16,6 +16,7 @@ import Password from "./pages/user/Password";
 import AdminDashboard from "./pages/admin/AdminDashboard";
 import LabCreate from "./pages/admin/lab/LabCreate"
 import AllLabs from "./pages/admin/lab/AllLabs"
+import LabSingle from './pages/LabSingle';
 
 
 import { ToastContainer } from "react-toastify";
@@ -24,6 +25,10 @@ import "react-toastify/dist/ReactToastify.css";
 import { auth } from './firebase';
 import { useDispatch } from "react-redux";
 import { currentUser } from "./functions/auth"
+
+
+
+
 
 function App() {
   const dispatch = useDispatch();
@@ -77,7 +82,7 @@ function App() {
         <Route  exact path="/admin/dashboard" element={ <AdminRoute><AdminDashboard /></AdminRoute> } />
         <Route  exact path="/admin/lab" element={ <AdminRoute><LabCreate /></AdminRoute> } />
         <Route  exact path="/admin/labs" element={ <AdminRoute><AllLabs /></AdminRoute> } />
-
+        <Route path="/lab/:slug" element={<LabSingle />}></Route>
       </Routes>
   
       </React.Fragment>

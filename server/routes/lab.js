@@ -9,6 +9,7 @@ const {
     create,
     listAll,
     read,
+    readSlug,
     remove,
     update,
     image,
@@ -26,6 +27,10 @@ router.get("/labs/:count", listAll);
 // read lab id
 router.get("/lab/:labId", read);
 
+
+router.get("/labslug/:slug", readSlug);
+
+
 // search
 router.post('/search/filters', searchFilters)
 
@@ -34,11 +39,14 @@ router.get('/lab/image/:labId', image);
 
 
 
+
 // update lab
 router.put("/update-lab/:labId", authCheck, adminCheck, update);
 
 // remove lab
 router.delete("/lab/:labId", authCheck, adminCheck, remove);
+
+
 
 
 module.exports = router;

@@ -161,9 +161,9 @@ const Lab = () => {
                         title={
                         <span className="h6"><DownSquareOutlined /> Building
                         </span>}>
-                            <div className="pl-4 pr-4">
-                                {showBuildings()}        
-                            </div>
+                        <div style={{ maringTop: "-10px" }} className="pr-5">
+                               {showBuildings()}
+                        </div>
                         </SubMenu>
 
                         <SubMenu 

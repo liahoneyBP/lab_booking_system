@@ -8,7 +8,7 @@ const { Meta } = Card;
 
 const LabCard = ({ lab }) => {
     // destructure
-    const { images, labName, details, slug } = lab;
+    const { images, labName, details, slug, capacity } = lab;
     return (
       <Card
         cover={
@@ -26,7 +26,7 @@ const LabCard = ({ lab }) => {
         ]}
       >
         <Meta
-          title={labName}
+          title={`${labName} - ${capacity} ที่นั่ง`}
           description={`${details && details.substring(0, 40)}...`}
         />
       </Card>

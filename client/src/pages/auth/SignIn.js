@@ -165,7 +165,7 @@ const facebookSignIn = async () => {
         type="primary"
         className="mb-3"
         block
-        shape="round"
+        shape="default"
         icon={<LoginOutlined />}
         size="large"
         disabled={!email || password.length < 6}
@@ -191,7 +191,7 @@ const facebookSignIn = async () => {
             type="dark"
             className="mb-3"
             block
-            shape="round"
+            shape="default"
             icon={<GoogleOutlined />}
             size="large"
             >
