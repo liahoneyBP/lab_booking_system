@@ -18,7 +18,16 @@ const LabSingle = () => {
   const loadSingleLab = () =>
   getLab(slug).then((res) => setLabs(res.data));
 
-  return <>{JSON.stringify(lab)}</>
+  return <div className="container-fluid">
+    <div className="row pt-4">
+        <SingleLabCard lab={lab} />
+    </div>
+
+    <div className="row">
+        <div>Room Something</div>
+    </div>
+
+  </div>
   ;
 };
 
