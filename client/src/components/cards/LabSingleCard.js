@@ -7,6 +7,7 @@ import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a lo
 import { Carousel } from 'react-responsive-carousel';
 
 import LabImgDefault from "../../images/LabUtcc_Default.jpg"
+import LabListItems from "./LabListItems";
 
 
 const { Meta } = Card;
@@ -16,6 +17,7 @@ const SingleLabCard = ({ lab }) => {
 
   return (
     <>
+    
       <div className="col-md-7">
         {images && images.length ? (<Carousel showArrows={true} autoPlay infiniteLoop>
             {images && images.map((i) => 
@@ -28,6 +30,7 @@ const SingleLabCard = ({ lab }) => {
       </div>
 
       <div className="col-md-5">
+       <h1 className="bg-dark p-3 text-white">{labName}</h1>
         <Card
           actions={[,
             <Link to="/">
@@ -35,14 +38,7 @@ const SingleLabCard = ({ lab }) => {
             </Link>,
           ]}
         >
-          <Meta title={labName} description={details} />
-          <p>
-            TEST
-            
-            TEST
-            
-            TEST
-          </p>
+          <LabListItems lab={lab} />
         </Card>
       </div>
     </>
