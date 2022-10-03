@@ -34,12 +34,15 @@ const SingleLabCard = ({ lab }) => {
         <Card
           actions={[,
             <Link to="/">
-              <FormOutlined className="text-info" /> <br /> BOOK
+        
+              <FormOutlined className="text-info" /> <br /> <h5 className="text-center">BOOK</h5>
+              
             </Link>,
           ]}
         >
           <LabListItems lab={lab} />
         </Card>
+        
       </div>
     </>
   );

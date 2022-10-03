@@ -4,6 +4,8 @@ import {Link} from 'react-router-dom'
 const LabListItems = ({lab}) => {
     const { details, building, floor, capacity, equipment} = lab;
     return (
+        <>
+        <h1 className='text-center'>Room Info</h1>
         <ul className='list-group'>
             <li className='list-group-item'>
                 Details <span className='label label-default label-pill pull-xs-right'>
@@ -31,6 +33,7 @@ const LabListItems = ({lab}) => {
                 </span>
             </li>
         </ul>
+        </>
     )
 }
 
