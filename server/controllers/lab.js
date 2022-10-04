@@ -50,12 +50,12 @@ exports.readSlug = async (req,res) => {
 exports.remove = async (req,res) => {
   try {
     const deleted = await Lab.findOneAndRemove({
-      labId: req.params.labId,
+      slug: req.params.slug,
     }).exec();
     res.json(deleted);
   } catch (err) {
     console.log(err);
-    return res.staus(400).send("Lab delete failed");
+    return res.status(400).send("Lab delete failed");
   }
 
 }

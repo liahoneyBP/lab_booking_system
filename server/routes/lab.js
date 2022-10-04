@@ -44,7 +44,7 @@ router.get('/lab/image/:labId', image);
 router.put("/update-lab/:labId", authCheck, adminCheck, update);
 
 // remove lab
-router.delete("/lab/:labId", authCheck, adminCheck, remove);
+router.delete("/remove-lab/:slug", authCheck, adminCheck, remove);
 
 
 
