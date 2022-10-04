@@ -6,9 +6,9 @@ import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
 const {Meta} = Card;
 
 
-const AdminLabCard = ({lab}) => {
+const AdminLabCard = ({lab, handleRemove}) => {
     // destructure
-    const {labName, details, images } = lab;
+    const {labName, details, images, slug } = lab;
     return (
         <Card cover={
             <img src={images && images.length ? images[0].url : LabImgDefault} 
@@ -18,7 +18,7 @@ const AdminLabCard = ({lab}) => {
         }
         actions={[
                 <EditOutlined className="text-warning"/>, 
-                <DeleteOutlined className='text-danger'/>
+                <DeleteOutlined onClick={() => handleRemove(slug)} className='text-danger'/>
             ]}
         >
             <Meta 

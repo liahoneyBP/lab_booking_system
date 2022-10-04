@@ -2,11 +2,15 @@ import React, {useEffect, useState} from "react";
 import AdminNav from "../../../components/Navbar/AdminNav"
 import { getLabsByCount } from "../../../functions/lab";
 import AdminLabCard from "../../../components/cards/AdminLabCard"
+import {removeLab} from "../../../functions/lab"
+import {useSelector} from "react-redux"
+import { toast } from "react-toastify"
 
 const AllLabs = () => {
   const [labs, setLabs] = useState([])
   const [loading, setLoading] = useState(false);
-
+ // redux
+ const { user } = useSelector((state) => ({...state}));
   
   useEffect(() => {
     loadAllLabs();
@@ -26,6 +30,22 @@ const AllLabs = () => {
       });
   };
 
+  const handleRemove = (slug) => {
+    let answer = window.confirm('Delete?')
+    if(answer) {
+      console.log('send delete request', slug);
+      removeLab(slug, user.token)
+      .then((res) => {
+        loadAllLabs();
+        toast.error(`${res.data.labName} is deleted `);
+      })
+      .catch(err => {
+        if (err.response.status === 400) toast.error(err.response.data);
+        console.log(err)
+      })
+    }
+  }
+
   return (
     <div className="container-fluid">
       <div className="row">
@@ -42,7 +62,10 @@ const AllLabs = () => {
           <div className="row">
           {labs.map((lab) => (
           <div className="col-md-4 pb-3" key={lab._id} >
-            <AdminLabCard lab={lab} />
+            <AdminLabCard 
+            lab={lab} 
+            handleRemove={handleRemove}
+            />
           </div>
         )
         )}

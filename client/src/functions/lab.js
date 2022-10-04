@@ -12,6 +12,15 @@ export const getLabsByCount = async (count) =>
   await axios.get(`${process.env.REACT_APP_API}/labs/${count}`);
 
 
+export const removeLab = async (slug, authtoken) =>
+  await axios.delete(`${process.env.REACT_APP_API}/remove-lab/${slug}`, {
+    headers:{
+        authtoken,
+    }
+  });
+
+
+
 export const fetchLabsbyFilter = async (arg) => 
     await axios.post(`${process.env.REACT_APP_API}/search/filters`,arg);
 
