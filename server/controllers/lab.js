@@ -71,7 +71,10 @@ exports.update = async (req,res) => {
     res.json(updated)
   } catch (err) {
     console.log('LAB UPDATE ERROR ---->', err)
-    return res.status(400).send('Lab Update Failed')
+    // return res.status(400).send('Lab Update Failed')
+    res.status(400).json({
+      err: err.message,
+    });
   }
 
 }

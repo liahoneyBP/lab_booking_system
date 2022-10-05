@@ -2,13 +2,13 @@ import React, { useState, useEffect } from "react";
 import AdminNav from "../../../components/Navbar/AdminNav";
 import { toast } from "react-toastify";
 import { useSelector } from "react-redux";
-import { getLab } from "../../../functions/lab";
+import { getLab, updateLab } from "../../../functions/lab";
 import FileUpload from "../../../components/forms/FileUpload";
 import { LoadingOutlined } from "@ant-design/icons";
 import LabUpdateForm from "../../../components/forms/LabUpdateForm";
+import { useNavigate } from "react-router-dom";
 
-
-import { useParams } from 'react-router-dom';
+import {  useParams } from 'react-router-dom';
 
 
 const initialState = {
@@ -24,6 +24,8 @@ const initialState = {
 
 
 const LabUpdate = () => {
+
+  const navigate = useNavigate();
 
   const [values, setValues] = useState(initialState);
   const [loading, setLoading] = useState(false);
@@ -47,6 +49,20 @@ const LabUpdate = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    setLoading(true)
+
+    updateLab(slug, values, user.token)
+    .then((res) => {
+      setLoading(false)
+      toast.success(`"${res.data.title}" is updated`);
+      navigate("/admin/labs")
+    })
+    .catch((err) => {
+      console.log(err);
+      setLoading(false);
+      toast.error(err.response.data.err);
+    })
+
     //
   };
 

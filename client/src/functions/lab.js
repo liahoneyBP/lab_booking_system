@@ -28,3 +28,11 @@ export const fetchLabsbyFilter = async (arg) =>
 export const getLab = async (slug) =>
     await axios.get(`${process.env.REACT_APP_API}/labslug/${slug}`);
   
+
+
+export const updateLab = async (slug, lab, authtoken) => 
+    await axios.put(`${process.env.REACT_APP_API}/update-lab/${slug}`, lab, {
+        headers:{
+            authtoken,
+        }
+    })
