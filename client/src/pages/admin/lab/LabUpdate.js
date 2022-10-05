@@ -1,18 +1,18 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import AdminNav from "../../../components/Navbar/AdminNav";
 import { toast } from "react-toastify";
 import { useSelector } from "react-redux";
-import { createLab} from "../../../functions/lab";
-import LabCreateForm from "../../../components/forms/LabCreateForm"
-import FileUpload from "../../../components/forms/FileUpload"
-import { LoadingOutlined } from "@ant-design/icons"
+import { createLab } from "../../../functions/lab";
+import LabCreateForm from "../../../components/forms/LabCreateForm";
+import FileUpload from "../../../components/forms/FileUpload";
+import { LoadingOutlined } from "@ant-design/icons";
 
-
+import { useParams } from 'react-router-dom';
 
 const LabUpdate = () => {
-
-  // redux
-  const { user } = useSelector((state) => ({...state}));
+  const { user } = useSelector((state) => ({ ...state }));
+  // router
+  const { slug } = useParams()
 
   return (
     <div className="container-fluid">
@@ -22,8 +22,9 @@ const LabUpdate = () => {
         </div>
 
         <div className="col-md-10">
-            <h4> Lab Update</h4>
-          
+          <h4>Product update</h4>
+          {JSON.stringify(slug)}
+          <hr />
         </div>
       </div>
     </div>
