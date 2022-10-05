@@ -5,16 +5,18 @@ import { useSelector } from "react-redux";
 import { getLab } from "../../../functions/lab";
 import FileUpload from "../../../components/forms/FileUpload";
 import { LoadingOutlined } from "@ant-design/icons";
+import LabUpdateForm from "../../../components/forms/LabUpdateForm";
+
 
 import { useParams } from 'react-router-dom';
 
 
 const initialState = {
-  labName: "15201QQ",
-  building: "5",
-  details: "ห้องแล็บ Test",
-  floor: "5",
-  capacity: "50",
+  labName: "",
+  building: "",
+  details: "",
+  floor: "",
+  capacity: "",
   images: [],
   equipment: {},
   bookings: [],
@@ -40,6 +42,16 @@ const LabUpdate = () => {
   })
   }
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    //
+  };
+
+  const handleChange = (e) => {
+    setValues({ ...values, [e.target.name]: e.target.value });
+    // console.log(e.target.name, " ----- ", e.target.value);
+  };
+
   return (
     <div className="container-fluid">
       <div className="row">
@@ -48,8 +60,15 @@ const LabUpdate = () => {
         </div>
 
         <div className="col-md-10">
-          <h4>Product update</h4>
-          {JSON.stringify(values)}
+          <h4>Lab update</h4>
+          {/* {JSON.stringify(values)} */}
+
+          <LabUpdateForm
+            handleSubmit={handleSubmit}
+            handleChange={handleChange}
+            setValues={setValues}
+            values={values}
+          />
           <hr />
         </div>
       </div>
