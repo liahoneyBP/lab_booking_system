@@ -54,7 +54,7 @@ const LabUpdate = () => {
     updateLab(slug, values, user.token)
     .then((res) => {
       setLoading(false)
-      toast.success(`"${res.data.title}" is updated`);
+      toast.success(`${res.data.labName} is updated`);
       navigate("/admin/labs")
     })
     .catch((err) => {

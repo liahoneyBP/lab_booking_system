@@ -65,7 +65,7 @@ exports.update = async (req,res) => {
     if (req.body.labName) {
       req.body.slug = slugify(req.body.labName);
     }
-    const updated = await Lab.findByIdAndUpdate(
+    const updated = await Lab.findOneAndUpdate(
       {slug: req.params.slug}, req.body, {new: true}
       ).exec();
     res.json(updated)
