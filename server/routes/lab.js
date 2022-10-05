@@ -38,13 +38,14 @@ router.post('/search/filters', searchFilters)
 router.get('/lab/image/:labId', image);
 
 
-
-
 // update lab
-router.put("/update-lab/:labId", authCheck, adminCheck, update);
+router.put("/update-lab/:slug", authCheck, adminCheck, update);
 
 // remove lab
 router.delete("/remove-lab/:slug", authCheck, adminCheck, remove);
+
+
+
 
 
 

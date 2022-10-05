@@ -61,14 +61,18 @@ exports.remove = async (req,res) => {
 }
 
 exports.update = async (req,res) => {
-  Lab.findOneAndUpdate(req.body)
-   .then(lab => {
-     res.status(201).json(lab)
-   })
-   .catch(error => {
-     res.status(400).json({ error })
-   })
-
+  try {
+    if (req.body.labName) {
+      req.body.slug = slugify(req.body.labName);
+    }
+    const updated = await Lab.findByIdAndUpdate(
+      {slug: req.params.slug}, req.body, {new: true}
+      ).exec();
+    res.json(updated)
+  } catch (err) {
+    console.log('LAB UPDATE ERROR ---->', err)
+    return res.status(400).send('Lab Update Failed')
+  }
 
 }
 
