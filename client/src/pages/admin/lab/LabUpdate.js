@@ -26,7 +26,10 @@ const initialState = {
 const LabUpdate = () => {
 
   const [values, setValues] = useState(initialState);
+  const [loading, setLoading] = useState(false);
+
   const { user } = useSelector((state) => ({ ...state }));
+
   // router
   const { slug } = useParams()
 
@@ -60,8 +63,17 @@ const LabUpdate = () => {
         </div>
 
         <div className="col-md-10">
-          <h4>Lab update</h4>
-          {/* {JSON.stringify(values)} */}
+        {loading ? <LoadingOutlined className="text-danger h1" /> : <h4>Lab Update</h4> }
+          { /*JSON.stringify(values) */}
+
+          <div className="p-3">
+            <FileUpload
+            values={values}
+            setValues={setValues}
+            setLoading={setLoading}
+            />
+          </div>
+
 
           <LabUpdateForm
             handleSubmit={handleSubmit}
