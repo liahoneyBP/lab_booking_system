@@ -2,6 +2,7 @@ import React from 'react'
 import {Card} from 'antd'
 import LabImgDefault from "../../images/LabUtcc_Default.jpg"
 import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
+import { Link } from "react-router-dom"
 
 const {Meta} = Card;
 
@@ -17,7 +18,9 @@ const AdminLabCard = ({lab, handleRemove}) => {
             />
         }
         actions={[
-                <EditOutlined className="text-warning"/>, 
+                <Link to={`/admin/lab/${slug}`}>
+                  <EditOutlined className="text-warning"/>
+                </Link>, 
                 <DeleteOutlined onClick={() => handleRemove(slug)} className='text-danger'/>
             ]}
         >
