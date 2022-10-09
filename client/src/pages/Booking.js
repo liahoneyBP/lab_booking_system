@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { getLab } from "../functions/lab";
-import SingleLabCard from "../components/cards/LabSingleCard";
+import SingleBookingCard from "../components/cards/LabSingleBookingCard";
 import { useParams } from 'react-router-dom';
+import LabBookingForm from "../components/forms/LabBookingForm";
 
 const LabSingleBooking = () => {
   const [lab, setLabs] = useState({});
@@ -20,11 +21,12 @@ const LabSingleBooking = () => {
 
   return <div className="container-fluid">
     <div className="row pt-4">
-        <SingleLabCard lab={lab} />
+        <SingleBookingCard lab={lab} />
     </div>
 
     <div className="row">
         <div>MAKE A BOOKING</div>
+        
     </div>
 
   </div>

@@ -28,7 +28,7 @@ const LabListItems = ({lab}) => {
                 </span>
             </li>
             <li className='list-group-item'>
-                Equipment <span className='label label-default label-pill pull-xs-right'>
+                x <span className='label label-default label-pill pull-xs-right'>
                  
                 </span>
             </li>
