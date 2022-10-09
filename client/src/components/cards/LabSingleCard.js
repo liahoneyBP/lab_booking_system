@@ -33,10 +33,8 @@ const SingleLabCard = ({ lab }) => {
        <h1 className="bg-dark p-3 text-white">{labName}</h1>
         <Card
           actions={[,
-            <Link to="/">
-        
-              <FormOutlined className="text-info" /> <br /> <h5 className="text-center">BOOK</h5>
-              
+            <Link to={`/lab/booking/${slug}`}>
+              <FormOutlined className="text-info" /> <br /> <h5 className="text-center">BOOK</h5>  
             </Link>,
           ]}
         >
