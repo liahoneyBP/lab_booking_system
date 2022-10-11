@@ -4,15 +4,33 @@ const { Schema } = mongoose;
 
 const bookingSchema = new Schema({
   _bookingId: Schema.Types.ObjectId,
-  user: { type: Schema.ObjectId, ref: 'User' },
-  bookingStart: Date,
-  bookingEnd: Date,
-  startHour: Number,
+  dateStart: Date,
+  dateEnd: Date,
+  timeStart: Date,
+  timeEnd: Date,
   duration: Number,
   recurring: [],
-  businessUnit: { type: String, required: true },
-  purpose: { type: String, required: true },
-  roomId: { type: Schema.ObjectId, ref: 'Room' }
+  position: { 
+    type: String
+  },
+  isCheckin: {
+     type: Boolean
+    },
+  title: {
+     type: String
+    },
+  description: {
+    type: String
+  },
+  pin: {
+    type: Number
+  },
+  roomId: {
+     type: Schema.ObjectId, ref: 'Room' 
+    },
+  user: {
+     type: Schema.ObjectId, ref: 'User' 
+    },
 })
 
 
