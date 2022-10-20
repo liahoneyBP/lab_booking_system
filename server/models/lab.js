@@ -22,11 +22,14 @@ const bookingSchema = new Schema({
   description: {
     type: String
   },
+  purpose: {
+    type: String,
+  },
   pin: {
     type: Number
   },
   roomId: {
-     type: Schema.ObjectId, ref: 'Room' 
+     type: Schema.ObjectId, ref: 'Lab' 
     },
   user: {
      type: Schema.ObjectId, ref: 'User' 
@@ -67,6 +70,7 @@ const labSchema = new mongoose.Schema(
       type: String,
       enum: ["Class", "Free Lab"]
     },
+    
     capacity: {
       type: Number,
     },
