@@ -57,6 +57,9 @@ const Lab = () => {
     useEffect(() => {
        // console.log('load labs on user search input', text);
        const delayed = setTimeout(() => {
+        if (!text) {
+            return loadAllLabs();
+        }
         fetchLabs({query: text});
        }, 300)
        return () => clearTimeout(delayed);
