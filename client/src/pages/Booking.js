@@ -3,10 +3,12 @@ import { getLab } from "../functions/lab";
 import SingleBookingCard from "../components/cards/LabSingleBookingCard";
 import { useParams } from 'react-router-dom';
 import LabBookingForm from "../components/forms/LabBookingForm";
+import { Card } from "antd";
+
+
 
 const LabSingleBooking = () => {
   const [lab, setLabs] = useState({});
-
   const { slug } = useParams()
 
   //const { slug } = match.params;
@@ -19,17 +21,14 @@ const LabSingleBooking = () => {
   const loadSingleLab = () =>
   getLab(slug).then((res) => setLabs(res.data));
 
-  return <div className="container-fluid">
+  return (
+  
+  <div className="container-fluid">
     <div className="row pt-4">
         <SingleBookingCard lab={lab} />
     </div>
-
-    <div className="row">
-        <div>MAKE A BOOKING</div>
-        
-    </div>
-
   </div>
+  )
   ;
 };
 

@@ -4,11 +4,11 @@ import {useSelector, useDispatch} from "react-redux";
 import LabCard from "../components/cards/LabCard";
 
 import Search from "../components/forms/Search";
-import Jumbotron from "../components/cards/Jumbotron";
+
 import {Menu, Slider, Radio} from "antd"
 import { DesktopOutlined, DownSquareOutlined  } from "@ant-design/icons";
 
-const {SubMenu, ItemGroup} = Menu;
+const {SubMenu} = Menu;
 
 
 const Lab = () => {

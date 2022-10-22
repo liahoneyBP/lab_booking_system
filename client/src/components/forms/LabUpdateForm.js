@@ -1,6 +1,8 @@
 import React from "react";
 import { Select } from "antd";
 
+
+
 const { Option } = Select;
 
 const LabUpdateForm = ({
@@ -9,17 +11,21 @@ const LabUpdateForm = ({
   setValues,
   values,
 }) => {
+
   // destructure
   const {
-    labName, 
-    building, 
-    details, 
-    floor, 
-    capacity, 
-    images, 
-    equipment, 
+    labName,
+    building,
+    details,
+    floor,
+    capacity,
+    images,
+    equipment,
     bookings
   } = values;
+
+
+
 
   return (
     <form onSubmit={handleSubmit}>
@@ -78,7 +84,7 @@ const LabUpdateForm = ({
         />
       </div>
 
-    
+
 
       <br />
       <button className="btn btn-outline-info">Save</button>

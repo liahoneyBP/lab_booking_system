@@ -18,7 +18,7 @@ const initialState = {
   floor: "",
   capacity: "",
   images: [],
-  equipment: {},
+  equipment: [],
   bookings: [],
 }
 
@@ -70,6 +70,8 @@ const LabUpdate = () => {
     setValues({ ...values, [e.target.name]: e.target.value });
     // console.log(e.target.name, " ----- ", e.target.value);
   };
+
+  
 
   return (
     <div className="container-fluid">

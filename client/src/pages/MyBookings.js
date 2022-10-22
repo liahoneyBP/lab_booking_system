@@ -67,13 +67,7 @@ const data = [
         address: 'London No. 1 Lake Park',
         tags: ['Confirm'],
     },
-    {
-        key: '3',
-        name: 'Joe Black',
-        age: 32,
-        address: 'Sidney No. 1 Lake Park',
-        tags: [],
-    },
+    
 ];
 
 const MyBookings = () => {
@@ -87,7 +81,7 @@ const MyBookings = () => {
                 <div className="col-md-8 m-3">
                     <h2 className="m-5">My Bookings</h2>
 
-                    <Table columns={columns} dataSource={data} />;
+                    <Table columns={columns} dataSource={data} />
 
 
                 </div>
