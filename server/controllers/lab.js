@@ -3,7 +3,7 @@ const fs = require("fs");
 const slugify = require("slugify");
 
 exports.create = async (req, res) => {
- 
+
   try {
     console.log(req.body);
     req.body.slug = slugify(req.body.labName);
@@ -19,35 +19,35 @@ exports.create = async (req, res) => {
 
 }
 
-exports.image = async (req,res) => {
-   
+exports.image = async (req, res) => {
+
 }
 
 // listAll labs
 exports.listAll = async (req, res) => {
   let labs = await Lab.find({})
-   .limit(parseInt(req.params.count))
-   .sort([["createdAt"]])
-   .exec();
+    .limit(parseInt(req.params.count))
+    .sort([["createdAt"]])
+    .exec();
   res.json(labs);
 }
 
-exports.read = async (req,res) => {
-   let lab = await Lab.findById(req.params.labId)
-  .select('-image.data')
-  .exec();
+exports.read = async (req, res) => {
+  let lab = await Lab.findById(req.params.labId)
+    .select('-image.data')
+    .exec();
   console.log('SINGLE LAB', lab);
   res.json(lab);
 
 }
 
-exports.readSlug = async (req,res) => {
-  const lab = await Lab.findOne({ slug: req.params.slug})
-   .exec();
+exports.readSlug = async (req, res) => {
+  const lab = await Lab.findOne({ slug: req.params.slug })
+    .exec();
   res.json(lab);
 }
 
-exports.remove = async (req,res) => {
+exports.remove = async (req, res) => {
   try {
     const deleted = await Lab.findOneAndRemove({
       slug: req.params.slug,
@@ -60,14 +60,14 @@ exports.remove = async (req,res) => {
 
 }
 
-exports.update = async (req,res) => {
+exports.update = async (req, res) => {
   try {
     if (req.body.labName) {
       req.body.slug = slugify(req.body.labName);
     }
     const updated = await Lab.findOneAndUpdate(
-      {slug: req.params.slug}, req.body, {new: true}
-      ).exec();
+      { slug: req.params.slug }, req.body, { new: true }
+    ).exec();
     res.json(updated)
   } catch (err) {
     console.log('LAB UPDATE ERROR ---->', err)
@@ -80,13 +80,13 @@ exports.update = async (req,res) => {
 }
 
 const handleQuery = async (req, res, query) => {
-  const labs = await Lab.find({ $text : { $search : query}})
+  const labs = await Lab.find({ $text: { $search: query } })
 
   res.json(labs);
 }
 
 
-const handleCapacity = async(req, res, capacity) => {
+const handleCapacity = async (req, res, capacity) => {
   try {
     let labs = await Lab.find({
       capacity: {
@@ -94,39 +94,39 @@ const handleCapacity = async(req, res, capacity) => {
         $lte: capacity[1],
       }
     })
-    .exec();
+      .exec();
 
     res.json(labs);
 
-  } catch(err) {
+  } catch (err) {
     console.log(err);
   }
 }
 
-const handleBuilding = async(req, res, building) => {
-  const labs = await Lab.find({building})
-  .exec();
+const handleBuilding = async (req, res, building) => {
+  const labs = await Lab.find({ building })
+    .exec();
 
   res.json(labs);
 }
 
-const handleFloor = async(req, res, floor) => {
-  const labs = await Lab.find({floor})
-  .exec();
+const handleFloor = async (req, res, floor) => {
+  const labs = await Lab.find({ floor })
+    .exec();
 
   res.json(labs);
 }
 
-const handleType = async(req, res, type) => {
-  const labs = await Lab.find({type})
-  .exec();
+const handleType = async (req, res, type) => {
+  const labs = await Lab.find({ type })
+    .exec();
 
   res.json(labs);
 }
 
 // Search / Filter
-exports.searchFilters = async(req, res) => {
-  const {query, capacity, building, floor, type} = req.body
+exports.searchFilters = async (req, res) => {
+  const { query, capacity, building, floor, type } = req.body
 
   if (query) {
     console.log('query --->', query)
@@ -158,16 +158,3 @@ exports.searchFilters = async(req, res) => {
 
 
 
-
-
-
-
-/*
-   create,
-   getlabs,
-   read,
-   remove,
-   update,
-   image,
-
-   */

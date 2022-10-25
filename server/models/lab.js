@@ -6,8 +6,8 @@ const bookingSchema = new Schema({
   _bookingId: Schema.Types.ObjectId,
   dateStart: Date,
   dateEnd: Date,
-  timeStart: Date,
-  timeEnd: Date,
+  timeStart: Number,
+  timeEnd: Number,
   duration: Number,
   recurring: [],
   position: { 
@@ -28,11 +28,13 @@ const bookingSchema = new Schema({
   pin: {
     type: Number
   },
-  roomId: {
-     type: Schema.ObjectId, ref: 'Lab' 
+  labId: {
+     type: Schema.ObjectId, 
+     ref: 'Lab' 
     },
   user: {
-     type: Schema.ObjectId, ref: 'User' 
+     type: Schema.ObjectId, 
+     ref: 'User' 
     },
 })
 

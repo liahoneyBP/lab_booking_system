@@ -29,10 +29,9 @@ import { useDispatch } from "react-redux";
 import { currentUser } from "./functions/auth"
 
 
-
-
-
 function App() {
+
+  
   const dispatch = useDispatch();
 
   // to check firebase auth state

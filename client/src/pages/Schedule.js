@@ -1,4 +1,5 @@
 import React from "react";
+import { Scheduler } from "@aldabil/react-scheduler";
 
 const Schedule = () => {
     return (
@@ -9,8 +10,9 @@ const Schedule = () => {
                 alignItems: 'center',
                 height: '90vh'
             }}
-            >
-                <h1>Schedule Page Krub</h1>
+        >
+            <h1>Schedule Page Krub</h1>
+            
         </div>
     )
 }

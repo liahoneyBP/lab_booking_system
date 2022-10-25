@@ -9,23 +9,35 @@ import LabImgDefault from "../../images/LabUtcc_Default.jpg"
 import LabBookingForm from "../forms/LabBookingForm";
 import { formatTime } from "../../helpers/timeSelections";
 
+import { makeBooking } from "../../functions/bookings";
+import { toast } from "react-toastify";
+
+import {  useParams } from 'react-router-dom';
+
 
 const initialState = {
-  startTime: "",
-  endTime: "",
+  timeStart: "",
+  timeEnd: "",
   title: "",
   description: "",
-  position: ["Lecturer", "Student"],
-  purpose: ["Schedule Class", "Special Event"],
-  date: "",
+  position: "",
+  purpose: "",
+  dateStart: "",
+  dateEnd: "",
 
 };
 
 
+
+
 const SingleBookingCard = ({ lab }) => {
+   // router
+   // eslint-disable-next-line no-undef
+   const { slug } = useParams()
+  
   const navigate = useNavigate();
 
-  const { images, labName, details, slug, capacity } = lab;
+  const { images, labName, details, capacity } = lab;
 
   const [values, setValues] = useState(initialState)
   const [loading, setLoading] = useState(false);
@@ -33,26 +45,21 @@ const SingleBookingCard = ({ lab }) => {
   // redux
   const { user } = useSelector((state) => ({ ...state }));
 
-  const { labId, userId, timeStart, timeEnd, dateStart, dateEnd, purpose, position, description } = values;
-
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Data from input
-    const formData = e.target.elements
-    const labId = lab._id
-    const userId = user._id
-    // startDate data
-    const timeStart = formatTime(formData.timeStart.value)
-    const startDate = [...timeStart]
-    // endDate data
-    const timeEnd = formatTime(formData.timeEnd.value)
-    const endDate = [...timeEnd]
-    // Booking specifics
-    const purpose = formData.purpose.value
-    const position = formData.position.value
-    const description = formData.description.value
-    // onMakeBooking({ startDate, endDate, businessUnit, position, labId, userId, description })
+    makeBooking(slug, values, user.token)
+      .then((response) => {
+        console.log(response);
+        window.alert(`${response.data.labName} is Booked`);
+        window.location.reload();
+      })
+      .catch((err) => {
+        console.log(err);
+        // if (err.response.status === 400) toast.error(err.response.data);
+        toast.error(err.response.data.err);
+      });
+    
 
     navigate("/mybookings")
   };
@@ -60,6 +67,7 @@ const SingleBookingCard = ({ lab }) => {
   const handleChange = (e) => {
     setValues({ ...values, [e.target.name]: e.target.value });
     console.log(e.target.name, " ----- ", e.target.value);
+    console.log("Values ==>", values);
   };
 
   return (
@@ -83,6 +91,8 @@ const SingleBookingCard = ({ lab }) => {
           handleChange={handleChange}
           values={values}
           setValues={setValues}
+          lab={lab}
+          user={user}
         />
       </div>
     </>
