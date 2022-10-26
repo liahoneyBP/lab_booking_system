@@ -12,9 +12,6 @@ const userSchema = new mongoose.Schema(
       required: true,
       index: true,
     },
-    pin: {
-      type: Number,
-    },
     position: {
       type: String,
     },

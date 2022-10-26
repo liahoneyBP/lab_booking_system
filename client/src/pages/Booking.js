@@ -4,12 +4,14 @@ import SingleBookingCard from "../components/cards/LabSingleBookingCard";
 import { useParams } from 'react-router-dom';
 import LabBookingForm from "../components/forms/LabBookingForm";
 import { Card } from "antd";
+import { useSelector } from "react-redux";
 
 
 
 const LabSingleBooking = () => {
   const [lab, setLabs] = useState({});
   const { slug } = useParams()
+
 
   //const { slug } = match.params;
 
@@ -25,7 +27,9 @@ const LabSingleBooking = () => {
   
   <div className="container-fluid">
     <div className="row pt-4">
-        <SingleBookingCard lab={lab} />
+        <SingleBookingCard 
+        lab={lab} 
+        />
     </div>
   </div>
   )

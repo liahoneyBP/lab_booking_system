@@ -16,9 +16,6 @@ const bookingSchema = new Schema({
   isCheckin: {
      type: Boolean
     },
-  title: {
-     type: String
-    },
   description: {
     type: String
   },
@@ -33,7 +30,7 @@ const bookingSchema = new Schema({
      ref: 'Lab' 
     },
   user: {
-     type: Schema.ObjectId, 
+     type: Schema.Types.Mixed,
      ref: 'User' 
     },
 })

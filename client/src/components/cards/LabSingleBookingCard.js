@@ -28,8 +28,6 @@ const initialState = {
 };
 
 
-
-
 const SingleBookingCard = ({ lab }) => {
    // router
    // eslint-disable-next-line no-undef
@@ -37,13 +35,15 @@ const SingleBookingCard = ({ lab }) => {
   
   const navigate = useNavigate();
 
-  const { images, labName, details, capacity } = lab;
+  const { images, labName, details, capacity, _id } = lab;
+
 
   const [values, setValues] = useState(initialState)
   const [loading, setLoading] = useState(false);
 
-  // redux
   const { user } = useSelector((state) => ({ ...state }));
+
+ 
 
 
   const handleSubmit = (e) => {
@@ -92,7 +92,7 @@ const SingleBookingCard = ({ lab }) => {
           values={values}
           setValues={setValues}
           lab={lab}
-          user={user}
+          user={user._id}
         />
       </div>
     </>
