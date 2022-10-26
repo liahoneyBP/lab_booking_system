@@ -12,6 +12,7 @@ const LabBookingForm = ({ handleSubmit, handleChange, values, setValues, user, l
   // 
   const {
     description,
+    bookedBy
   } = values;
 
   return (
@@ -96,6 +97,19 @@ const LabBookingForm = ({ handleSubmit, handleChange, values, setValues, user, l
           />
 
         </Space>
+      </div>
+
+      <div className="form-group">
+        <label>Book By</label>
+        <input
+          type="text"
+          name="bookedBy"
+          placeholder="Your Name"
+          className="form-control"
+          value={bookedBy}
+          onChange={handleChange}
+
+        />
       </div>
 
       <div className="form-group">

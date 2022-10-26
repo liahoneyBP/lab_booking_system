@@ -51,8 +51,8 @@ const SingleBookingCard = ({ lab }) => {
     makeBooking(slug, values, user.token)
       .then((response) => {
         console.log(response);
-        window.alert(`${response.data.labName} is Booked`);
-        window.location.reload();
+        window.alert(`You already booked Lab ${response.data.labName} ! `);
+        
       })
       .catch((err) => {
         console.log(err);
@@ -92,7 +92,7 @@ const SingleBookingCard = ({ lab }) => {
           values={values}
           setValues={setValues}
           lab={lab}
-          user={user._id}
+          user={user}
         />
       </div>
     </>
