@@ -158,3 +158,13 @@ exports.searchFilters = async (req, res) => {
 
 
 
+// listAll labs
+exports.getUserBookings = async (req, res, email) => {
+  let getBookings = await Lab.findOne({bookings: {$elemMatch: {email : email}}})
+  res.json(getBookings.bookings);
+  console.log("get user bookings ==>", getBookings.bookings);
+}
+
+
+
+
