@@ -1,76 +1,98 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import { Space, Table, Tag } from 'antd';
+
+import {useSelector, useDispatch} from "react-redux";
+import { getUserBookings } from "../functions/bookings";
+
+import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
+
+import { useParams } from 'react-router-dom';
 
 const columns = [
     {
-        title: 'Purpose',
-        dataIndex: 'purpose',
-        key: 'purpose',
-        render: (text) => <a>{text}</a>,
+        title: 'Bookings ID',
+        dataIndex: 'id',
     },
     {
-        title: 'Date/Time',
-        dataIndex: 'dateTime',
-        key: 'dateTime',
+        title: 'User Booked By',
+        dataIndex: 'bookedBy',
+    },
+    {
+        title: 'Date',
+        dataIndex: 'dateStart',
+    },
+    {
+        title: 'Time Start',
+        dataIndex: 'timeStart',
+    },
+    {
+        title: 'Time End',
+        dataIndex: 'timeEnd',
     },
     {
         title: 'Lab',
-        dataIndex: 'lab',
-        key: 'lab',
+        dataIndex: '',
     },
     {
-        title: 'Check-in',
-        key: 'checkIn',
-        dataIndex: 'checkIn',
-        render: (_, { tags }) => (
-            <>
-                {tags.map((tag) => {
-                    let color = tag.length > 5 ? 'geekblue' : 'green';
-                    if (tag === 'Unconfirm') {
-                        color = 'red';
-                    }
-                    if (tag === 'Confirm') {
-                        color = 'green';
-                    }
-                    return (
-                        <Tag color={color} key={tag}>
-                            {tag.toUpperCase()}
-                        </Tag>
-                    );
-                })}
-            </>
-        ),
+        title: 'Position',
+        dataIndex: 'position',
     },
     {
         title: 'Description',
-        key: 'description',
-        render: (_, record) => (
-            <Space size="middle">
-                <a>Invite {record.name}</a>
-                <a>Delete</a>
-            </Space>
-        ),
-    },
-];
-const data = [
-    {
-        key: '1',
-        name: 'John Brown',
-        age: 32,
-        address: 'New York No. 1 Lake Park',
-        tags: ['Unconfirm'],
+        dataIndex: 'description',
     },
     {
-        key: '2',
-        name: 'Jim Green',
-        age: 42,
-        address: 'London No. 1 Lake Park',
-        tags: ['Confirm'],
+        title: 'Purpose',
+        dataIndex: 'purpose',
     },
+    {
+        title: 'Check In',
+        key: 'isCheckin',
+        dataIndex: 'isCheckin',
+     
+      },
     
 ];
 
+
 const MyBookings = () => {
+
+
+    const [userBookings, setUserBookings] = useState([]);
+
+    let { user } = useSelector((state) => ({...state}));
+
+
+    const dataWithAge = userBookings.map((item) => ({
+        ...item,
+        age: Math.floor(Math.random() *6) +20,
+    }))
+
+    const modifiedData = dataWithAge.map(({description, ...item}) => ({
+        ...item,
+        id: item._id,
+        description: description,
+    }))
+
+    console.log("modifiedData =>", modifiedData);
+
+
+
+    
+    useEffect(() => {
+        getUserBook()
+    }, [])
+
+
+    const getUserBook = () => {
+        getUserBookings(user.email).then(userBokingsData => {
+            console.log("USER Email from front is ==>", user.email);
+            setUserBookings(userBokingsData.data);
+            
+        });
+    };
+
+
     return (
         <div className="container-fluid">
             <div className="row">
@@ -81,9 +103,16 @@ const MyBookings = () => {
                 <div className="col-md-8 m-3">
                     <h2 className="m-5">My Bookings</h2>
 
-                    <Table columns={columns} dataSource={data} />
+                    <Table 
+                    columns={columns} 
+                    dataSource={modifiedData} />
 
 
+                </div>
+
+                <div>
+                    <p>test user bookings</p>
+                    {JSON.stringify(userBookings)}
                 </div>
 
             </div>
