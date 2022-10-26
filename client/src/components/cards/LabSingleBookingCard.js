@@ -19,6 +19,7 @@ const initialState = {
   timeStart: "",
   timeEnd: "",
   title: "",
+  bookedBy: "",
   description: "",
   position: "",
   purpose: "",
@@ -43,8 +44,6 @@ const SingleBookingCard = ({ lab }) => {
 
   const { user } = useSelector((state) => ({ ...state }));
 
- 
-
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -52,7 +51,6 @@ const SingleBookingCard = ({ lab }) => {
       .then((response) => {
         console.log(response);
         window.alert(`You already booked Lab ${response.data.labName} ! `);
-        
       })
       .catch((err) => {
         console.log(err);
