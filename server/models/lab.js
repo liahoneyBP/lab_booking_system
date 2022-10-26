@@ -13,9 +13,12 @@ const bookingSchema = new Schema({
   position: { 
     type: String
   },
-  isCheckin: {
-     type: Boolean
-    },
+  bookedBy: {
+    type: String
+  },
+  isCheckin: { 
+    type: String, 
+    default: 'Unconfirm' },
   description: {
     type: String
   },
