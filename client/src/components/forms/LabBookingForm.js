@@ -8,7 +8,6 @@ import { Radio } from 'antd';
 
 
 const LabBookingForm = ({ handleSubmit, handleChange, values, setValues, user, lab }) => {
-
   // 
   const {
     description,

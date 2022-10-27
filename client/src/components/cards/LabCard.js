@@ -12,6 +12,7 @@ const LabCard = ({ lab }) => {
     return (
       <Card
         cover={
+          // eslint-disable-next-line jsx-a11y/alt-text
           <img
             src={images && images.length ? images[0].url : LabImgDefault}
             style={{ height: "150px", objectFit: "cover" }}
