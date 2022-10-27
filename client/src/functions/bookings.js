@@ -33,6 +33,18 @@ export const getUserBookings = async (slug, email, authtoken) =>
 
 
 
+export const getAllUserBookings = async ( authtoken) =>
+  await axios.get(`${process.env.REACT_APP_API}/getAllUserBookings`, 
+    {
+      headers: {
+        authtoken,
+      },
+
+    })
+
+
+
+
 
 
 /*

@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useEffect, useState } from "react";
 import { createStore } from 'redux';
 import { connect, Provider } from 'react-redux';
 import Paper from '@mui/material/Paper';
@@ -21,6 +22,8 @@ import {
 } from '@devexpress/dx-react-scheduler-material-ui';
 
 import { appointments } from './appointments';
+
+import { getAllUserBookings } from '../functions/bookings';
 
 const LOCATIONS = ['Room 1', 'Room 2', 'Room 3'];
 const LOCATIONS_SHORT = [1, 2, 3];
@@ -265,6 +268,7 @@ const SchedulerContainer = ({
   currentDate, onCurrentDateChange,
   currentViewName, onCurrentViewNameChange,
 }) => (
+
   <Paper>
     <Scheduler
       data={data}
@@ -299,11 +303,12 @@ const SchedulerContainer = ({
       <ViewSwitcher />
     </Scheduler>
   </Paper>
+
 );
 
 const schedulerInitialState = {
   data: appointments,
-  currentDate: '2018-06-27',
+  currentDate: new Date(),
   currentViewName: 'Week',
   currentFilter: '',
   locations: LOCATIONS,
@@ -358,8 +363,40 @@ const store = createStore(
   // eslint-enable
 );
 
-export default () => (
-  <Provider store={store}>
-    <ReduxSchedulerContainer />
-  </Provider>
-);
+// eslint-disable-next-line import/no-anonymous-default-export
+
+const Schedule = () => {
+
+  const [allUserBookings, setAllUserBookings] = useState();
+
+  useEffect(() => {
+    getAllBook()
+  }, [])
+
+
+  const getAllBook = () => {
+    getAllUserBookings().then(userAllBokingsData => {
+      console.log("All USER  from front is ==>");
+      setAllUserBookings(userAllBokingsData);
+
+    });
+  };
+
+
+
+  return (
+    <>
+      <div>
+        <p>test ALL user bookings</p>
+        {JSON.stringify(allUserBookings)}
+      </div>
+
+      <Provider store={store}>
+        <ReduxSchedulerContainer />
+      </Provider>
+
+    </>
+  )
+};
+
+export default Schedule;
