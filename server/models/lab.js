@@ -10,15 +10,16 @@ const bookingSchema = new Schema({
   timeEnd: Number,
   duration: Number,
   recurring: [],
-  position: { 
+  position: {
     type: String
   },
   bookedBy: {
     type: String
   },
-  isCheckin: { 
-    type: String, 
-    default: 'Unconfirm' },
+  isCheckin: {
+    type: String,
+    default: 'Unconfirm'
+  },
   description: {
     type: String
   },
@@ -29,14 +30,15 @@ const bookingSchema = new Schema({
     type: Number
   },
   labId: {
-     type: Schema.ObjectId, 
-     ref: 'Lab' 
-    },
+    type: Schema.ObjectId,
+    ref: 'Lab'
+  },
   user: {
-     type: Schema.Types.Mixed,
-     ref: 'User' 
-    },
-})
+    type: Schema.Types.Mixed,
+    ref: 'User'
+  },
+  
+}, {timestamps: true})
 
 
 const labSchema = new mongoose.Schema(
@@ -58,7 +60,6 @@ const labSchema = new mongoose.Schema(
     building: {
       type: Number,
       required: true,
-      enum: ["1", "15"],
     },
     details: {
       type: String,
@@ -66,13 +67,12 @@ const labSchema = new mongoose.Schema(
     },
     floor: {
       type: Number,
-      enum: ["2", "3"]
     },
     type: {
       type: String,
       enum: ["Class", "Free Lab"]
     },
-    
+
     capacity: {
       type: Number,
     },
@@ -80,12 +80,12 @@ const labSchema = new mongoose.Schema(
       type: Array,
     },
     equipment: {
-       pc: { type: Boolean, default: true},
-       mac: { type: Boolean, default: false},
-       projector: { type: Boolean, default: true},
-       whiteBoard: { type: Boolean, default: true},
+      pc: { type: Boolean, default: true },
+      mac: { type: Boolean, default: false },
+      projector: { type: Boolean, default: true },
+      whiteBoard: { type: Boolean, default: true },
     },
-    bookings: [bookingSchema] 
+    bookings: [bookingSchema]
   },
 );
 

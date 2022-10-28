@@ -12,7 +12,7 @@ import { formatTime } from "../../helpers/timeSelections";
 import { makeBooking } from "../../functions/bookings";
 import { toast } from "react-toastify";
 
-import {  useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 
 const initialState = {
@@ -30,10 +30,10 @@ const initialState = {
 
 
 const SingleBookingCard = ({ lab }) => {
-   // router
-   // eslint-disable-next-line no-undef
-   const { slug } = useParams()
-  
+  // router
+  // eslint-disable-next-line no-undef
+  const { slug } = useParams()
+
   const navigate = useNavigate();
 
   const { images, labName, details, capacity, _id } = lab;
@@ -41,8 +41,13 @@ const SingleBookingCard = ({ lab }) => {
 
   const [values, setValues] = useState(initialState)
   const [loading, setLoading] = useState(false);
+  const [myBookings, setmyBookings] = useState([]);
 
   const { user } = useSelector((state) => ({ ...state }));
+
+  const data = {
+    email: user.email
+  }
 
 
   const handleSubmit = (e) => {
@@ -51,15 +56,19 @@ const SingleBookingCard = ({ lab }) => {
       .then((response) => {
         console.log(response);
         window.alert(`You already booked Lab ${response.data.labName} ! `);
+        // keep user bookings in state for send to another component
+        setmyBookings(response.data);
+       // navigate('/mybookings', );
+          navigate('/mybookings', {state:{ data}});
       })
       .catch((err) => {
         console.log(err);
         // if (err.response.status === 400) toast.error(err.response.data);
         toast.error(err.response.data.err);
       });
-    
 
-    navigate("/mybookings")
+
+    
   };
 
   const handleChange = (e) => {

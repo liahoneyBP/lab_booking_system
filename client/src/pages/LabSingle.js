@@ -16,19 +16,19 @@ const LabSingle = () => {
   }, [slug]);
 
   const loadSingleLab = () =>
-  getLab(slug).then((res) => setLabs(res.data));
+    getLab(slug).then((res) => setLabs(res.data));
 
   return <div className="container-fluid">
     <div className="row pt-4">
-        <SingleLabCard lab={lab} />
+      <SingleLabCard lab={lab} />
     </div>
 
     <div className="row">
-        <div>Room Something</div>
+      <div>Room Something</div>
     </div>
 
   </div>
-  ;
+    ;
 };
 
 export default LabSingle;

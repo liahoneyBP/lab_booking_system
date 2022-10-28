@@ -21,14 +21,13 @@ export const makeBooking = async (slug, lab, authtoken) =>
     })
 
 
-export const getUserBookings = async (slug, email, authtoken) =>
-  await axios.get(`${process.env.REACT_APP_API}/getUserBookings`, email
-    ,
+export const getUserBookings = async (userEmail, authtoken) =>
+  await axios.post(`${process.env.REACT_APP_API}/getUserBookings`,{currentUserEmail: userEmail}, 
     {
       headers: {
         authtoken,
       },
-
+      
     })
 
 

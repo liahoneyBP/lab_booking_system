@@ -12,6 +12,8 @@ const LabSingleBooking = () => {
   const [lab, setLabs] = useState({});
   const { slug } = useParams()
 
+  const { user } = useSelector((state) => ({ ...state }));
+
 
   //const { slug } = match.params;
 
@@ -29,6 +31,7 @@ const LabSingleBooking = () => {
     <div className="row pt-4">
         <SingleBookingCard 
         lab={lab} 
+        user={user}
         />
     </div>
   </div>

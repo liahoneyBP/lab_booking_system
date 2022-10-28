@@ -159,16 +159,20 @@ exports.searchFilters = async (req, res) => {
 
 
 // 
-exports.getUserBookings = async (req, res, email) => {
-  let getBookings = await Lab.find({
-    bookings: {
-      $all: [
-        { "$elemMatch": { email: "gustavo", } },
+exports.getUserBookings = async (req, res) => {
 
-      ]
+  let getBookings = await Lab.aggregate([
+    {
+      "$unwind": "$bookings"
+    },
+    {
+      "$match": {
+        "bookings.user.email": req.body.currentUserEmail
+      }
     }
-  })
+  ])
   res.json(getBookings);
+  console.log("User Email in Backend ===>", req.body.currentUserEmail);
   console.log("get user bookings MyBookings Page ==>", getBookings);
 }
 
@@ -179,11 +183,10 @@ exports.getAllUserBookings = async (req, res) => {
     bookings: {
       $all: [
         { "$elemMatch": { email: "@", } },
-
       ]
     }
   }).select('-bookings.pin')
-
+  
   res.json(getAllBookings);
   console.log("get All bookings krubbb ==>", getAllBookings);
 }

@@ -18,7 +18,7 @@ const AllLabs = () => {
 
   const loadAllLabs = () => {
     setLoading(true);
-    getLabsByCount(6)
+    getLabsByCount()
     .then((response) => {
       //  console.log("RES =>", response)
         setLabs(response.data);

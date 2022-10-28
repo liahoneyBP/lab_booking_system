@@ -52,7 +52,7 @@ router.delete("/remove-lab/:slug", authCheck, adminCheck, remove);
 
 
 
-router.get('/getUserBookings', getUserBookings);
+router.post('/getUserBookings', getUserBookings);
 
 router.get('/getAllUserBookings', getAllUserBookings);
 
@@ -82,6 +82,7 @@ router.put('/makebooking/lab/:slug', authCheck, async(req, res) => {
   try {
     if (req.body.labName) {
       req.body.slug = slugify(req.body.labName);
+      
     }
     const booked = await Lab.findOneAndUpdate(
       { slug: req.params.slug },
@@ -96,6 +97,7 @@ router.put('/makebooking/lab/:slug', authCheck, async(req, res) => {
         }
       }, { new: true ,runValidators: true, context: 'query' }
     ).exec();
+    console.log("req.user ==>", req.user);
     res.json(booked)
 
   } catch (err) {
