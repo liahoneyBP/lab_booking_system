@@ -1,14 +1,17 @@
 import React, { useEffect, useState } from "react";
-import { Space, Table, Tag } from 'antd';
+import { Space, Table } from 'antd';
 
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { getUserBookings } from "../functions/bookings";
 
-import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
+import {  DeleteOutlined } from '@ant-design/icons';
 
-import { useParams } from 'react-router-dom';
+import { toast } from "react-toastify";
 
-import { useLocation } from 'react-router-dom';
+import moment from "moment";
+
+
+
 
 const columns = [
     {
@@ -58,7 +61,7 @@ const columns = [
 
     },
     {
-        title: 'Secret Key',
+        title: 'PinCode',
         key: 'pin',
         dataIndex: 'pin',
 
@@ -88,17 +91,17 @@ const MyBookings = () => {
     let { user } = useSelector((state) => ({ ...state }));
 
 
-    const dataWithAge = userBookings.map((item) => ({
+    const data = userBookings.map((item) => ({
         ...item,
         age: Math.floor(Math.random() * 6) + 20,
-        
+
     }))
 
-    const modifiedData = dataWithAge.map(({ description, ...item }) => ({
+    const modifiedData = data.map(({ description, ...item }) => ({
         ...item,
         id: item.bookings._id,
         bookedBy: item.bookings.bookedBy,
-        dateStart: item.bookings.dateStart,
+        dateStart : moment(item.bookings.dateStart).format('LL'),
         timeStart: item.bookings.timeStart,
         timeEnd: item.bookings.timeEnd,
         _id: item.labName,
@@ -108,10 +111,14 @@ const MyBookings = () => {
         isCheckin: item.bookings.isCheckin,
         pin: item.bookings.pin,
         userEmail: item.bookings.user.email,
-        createdAt: item.bookings.createdAt,
+        createdAt: moment(item.bookings.createdAt).format('LLL'),
+    
     }))
 
+
     console.log("User Email in State  ===>", user.email);
+
+    
 
 
     useEffect(() => {
@@ -137,7 +144,7 @@ const MyBookings = () => {
 
                 </div>
 
-                <div className="col-md-8 m-3">
+                <div className="col-md-9 m-3">
                     <h2 className="m-5">My Bookings</h2>
                     <Table
                         columns={columns}

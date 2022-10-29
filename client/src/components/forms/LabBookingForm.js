@@ -8,12 +8,13 @@ import { Radio } from 'antd';
 
 import { Link } from 'react-router-dom';
 
-const LabBookingForm = ({ handleSubmit, handleChange, values, setValues, user, lab }) => {
+const LabBookingForm = ({ handleSubmit, handleChange, values, setValues, user, lab}) => {
 
   // 
   const {
     description,
-    bookedBy
+    bookedBy,
+    pin,
   } = values;
 
   return (
@@ -153,7 +154,6 @@ const LabBookingForm = ({ handleSubmit, handleChange, values, setValues, user, l
       </div>
 
 
-  
       <button className="btn btn-outline-info">BOOK</button>
 
       

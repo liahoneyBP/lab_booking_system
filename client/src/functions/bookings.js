@@ -11,8 +11,7 @@ import momentTimezone from "moment-timezone"
 
 
 export const makeBooking = async (slug, lab, authtoken) =>
-  await axios.put(`${process.env.REACT_APP_API}/makebooking/lab/${slug}`, lab
-    ,
+  await axios.put(`${process.env.REACT_APP_API}/makebooking/lab/${slug}`, lab,
     {
       headers: {
         authtoken,

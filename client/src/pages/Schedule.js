@@ -149,12 +149,12 @@ const StyledWeekViewTimeTableCell = styled(WeekView.TimeTableCell)(({
   theme: { palette },
 }) => ({
   [`&.${classes.weekendCell}`]: {
-    backgroundColor: alpha(palette.action.disabledBackground, 0.04),
+    backgroundColor: alpha(palette.action.disabledBackground, 0.01),
     '&:hover': {
-      backgroundColor: alpha(palette.action.disabledBackground, 0.04),
+      backgroundColor: alpha(palette.action.disabledBackground, 0.01),
     },
     '&:focus': {
-      backgroundColor: alpha(palette.action.disabledBackground, 0.04),
+      backgroundColor: alpha(palette.action.disabledBackground, 0.01),
     },
   },
 }));
@@ -376,8 +376,9 @@ const Schedule = () => {
 
   const getAllBook = () => {
     getAllUserBookings().then(userAllBokingsData => {
-      console.log("All USER  from front is ==>");
+      
       setAllUserBookings(userAllBokingsData);
+      console.log("All Bookings ===>", allUserBookings);
 
     });
   };
