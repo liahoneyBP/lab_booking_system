@@ -27,7 +27,7 @@ var initialState = {
   purpose: "",
   dateStart: "",
   dateEnd: "",
-  pin:`${cryptoRandomString({length: 10, type: 'numeric'})}` ,
+  pin: `${cryptoRandomString({ length: 6, type: 'numeric' })}`,
 
 };
 
@@ -42,7 +42,7 @@ const SingleBookingCard = ({ lab }) => {
 
   const navigate = useNavigate();
 
-  const { images, labName, details, capacity, _id} = lab;
+  const { images, labName, details, capacity, _id } = lab;
 
 
   const [values, setValues] = useState(initialState)
@@ -53,30 +53,31 @@ const SingleBookingCard = ({ lab }) => {
 
   useEffect(() => {
     return () => {
-      setValues();  
+      setValues();
     }
-    
-}, [])
+
+  }, [])
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    
+
     makeBooking(slug, values, user.token)
       .then((response) => {
         console.log(response);
-        window.alert(`You already booked Lab ${response.data.labName} ! `);
+        setmyBookings(response.data);
+        navigate(0);
         // keep user bookings in state for send to another component
-        setmyBookings(response.data); 
-       // navigate('/mybookings', );
-       navigate('/mybookings');
+
+
       })
       .catch((err) => {
         console.log(err);
         // if (err.response.status === 400) toast.error(err.response.data);
         toast.error(err.response.data.err);
       });
-      window.location.reload(); 
-      toast.success(`Booked Success`);
+    navigate('/mybookings');
+    toast.success(`Booked Success`);
+
 
   };
 
@@ -115,6 +116,6 @@ const SingleBookingCard = ({ lab }) => {
     </>
   );
 }
-;
+  ;
 
 export default SingleBookingCard;

@@ -111,7 +111,7 @@ const MyBookings = () => {
         isCheckin: item.bookings.isCheckin,
         pin: item.bookings.pin,
         userEmail: item.bookings.user.email,
-        createdAt: moment(item.bookings.createdAt).format('LLL'),
+        createdAt: moment(item.bookings.createdAt).fromNow(),
     
     }))
 

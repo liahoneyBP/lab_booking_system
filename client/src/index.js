@@ -10,17 +10,49 @@ import { createStore } from "redux";
 import { Provider } from "react-redux";
 import { composeWithDevTools } from "redux-devtools-extension";
 import rootReducer from "./reducers";
+import { PersistGate } from 'redux-persist/integration/react'
+
+// import the two exports from the last code snippet.
+import { persistor } from './reducers/configureStore';
+
+
+const loadState = () => {
+    try {
+      const serializedState = localStorage.getItem('state');
+      if(serializedState === null) {
+        return undefined;
+      }
+      return JSON.parse(serializedState);
+    } catch (e) {
+      return undefined;
+    }
+  };
+  
+  const saveState = (state) => {
+    try {
+      const serializedState = JSON.stringify(state);
+      localStorage.setItem('state', serializedState);
+    } catch (e) {
+      // Ignore write errors;
+    }
+  };
+  
+  const peristedState = loadState();
 
 // store
-const store = createStore(rootReducer, composeWithDevTools());
+const store = createStore(rootReducer, peristedState, composeWithDevTools());
+
+store.subscribe(() => {
+    saveState(store.getState());
+  });
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
 // <React.StrictMode>
  <Provider store={store}>
- 
+
   <App />
- 
+
  </Provider>,
     
 // </React.StrictMode>
