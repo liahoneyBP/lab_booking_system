@@ -1,10 +1,11 @@
+
 export const appointments = [
   {
     title: "SC214 สถิติธุรกิจ",
-    startDate: new Date(2022, 10-1, 24, 9, 20),
-    endDate: new Date(2022, 10-1, 24, 10, 10),
-    id: 0,
-    location: "Room 1"
+    startDate: new Date(2022, 10-1, 31, 9, 20),
+    endDate: new Date(2022, 10-1, 31, 10, 10),
+    
+    location: "1205A"
   },
   {
     title: "Book Flights to San Fran for Sales Trip",

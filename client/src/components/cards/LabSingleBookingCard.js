@@ -76,6 +76,7 @@ const SingleBookingCard = ({ lab }) => {
         toast.error(err.response.data.err);
       });
     navigate('/mybookings');
+    window.location.reload();
     toast.success(`Booked Success`);
 
 

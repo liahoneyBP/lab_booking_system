@@ -9,17 +9,17 @@ const { authCheck, adminCheck } = require("../middlewares/auth");
 
 // controller
 const {
-    create,
-    listAll,
-    read,
-    readSlug,
-    remove,
-    update,
-    image,
-    searchFilters,
-    getUserBookings,
-    getAllUserBookings,
-  } = require("../controllers/lab");
+  create,
+  listAll,
+  read,
+  readSlug,
+  remove,
+  update,
+  image,
+  searchFilters,
+  getUserBookings,
+  getAllUserBookings,
+} = require("../controllers/lab");
 const { default: slugify } = require("slugify");
 
 // routes
@@ -78,27 +78,33 @@ router.get('/getAllUserBookings', getAllUserBookings);
 
 
 // Make a booking
-router.put('/makebooking/lab/:slug', authCheck, async(req, res) => {
+router.put('/makebooking/lab/:slug', authCheck, async (req, res) => {
   try {
     if (req.body.labName) {
       req.body.slug = slugify(req.body.labName);
-      
+
     }
-    const booked = await Lab.findOneAndUpdate(
-      { slug: req.params.slug },
-      {
-        $addToSet: {
-          bookings: {
-            user: req.user,
-            labId: req.lab,
-            //timeStart: dateAEST(req.body.timeStart).format('H.mm'),
-           ...req.body
+    if (req.body) {
+      console.log("Body data ===>", req.body);
+      const booked = await Lab.findOneAndUpdate(
+        { slug: req.params.slug },
+        {
+          $addToSet: {
+            bookings: {
+              user: req.user,
+              labId: req.lab,
+              //timeStart: dateAEST(req.body.timeStart).format('H.mm'),
+              ...req.body
+            }
           }
-        }
-      }, { new: true ,runValidators: true, context: 'query' }
-    ).exec();
-    console.log("req.user ==>", req.user);
-    res.json(booked)
+        }, { new: true, runValidators: true, context: 'query' }
+      ).exec();
+      console.log("req.user ==>", req.user);
+      res.json(booked)
+
+    }
+
+
 
   } catch (err) {
     console.log('LAB BOOKED ERROR ---->', err)
