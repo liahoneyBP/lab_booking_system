@@ -7,8 +7,6 @@ import { Carousel } from 'react-responsive-carousel';
 import { useNavigate } from "react-router-dom";
 import LabImgDefault from "../../images/LabUtcc_Default.jpg"
 import LabBookingForm from "../forms/LabBookingForm";
-import { formatTime } from "../../helpers/timeSelections";
-
 import { makeBooking } from "../../functions/bookings";
 import { toast } from "react-toastify";
 
@@ -60,15 +58,12 @@ const SingleBookingCard = ({ lab }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
     makeBooking(slug, values, user.token)
       .then((response) => {
         console.log(response);
         setmyBookings(response.data);
         navigate(0);
         // keep user bookings in state for send to another component
-
-
       })
       .catch((err) => {
         console.log(err);
