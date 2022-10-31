@@ -20,24 +20,20 @@ import {
   ViewSwitcher,
   Resources,
 } from '@devexpress/dx-react-scheduler-material-ui';
-import moment from 'moment';
 
-import { appointments } from './appointments';
+import moment from 'moment';
 
 import { getAllUserBookings } from '../functions/bookings';
 
 
-
-
 const Schedule = () => {
-
-  //
 
   const LOCATIONS = ['15201A', '15201B', '1305A', '1305B', '1205A', '1205B'];
   const LOCATIONS_SHORT = [1, 2, 3, 4, 5, 6];
   const resources = [{
     fieldName: 'location',
     title: 'Location',
+  
     instances: [
       { id: LOCATIONS[0], text: LOCATIONS[0], color: teal },
       { id: LOCATIONS[1], text: LOCATIONS[1], color: orange },
@@ -59,6 +55,7 @@ const Schedule = () => {
     longButtonText: `${PREFIX}-longButtonText`,
     shortButtonText: `${PREFIX}-shortButtonText`,
     title: `${PREFIX}-title`,
+    bookedBy: `${PREFIX}-bookedBy`,
     textContainer: `${PREFIX}-textContainer`,
     time: `${PREFIX}-time`,
     text: `${PREFIX}-text`,
@@ -69,6 +66,12 @@ const Schedule = () => {
   // #FOLD_BLOCK
   const StyledAppointmentsAppointmentContent = styled(Appointments.AppointmentContent)(() => ({
     [`& .${classes.title}`]: {
+      fontWeight: 'bold',
+      overflow: 'hidden',
+      textOverflow: 'ellipsis',
+      whiteSpace: 'nowrap',
+    },
+    [`& .${classes.bookedBy}`]: {
       fontWeight: 'bold',
       overflow: 'hidden',
       textOverflow: 'ellipsis',
@@ -186,6 +189,9 @@ const Schedule = () => {
         <div className={classes.title}>
           {data.title}
         </div>
+        <div className={classes.bookedBy}>
+          {data.bookedBy}
+        </div>
         <div className={classes.text}>
           {data.location}
         </div>
@@ -283,7 +289,7 @@ const Schedule = () => {
     <Paper>
       <Scheduler
         data={data}
-        height={660}
+        height={700}
       >
         <ViewState
           currentDate={currentDate}
@@ -293,11 +299,11 @@ const Schedule = () => {
         />
         <DayView
           startDayHour={8}
-          endDayHour={19}
+          endDayHour={20}
         />
         <WeekView
           startDayHour={8}
-          endDayHour={19}
+          endDayHour={20}
           timeTableCellComponent={TimeTableCell}
           dayScaleCellComponent={DayScaleCell}
         />
@@ -330,24 +336,35 @@ const Schedule = () => {
   const data = allUserBookings.map((item) => ({
     ...item,
     age: Math.floor(Math.random() * 6) + 20,
-    
 
   }))
+
+  // format time to use in Scheduler UI
+  // way 1 ==> new Date(2018, 5, 25, 9, 35)
+  // format for date console.log("data.map dateStart ===>", moment(item.bookings.dateStart).format(`YYYY,MM,DD,`)
+  // format for time console.log( " get all elements, except last 2 elements ====>", item.bookings.timeStart.toString().slice(0,-2),
+  // "get last 2 elements  ===>", item.bookings.timeStart.toString().slice(-2), )
+  
+  // way 2 ==> 22-10-31T08:45
+  // arr.slice(Math.max(arr.length - 2, 0)) for last 2 elements
+  // `${moment(item.bookings.dateStart).format('YYYY-MM-DD')}` for 2022-10-31T00:00:00.000+00:00 to 2022-10-31
+  // `${item.bookings[0].timeStart.toString().split('',[2]).toString().replace(',','')}` for timeStart in database 830 use .toString().split() to ['10','20'] 11 50 
+  //  and convert back to sting (08,30) and replace , by '' ===> 8 30 and then can user in my scheduler UI library
 
   const allBookingsDataMap = data.map(({ description, ...item }) => ({
     ...item,
     title: `${item.bookings[0].description}`,
-    startDate: `${moment(item.bookings[0].dateStart).format('YYYY-MM-DD')}T08:45`,
-    endDate: `${moment(item.bookings[0].dateEnd).format('YYYY-MM-DD')}T11:45`,
+    bookedBy: `${item.bookings[0].bookedBy}`,
+    startDate: new Date(moment(item.bookings[0].dateStart).format('YYYY'), moment(item.bookings[0].dateStart).month(), moment(item.bookings[0].dateStart).format('DD'), item.bookings[0].timeStart.toString().slice(0,-2), item.bookings[0].timeStart.toString().slice(-2)),
+    endDate: new Date(moment(item.bookings[0].dateStart).format('YYYY'), moment(item.bookings[0].dateStart).month() , moment(item.bookings[0].dateStart).format('DD'), item.bookings[0].timeEnd.toString().slice(0,-2), item.bookings[0].timeEnd.toString().slice(-2)),
     location: `${item.labName}`,
 
-  }))
+  }
+  ))
 
   useEffect(() => {
     getAllBook()
   }, [])
-
-
 
 
 
@@ -409,10 +426,6 @@ const Schedule = () => {
   );
 
 
-
-  
-
-
   const getAllBook = () => {
     getAllUserBookings().then(userAllBokingsData => {
       // get Api All bookings in database and store in state
@@ -423,17 +436,30 @@ const Schedule = () => {
   };
 
 
-
   return (
     <>
-      <div>
+      <div className="container-fluid">
+        <div className="row">
+          <div className="col-md-1">
+
+          </div>
+
+          <div className="col-md-10 m-3">
+            <Provider store={store}>
+              <ReduxSchedulerContainer />
+            </Provider>
+
+          </div>
+          {/* <div>
         <p>test ALL user bookings</p>
         {JSON.stringify(allUserBookings)}
+      </div> */}
+
+        </div>
+
+
       </div>
 
-      <Provider store={store}>
-        <ReduxSchedulerContainer />
-      </Provider>
 
     </>
   )

@@ -4,15 +4,11 @@ import { Space, Table } from 'antd';
 import { useSelector } from "react-redux";
 import { getUserBookings } from "../functions/bookings";
 
-import {  DeleteOutlined } from '@ant-design/icons';
+import { DeleteOutlined } from '@ant-design/icons';
 
 import { toast } from "react-toastify";
 
 import moment from "moment";
-
-import momentTimezone from 'moment-timezone'
-
-
 
 
 const columns = [
@@ -103,7 +99,7 @@ const MyBookings = () => {
         ...item,
         id: item.bookings._id,
         bookedBy: item.bookings.bookedBy,
-        dateStart : moment(item.bookings.dateStart).format('LL'),
+        dateStart: moment(item.bookings.dateStart).format('LL'),
         timeStart: item.bookings.timeStart,
         timeEnd: item.bookings.timeEnd,
         _id: item.labName,
@@ -114,25 +110,30 @@ const MyBookings = () => {
         pin: item.bookings.pin,
         userEmail: item.bookings.user.email,
         createdAt: moment(item.bookings.createdAt).fromNow(),
-    
-    }))
 
+    }
+    ))
 
+    // format for date console.log("data.map dateStart ===>", moment(item.bookings.dateStart).format(`YYYY,MM,DD,`)
+    // console.log("data.map dateStart ===>", moment(item.bookings.dateStart).month())
     console.log("User Email in State  ===>", user.email);
 
-    
+    let name = 'Tapas Adhikary';
+    let [firstName, lastName] = name.split(' ');
+    console.log(firstName, lastName);
+
 
 
     useEffect(() => {
         getUserBook()
-        
+
     }, [])
 
 
     const getUserBook = () => {
         getUserBookings(user.email).then(userBokingsData => {
             console.log("USER Email from front is ==>", user.email);
-            console.log("User Bookings data.bookings",userBokingsData.data);
+            console.log("User Bookings data.bookings", userBokingsData.data.bookings);
             setUserBookings(userBokingsData.data);
         });
     };
