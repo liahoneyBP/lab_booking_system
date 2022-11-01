@@ -179,14 +179,11 @@ exports.getUserBookings = async (req, res) => {
 
 // 
 exports.getAllUserBookings = async (req, res) => {
-  let getAllBookings = await Lab.find({
-    bookings: {
-      $all: [
-        { "$elemMatch": { email: "@", } },
-      ]
+  let getAllBookings = await Lab.aggregate([
+    {
+      "$unwind": "$bookings"
     }
-  }).select('-bookings.pin')
-  
+  ])
   res.json(getAllBookings);
   console.log("get All bookings krubbb ==>", getAllBookings);
 }
