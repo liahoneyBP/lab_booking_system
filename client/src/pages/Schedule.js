@@ -358,7 +358,6 @@ const Schedule = () => {
     startDate: new Date(moment(item.bookings.dateStart).format('YYYY'), moment(item.bookings.dateStart).month(), moment(item.bookings.dateStart).format('DD'), item.bookings.timeStart.toString().slice(0,-2), item.bookings.timeStart.toString().slice(-2)),
     endDate: new Date(moment(item.bookings.dateStart).format('YYYY'), moment(item.bookings.dateStart).month() , moment(item.bookings.dateStart).format('DD'), item.bookings.timeEnd.toString().slice(0,-2), item.bookings.timeEnd.toString().slice(-2)),
     location: `${item.labName}`,
-
   }
   ))
 
