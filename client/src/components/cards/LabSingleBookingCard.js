@@ -99,8 +99,8 @@ const SingleBookingCard = ({ lab }) => {
 
             let existingDateStart = moment(booking.dateStart).format('YYYY-MM-DD');
 
-            console.log("Existing timeStart ===>", existingBookingStart)
-            console.log("Existing timeEnd ===>", existingBookingEnd)
+            console.log("Existing timeStart - timeEnd ===>", existingBookingStart, " - " , existingBookingEnd)
+           
             console.log("Existing dateStart ===>", existingDateStart);
 
             // Check whether there is a clash between the new booking and the existing booking
@@ -211,8 +211,8 @@ const SingleBookingCard = ({ lab }) => {
     }
 
 
-    // navigate('/mybookings');
-    //  window.location.reload();
+     navigate('/mybookings');
+    window.location.reload();
     // toast.success(`Booked Success`);
   };
 
