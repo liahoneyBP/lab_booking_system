@@ -6,6 +6,8 @@ import { DatePicker, Space } from 'antd';
 import { Input } from 'antd';
 import { Radio } from 'antd';
 
+import moment from 'moment';
+
 import { Link } from 'react-router-dom';
 
 const LabBookingForm = ({ handleSubmit, handleChange, values, setValues, user, lab}) => {
@@ -16,6 +18,8 @@ const LabBookingForm = ({ handleSubmit, handleChange, values, setValues, user, l
     bookedBy,
     pin,
   } = values;
+
+  const dateFormat = 'YYYY/MM/DD';
 
   return (
     <form onSubmit={handleSubmit}>
@@ -28,8 +32,8 @@ const LabBookingForm = ({ handleSubmit, handleChange, values, setValues, user, l
           onChange={handleChange}
         >
           <option>Please select</option>
-          <option value="0830">8:30am</option>,
-          <option value="0920">9:20am</option>,
+          <option value="830">8:30am</option>,
+          <option value="920">9:20am</option>,
           <option value="1010">10:10am</option>,
           <option value="1100">11:00am</option>,
           <option value="1130">11:30am</option>,
@@ -53,7 +57,7 @@ const LabBookingForm = ({ handleSubmit, handleChange, values, setValues, user, l
           onChange={handleChange}
         >
           <option>Please select</option>
-          <option value="0920">9:20am</option>,
+          <option value="920">9:20am</option>,
           <option value="1010">10:10am</option>,
           <option value="1100">11:00am</option>,
           <option value="1130">11:30am</option>,
@@ -69,8 +73,6 @@ const LabBookingForm = ({ handleSubmit, handleChange, values, setValues, user, l
           <option value="1910">7:10pm</option>,
         </select>
       </div>
-
-
 
       <div className="form-group">
         <label>From Date</label> <br />

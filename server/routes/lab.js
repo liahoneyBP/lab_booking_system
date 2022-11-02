@@ -19,6 +19,7 @@ const {
   searchFilters,
   getUserBookings,
   getAllUserBookings,
+  getLabBookings,
 } = require("../controllers/lab");
 const { default: slugify } = require("slugify");
 
@@ -55,6 +56,10 @@ router.delete("/remove-lab/:slug", authCheck, adminCheck, remove);
 router.post('/getUserBookings', getUserBookings);
 
 router.get('/getAllUserBookings', getAllUserBookings);
+
+router.post('/getLabBookings', getLabBookings);
+
+
 
 
 

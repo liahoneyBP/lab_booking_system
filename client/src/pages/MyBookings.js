@@ -118,11 +118,6 @@ const MyBookings = () => {
     // console.log("data.map dateStart ===>", moment(item.bookings.dateStart).month())
     console.log("User Email in State  ===>", user.email);
 
-    let name = 'Tapas Adhikary';
-    let [firstName, lastName] = name.split(' ');
-    console.log(firstName, lastName);
-
-
 
     useEffect(() => {
         getUserBook()

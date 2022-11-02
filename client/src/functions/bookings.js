@@ -10,7 +10,7 @@ import momentTimezone from "moment-timezone"
 }*/
 
 
-export const makeBooking = async (slug, lab, authtoken) => {
+export const makeBooking = async (slug, lab, authtoken) =>
   await axios.put(`${process.env.REACT_APP_API}/makebooking/lab/${slug}`, lab,
     {
       headers: {
@@ -19,28 +19,42 @@ export const makeBooking = async (slug, lab, authtoken) => {
 
     })
 
-  }
+
 
 
 export const getUserBookings = async (userEmail, authtoken) =>
-  await axios.post(`${process.env.REACT_APP_API}/getUserBookings`,{currentUserEmail: userEmail}, 
-    {
-      headers: {
-        authtoken,
-      },
-      
-    })
-
-
-
-export const getAllUserBookings = async ( authtoken) =>
-  await axios.get(`${process.env.REACT_APP_API}/getAllUserBookings`, 
+  await axios.post(`${process.env.REACT_APP_API}/getUserBookings`, { currentUserEmail: userEmail },
     {
       headers: {
         authtoken,
       },
 
     })
+
+
+
+export const getAllUserBookings = async (authtoken) =>
+  await axios.get(`${process.env.REACT_APP_API}/getAllUserBookings`,
+    {
+      headers: {
+        authtoken,
+      },
+
+    })
+
+
+
+export const getLabBookings = async (labId, authtoken) =>
+  await axios.post(`${process.env.REACT_APP_API}/getLabBookings`, { currentlabId: labId },
+    {
+      headers: {
+        authtoken,
+      },
+
+    })
+
+
+
 
 
 

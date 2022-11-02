@@ -189,6 +189,18 @@ exports.getAllUserBookings = async (req, res) => {
 }
 
 
+// get Bookings of current Lab when user submit form for check time exists...
+exports.getLabBookings = async (req, res) => {
+
+  let getLabBookings = await Lab.findById(
+    { _id: req.body.currentlabId}
+    )
+  res.json(getLabBookings.bookings);
+  console.log("LAB ID in Backend is ===>", req.body.currentlabId);
+  console.log("get lab bookings when user submit in BACKEND ==>", getLabBookings.bookings);
+}
+
+
 
 
 
