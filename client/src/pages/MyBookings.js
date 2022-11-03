@@ -168,7 +168,7 @@ const MyBookings = () => {
             render: (_, record) => 
             modifiedData.length >= 1 ? (
                 <Popconfirm
-                 title="Are you sure want to delete ?"
+                 title="Are you sure want to Cancel this booking ?"
                  onConfirm={() => handleDelete(record)}
                  >
                     <Button danger type="primary">Delete</Button>
