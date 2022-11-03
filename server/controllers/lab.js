@@ -2,6 +2,7 @@ const Lab = require("../models/lab");
 const fs = require("fs");
 const slugify = require("slugify");
 
+
 exports.create = async (req, res) => {
 
   try {
@@ -193,8 +194,8 @@ exports.getAllUserBookings = async (req, res) => {
 exports.getLabBookings = async (req, res) => {
 
   let getLabBookings = await Lab.findById(
-    { _id: req.body.currentlabId}
-    )
+    { _id: req.body.currentlabId }
+  )
   res.json(getLabBookings.bookings);
   console.log("LAB ID in Backend is ===>", req.body.currentlabId);
   console.log("get lab bookings when user submit in BACKEND ==>", getLabBookings.bookings);
@@ -204,12 +205,37 @@ exports.getLabBookings = async (req, res) => {
 exports.getLabBookingsBySlug = async (req, res) => {
   const labBooks = await Lab.findOne(
     { slug: req.params.slug }
-    )
+  )
     .exec();
   res.json(labBooks.bookings);
   console.log("getLabBookings by slug in Backend ===>", labBooks.bookings);
 }
 
+
+
+exports.removeBooking = async (req, res) => {
+
+  console.log("BOOKING ID in Backend is ===>", req.body.bodyBookingId);
+  console.log("LAB ID in Backend is ===>", req.body.bodyLabId);
+
+  const bookingId = req.body.bodyBookingId;
+  const labId = req.body.bodyLabId;
+  
+
+  let deleted = await Lab.findOneAndUpdate({ _id : labId},
+    {
+        $pull : {
+            bookings : {
+                    _id : bookingId
+            }
+        }
+    },
+    { safe: true, new: true },
+  )
+  res.json(deleted)
+ // console.log("LAB ID in Backend is ===>", req.body.bodyLabId);
+  console.log("After Backend response ===>", deleted);
+}
 
 
 

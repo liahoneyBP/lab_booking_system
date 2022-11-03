@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { Space, Table } from 'antd';
+import { Space, Table, Popconfirm, Button } from 'antd';
 
 import { useSelector } from "react-redux";
 import { getUserBookings } from "../functions/bookings";
+
+import { isEmpty } from "lodash";
 
 import { DeleteOutlined } from '@ant-design/icons';
 
@@ -10,83 +12,36 @@ import { toast } from "react-toastify";
 
 import moment from "moment";
 
+import { removeBooking } from "../functions/bookings";
 
-const columns = [
-    {
-        title: 'Bookings ID',
-        dataIndex: 'id',
-    },
-    {
-        title: 'User Booked By',
-        dataIndex: 'bookedBy',
-    },
-    {
-        title: 'User Email',
-        dataIndex: 'userEmail',
-    },
-    {
-        title: 'Date',
-        dataIndex: 'dateStart',
-    },
-    {
-        title: 'Time Start',
-        dataIndex: 'timeStart',
-    },
-    {
-        title: 'Time End',
-        dataIndex: 'timeEnd',
-    },
-    {
-        title: 'Lab',
-        dataIndex: '_id',
-    },
-    {
-        title: 'Position',
-        dataIndex: 'position',
-    },
-    {
-        title: 'Description',
-        dataIndex: 'description',
-    },
-    {
-        title: 'Purpose',
-        dataIndex: 'purpose',
-    },
-    {
-        title: 'Check In',
-        key: 'isCheckin',
-        dataIndex: 'isCheckin',
-
-    },
-    {
-        title: 'PinCode',
-        key: 'pin',
-        dataIndex: 'pin',
-
-    },
-    {
-        title: 'Booked At',
-        dataIndex: 'createdAt',
-
-    },
-    {
-        title: 'Cancel',
-        key: 'action',
-        render: (_, record) => (
-            <Space size="middle">
-                <DeleteOutlined className='text-danger m-3' />
-            </Space>
-        ),
-    },
+import { useNavigate } from "react-router-dom";
 
 
-];
+
+
 
 
 const MyBookings = () => {
 
+    const navigate = useNavigate();
+
     const [userBookings, setUserBookings] = useState([]);
     let { user } = useSelector((state) => ({ ...state }));
+
+    
+    useEffect(() => {
+        getUserBook()
+
+    }, [])
+
+
+    const getUserBook = () => {
+        getUserBookings(user.email).then(userBokingsData => {
+            console.log("USER Email from front is ==>", user.email);
+            console.log("User Bookings data from API", userBokingsData.data);
+            setUserBookings(userBokingsData.data);
+        });
+    };
 
 
     const data = userBookings.map((item) => ({
@@ -95,8 +50,9 @@ const MyBookings = () => {
 
     }))
 
-    const modifiedData = data.map(({ description, ...item }) => ({
+    const modifiedData = data.map(({ body, ...item }) => ({
         ...item,
+        labId: item._id,
         id: item.bookings._id,
         bookedBy: item.bookings.bookedBy,
         dateStart: moment(item.bookings.dateStart).format('LL'),
@@ -110,28 +66,123 @@ const MyBookings = () => {
         pin: item.bookings.pin,
         userEmail: item.bookings.user.email,
         createdAt: moment(item.bookings.createdAt).fromNow(),
+        
+        
+
 
     }
     ))
 
+    
     // format for date console.log("data.map dateStart ===>", moment(item.bookings.dateStart).format(`YYYY,MM,DD,`)
     // console.log("data.map dateStart ===>", moment(item.bookings.dateStart).month())
     console.log("User Email in State  ===>", user.email);
 
 
-    useEffect(() => {
-        getUserBook()
+    const handleDelete = ( value ) => {
+        const dataSource = [...modifiedData];
+        const filteredData = dataSource.filter((item) => item.id !== value.id);
 
-    }, [])
+        console.log("value.id in front is ===>", value.id);
+        console.log("value.labId in front is ===>", value.labId );
 
+        removeBooking(value.id, value.labId, user.token).then(dataRemove => {
+            console.log("Booking Id from front is ==>", value.id);
+            console.log("After hit API Remove Booking", dataRemove.data);
 
-    const getUserBook = () => {
-        getUserBookings(user.email).then(userBokingsData => {
-            console.log("USER Email from front is ==>", user.email);
-            console.log("User Bookings data.bookings", userBokingsData.data.bookings);
-            setUserBookings(userBokingsData.data);
+            window.alert(`Calcel Booking => ${value.description}, By ${value.bookedBy} Success`)
+
+           
         });
-    };
+
+        navigate(0);
+
+
+      //  setUserBookings(filteredData);
+    }
+    
+
+
+
+    const columns = [
+        {
+            title: 'Bookings ID',
+            dataIndex: 'id',
+        },
+        {
+            title: 'User Booked By',
+            dataIndex: 'bookedBy',
+        },
+        {
+            title: 'User Email',
+            dataIndex: 'userEmail',
+        },
+        {
+            title: 'Date',
+            dataIndex: 'dateStart',
+        },
+        {
+            title: 'Time Start',
+            dataIndex: 'timeStart',
+        },
+        {
+            title: 'Time End',
+            dataIndex: 'timeEnd',
+        },
+        {
+            title: 'Lab',
+            dataIndex: '_id',
+        },
+        {
+            title: 'Position',
+            dataIndex: 'position',
+        },
+        {
+            title: 'Description',
+            dataIndex: 'description',
+        },
+        {
+            title: 'Purpose',
+            dataIndex: 'purpose',
+        },
+        {
+            title: 'Check In',
+            key: 'isCheckin',
+            dataIndex: 'isCheckin',
+    
+        },
+        {
+            title: 'PinCode',
+            key: 'pin',
+            dataIndex: 'pin',
+    
+        },
+        {
+            title: 'Booked At',
+            dataIndex: 'createdAt',
+    
+        },
+        {
+            title: 'Cancel',
+            key: 'action',
+            render: (_, record) => 
+            modifiedData.length >= 1 ? (
+                <Popconfirm
+                 title="Are you sure want to delete ?"
+                 onConfirm={() => handleDelete(record)}
+                 >
+                    <Button danger type="primary">Delete</Button>
+                    
+                </Popconfirm>
+            ): null,
+        },
+    
+    
+    ];
+
+
+
+    
 
 
     return (

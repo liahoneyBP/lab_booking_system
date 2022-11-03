@@ -55,13 +55,23 @@ export const getLabBookings = async (labId, authtoken) =>
 
 
 export const getLabBookingsBySlug = async (slug, authtoken) =>
-  await axios.get(`${process.env.REACT_APP_API}/getLabBookingsBySlug/${slug}`, 
+  await axios.get(`${process.env.REACT_APP_API}/getLabBookingsBySlug/${slug}`,
     {
       headers: {
         authtoken,
       },
 
     })
+
+
+
+export const removeBooking = async ( bookingId, labId, authtoken) =>
+  await axios.put(`${process.env.REACT_APP_API}/removeBooking`, { bodyBookingId: bookingId, bodyLabId: labId}, {
+    headers: {
+      authtoken,
+    }
+  });
+
 
 
 

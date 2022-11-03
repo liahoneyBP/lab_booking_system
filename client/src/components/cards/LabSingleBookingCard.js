@@ -158,7 +158,7 @@ const SingleBookingCard = ({ lab }) => {
                     position: toast.POSITION.TOP_CENTER
                   });
 
-                   //  navigate(0);
+                     navigate(0);
 
                 })
                 .catch((err) => {
@@ -178,12 +178,12 @@ const SingleBookingCard = ({ lab }) => {
               makeBooking(slug, values, user.token)
                 .then((response) => {
                   console.log("Data After submit form ===>", response.data);
-                  //   navigate(0)
+                 
                   toast.success(`Booked Success`, {
                     position: toast.POSITION.TOP_CENTER
                   });
 
-                  //    navigate(0);
+                    navigate(0);
 
                 })
                 .catch((err) => {
