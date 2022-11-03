@@ -54,6 +54,16 @@ export const getLabBookings = async (labId, authtoken) =>
     })
 
 
+export const getLabBookingsBySlug = async (slug, authtoken) =>
+  await axios.get(`${process.env.REACT_APP_API}/getLabBookingsBySlug/${slug}`, 
+    {
+      headers: {
+        authtoken,
+      },
+
+    })
+
+
 
 
 

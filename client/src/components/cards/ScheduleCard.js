@@ -1,10 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { getLab } from "../functions/lab";
-import SingleBookingCard from "../components/cards/LabSingleBookingCard";
-import { useParams } from 'react-router-dom';
-import { useSelector } from "react-redux";
-
-
+import * as React from 'react';
+import { useEffect, useState } from "react";
 import { createStore } from 'redux';
 import { connect, Provider } from 'react-redux';
 import Paper from '@mui/material/Paper';
@@ -12,7 +7,7 @@ import TextField from '@mui/material/TextField';
 import ButtonGroup from '@mui/material/ButtonGroup';
 import Button from '@mui/material/Button';
 import { styled, alpha } from '@mui/material/styles';
-import { teal, orange, red, pink, blue, brown, black } from '@mui/material/colors';
+import { teal, orange, red, pink, blue, brown } from '@mui/material/colors';
 import classNames from 'clsx';
 import { ViewState } from '@devexpress/dx-react-scheduler';
 import {
@@ -28,59 +23,26 @@ import {
 
 import moment from 'moment';
 
-
-import { getLabBookingsBySlug } from "../functions/bookings";
-
-
-const LabSingleBooking = () => {
-  const [lab, setLabs] = useState({});
-  const [getLabBook, setgetLabBook] = useState([]);
-  const { slug } = useParams()
-
-  const { user } = useSelector((state) => ({ ...state }));
-
-  //const { slug } = match.params;
-
-  useEffect(() => {
-    loadSingleLab();
-    console.log("slug ==>", slug)
-    loadLabBookings();
-    console.log("Load Lab Bookings From API ===>", getLabBook);
-  }, [slug]);
+import { getAllUserBookings } from '../functions/bookings';
 
 
-  const loadSingleLab = () =>
-    getLab(slug).then((res) => setLabs(res.data));
+const Schedule = () => {
 
-  const loadLabBookings = () => {
-    getLabBookingsBySlug(slug, user.token).then(labBookingsDataFromApi => {
-      setgetLabBook(labBookingsDataFromApi.data)
-
-      const getlabName = labBookingsDataFromApi.data.labName ;
-      console.log("GET LAB BOOKINGS DATA FROM API ===>", labBookingsDataFromApi.data);
-
-    });
-  }
-
-
-  const LOCATIONS =  [`${slug.toUpperCase()}`];
-  const LOCATIONS_SHORT = [1];
+  const LOCATIONS = ['15201A', '15201B', '1305A', '1305B', '1205A', '1205B'];
+  const LOCATIONS_SHORT = [1, 2, 3, 4, 5, 6];
   const resources = [{
     fieldName: 'location',
     title: 'Location',
   
     instances: [
-      { id: LOCATIONS[0], text: LOCATIONS[0], color: pink },
+      { id: LOCATIONS[0], text: LOCATIONS[0], color: teal },
       { id: LOCATIONS[1], text: LOCATIONS[1], color: orange },
       { id: LOCATIONS[2], text: LOCATIONS[2], color: red },
       { id: LOCATIONS[3], text: LOCATIONS[3], color: brown },
-      { id: LOCATIONS[4], text: LOCATIONS[4], color: teal },
+      { id: LOCATIONS[4], text: LOCATIONS[4], color: pink },
       { id: LOCATIONS[5], text: LOCATIONS[5], color: blue },
     ],
   }];
-
-
-
 
   const PREFIX = 'Demo';
   // #FOLD_BLOCK
@@ -248,6 +210,18 @@ const LabSingleBooking = () => {
     </StyledAppointmentsAppointmentContent>
   );
 
+  const Filter = ({ onCurrentFilterChange, currentFilter }) => (
+    <StyledTextField
+      size="small"
+      placeholder="Filter"
+      className={classes.textField}
+      value={currentFilter}
+      onChange={({ target }) => onCurrentFilterChange(target.value)}
+      variant="outlined"
+      hiddenLabel
+      margin="dense"
+    />
+  );
 
   const handleButtonClick = (locationName, locations) => {
     if (locations.indexOf(locationName) > -1) {
@@ -281,6 +255,7 @@ const LabSingleBooking = () => {
 
   const FlexibleSpace = ({ props }) => (
     <StyledToolbarFlexibleSpace {...props} className={classes.flexibleSpace}>
+      <ReduxFilterContainer />
       <ReduxLocationSelector />
     </StyledToolbarFlexibleSpace>
   );
@@ -314,7 +289,7 @@ const LabSingleBooking = () => {
     <Paper>
       <Scheduler
         data={data}
-        height={800}
+        height={700}
       >
         <ViewState
           currentDate={currentDate}
@@ -355,34 +330,39 @@ const LabSingleBooking = () => {
   */
 
 
+  const [allUserBookings, setAllUserBookings] = useState([]);
 
-  const data = getLabBook.map((item) => ({
+
+  const data = allUserBookings.map((item) => ({
     ...item,
     age: Math.floor(Math.random() * 6) + 20,
 
   }))
 
 
-  const allgetLabBookDataMap = data.map(({ ...item }) => ({
+  const allBookingsDataMap = data.map(({ description, ...item }) => ({
     ...item,
-    title: `${item.description}`,
-    bookedBy: `${item.bookedBy}`,
-    startDate: new Date(moment(item.dateStart).format('YYYY'), moment(item.dateStart).month(), moment(item.dateStart).format('DD'), item.timeStart.toString().slice(0,-2), item.timeStart.toString().slice(-2)),
-    endDate: new Date(moment(item.dateStart).format('YYYY'), moment(item.dateStart).month() , moment(item.dateStart).format('DD'), item.timeEnd.toString().slice(0,-2), item.timeEnd.toString().slice(-2)),
-    location: `${slug.toUpperCase()}`,
+    title: `${item.bookings.description}`,
+    bookedBy: `${item.bookings.bookedBy}`,
+    startDate: new Date(moment(item.bookings.dateStart).format('YYYY'), moment(item.bookings.dateStart).month(), moment(item.bookings.dateStart).format('DD'), item.bookings.timeStart.toString().slice(0,-2), item.bookings.timeStart.toString().slice(-2)),
+    endDate: new Date(moment(item.bookings.dateStart).format('YYYY'), moment(item.bookings.dateStart).month() , moment(item.bookings.dateStart).format('DD'), item.bookings.timeEnd.toString().slice(0,-2), item.bookings.timeEnd.toString().slice(-2)),
+    location: `${item.labName}`,
   }
   ))
 
-  
+  useEffect(() => {
+    getAllBook()
+  }, [])
+
+
 
   const schedulerInitialState = {
-    data: allgetLabBookDataMap,
+    data: allBookingsDataMap,
     currentDate: new Date(),
     currentViewName: 'Week',
     currentFilter: '',
     locations: LOCATIONS,
   };
-  
 
   const schedulerReducer = (state = schedulerInitialState, action) => {
     if (action.type === SCHEDULER_STATE_CHANGE_ACTION) {
@@ -421,11 +401,9 @@ const LabSingleBooking = () => {
     onLocationsChange: locations => dispatch(createSchedulerAction('locations', locations)),
   });
 
-  
   const ReduxSchedulerContainer = connect(mapStateToProps, mapDispatchToProps)(SchedulerContainer);
+  const ReduxFilterContainer = connect(mapStateToProps, mapDispatchToProps)(Filter);
   const ReduxLocationSelector = connect(mapStateToProps, mapDispatchToProps)(LocationSelector);
-
-  
 
   const store = createStore(
     schedulerReducer,
@@ -435,31 +413,44 @@ const LabSingleBooking = () => {
     // eslint-enable
   );
 
-  
+
+  const getAllBook = () => {
+    getAllUserBookings().then(userAllBokingsData => {
+      // get Api All bookings in database and store in state
+      setAllUserBookings(userAllBokingsData.data);
+      console.log("ALL USER BOOKINGS ===>", userAllBokingsData.data);
+
+    });
+  };
 
 
   return (
+    <>
+      <div className="container-fluid">
+        <div className="row">
+          <div className="col-md-1">
 
-    <div className="container-fluid">
-      <div className="row">
-        <div className="col md-7 m-3">
-          <Provider store={store}>
-            <ReduxSchedulerContainer />
-          </Provider>
+          </div>
+
+          <div className="col-md-10 m-3">
+            <Provider store={store}>
+              <ReduxSchedulerContainer />
+            </Provider>
+
+          </div>
+          {/* <div>
+        <p>test ALL user bookings</p>
+        {JSON.stringify(allUserBookings)}
+      </div> */}
+
         </div>
 
-        <div className="col md-5 m-3">
-          <SingleBookingCard
-            lab={lab}
-            user={user}
-          />
-        </div>
 
       </div>
 
-    </div>
+
+    </>
   )
-    ;
 };
 
-export default LabSingleBooking;
+export default Schedule;

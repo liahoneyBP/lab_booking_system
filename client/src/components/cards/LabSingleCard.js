@@ -12,7 +12,7 @@ import LabListItems from "./LabListItems";
 
 
 const SingleLabCard = ({ lab}) => {
-  const { images, labName, slug } = lab;
+  const { images, labName, slug, _id } = lab;
 
   return (
     <>

@@ -351,7 +351,7 @@ const Schedule = () => {
   // `${item.bookings[0].timeStart.toString().split('',[2]).toString().replace(',','')}` for timeStart in database 830 use .toString().split() to ['10','20'] 11 50 
   //  and convert back to sting (08,30) and replace , by '' ===> 8 30 and then can user in my scheduler UI library
 
-  const allBookingsDataMap = data.map(({ description, ...item }) => ({
+  const allBookingsDataMap = data.map(({ ...item }) => ({
     ...item,
     title: `${item.bookings.description}`,
     bookedBy: `${item.bookings.bookedBy}`,

@@ -20,6 +20,7 @@ const {
   getUserBookings,
   getAllUserBookings,
   getLabBookings,
+  getLabBookingsBySlug,
 } = require("../controllers/lab");
 const { default: slugify } = require("slugify");
 
@@ -58,6 +59,8 @@ router.post('/getUserBookings', getUserBookings);
 router.get('/getAllUserBookings', getAllUserBookings);
 
 router.post('/getLabBookings', getLabBookings);
+
+router.get('/getLabBookingsBySlug/:slug', getLabBookingsBySlug);
 
 
 

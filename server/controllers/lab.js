@@ -201,6 +201,18 @@ exports.getLabBookings = async (req, res) => {
 }
 
 
+exports.getLabBookingsBySlug = async (req, res) => {
+  const labBooks = await Lab.findOne(
+    { slug: req.params.slug }
+    )
+    .exec();
+  res.json(labBooks.bookings);
+  console.log("getLabBookings by slug in Backend ===>", labBooks.bookings);
+}
+
+
+
+
 
 
 

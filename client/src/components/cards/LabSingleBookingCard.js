@@ -15,8 +15,9 @@ import "react-toastify/dist/ReactToastify.css";
 
 import { useParams } from 'react-router-dom';
 
+
+
 import cryptoRandomString from 'crypto-random-string';
-import { getLab } from "../../functions/lab";
 
 
 var initialState = {
@@ -46,6 +47,10 @@ const SingleBookingCard = ({ lab }) => {
 
   const { images, labName, details, capacity, _id } = lab;
   const [values, setValues] = useState(initialState)
+
+  const [allUserBookings, setAllUserBookings] = useState([]);
+
+  
 
 
   const { user } = useSelector((state) => ({ ...state }));
@@ -89,7 +94,6 @@ const SingleBookingCard = ({ lab }) => {
           console.log("Values current ===>", values);
 
 
-
           labBookingsData.data.forEach(booking => {
 
 
@@ -106,8 +110,10 @@ const SingleBookingCard = ({ lab }) => {
             // Check whether there is a clash between the new booking and the existing booking
                    
             // eslint-disable-next-line no-mixed-operators
+            // ex. new ===> 10.10 - 12.20 , exis ===> 8.30 - 13.30
             if (newBookingStartTime >= existingBookingStart && newBookingStartTime < existingBookingEnd ||
               // eslint-disable-next-line no-mixed-operators
+             
               existingBookingStart >= newBookingStartTime && existingBookingStart < newBookingEndTime 
       
               ) {
@@ -128,6 +134,7 @@ const SingleBookingCard = ({ lab }) => {
 
           })
 
+         /*
           if (firstBooking ) {
             toast.success(`This is First Booking`, {
               position: toast.POSITION.TOP_CENTER
@@ -140,6 +147,8 @@ const SingleBookingCard = ({ lab }) => {
                   position: toast.POSITION.TOP_CENTER
                 });
 
+                navigate(0);
+
               })
               .catch((err) => {
                 console.log(err);
@@ -148,9 +157,11 @@ const SingleBookingCard = ({ lab }) => {
               })
 
           }
+          */
 
+          // new book date
           if ( !bookingSameDate ) {
-            toast.success(`This is First Booking of the day ${values.dateStart}`, {
+            toast.success(`This is First Booking of Room at the day ${values.dateStart}`, {
               position: toast.POSITION.TOP_CENTER
             });
             makeBooking(slug, values, user.token)
@@ -161,6 +172,8 @@ const SingleBookingCard = ({ lab }) => {
                   position: toast.POSITION.TOP_CENTER
                 });
 
+                navigate(0);
+
               })
               .catch((err) => {
                 console.log(err);
@@ -170,6 +183,7 @@ const SingleBookingCard = ({ lab }) => {
 
           }
 
+          // book same date and Check time clash
           if (bookingSameDate && !bookingTimeClash) {
             toast.success(`This is Book the same Date and No time clash`, {
               position: toast.POSITION.TOP_CENTER
@@ -183,6 +197,8 @@ const SingleBookingCard = ({ lab }) => {
                   position: toast.POSITION.TOP_CENTER
                 });
 
+                navigate(0);
+
               })
               .catch((err) => {
                 console.log(err);
@@ -192,16 +208,20 @@ const SingleBookingCard = ({ lab }) => {
 
           } 
 
+          // book same date and existing book
           if (bookingSameDate && bookingTimeClash) {
             toast.error(`เวลาทับกัน กรุณาจองใหม่`, {
               position: toast.POSITION.TOP_CENTER
             });
           } 
 
+
+
         });
 
       }
 
+      // invalid time when user enter timeStart > timeEnd
       if (newBookingStartTime > newBookingEndTime) {
         toast.error("Start Time can't over than End Time, Please Try again... !", {
           position: toast.POSITION.TOP_CENTER
@@ -211,8 +231,8 @@ const SingleBookingCard = ({ lab }) => {
     }
 
 
-     navigate('/mybookings');
-    window.location.reload();
+    // navigate('/mybookings');
+   // window.location.reload();
     // toast.success(`Booked Success`);
   };
 
@@ -222,21 +242,26 @@ const SingleBookingCard = ({ lab }) => {
     console.log("Values ==>", values);
   };
 
+
+
+  
+
   return (
     <>
 
-      <div className="col-md-7">
-        {images && images.length ? (<Carousel showArrows={true} autoPlay infiniteLoop>
+      {/* <div className="col-md-7">
+        { {images && images.length ? (<Carousel showArrows={true} autoPlay infiniteLoop>
           {images && images.map((i) =>
             <img
               src={i.url}
               key={i.public_id} />)}
         </Carousel>) : (
           <Card cover={<img src={LabImgDefault} className="mb-3" />}></Card>
-        )}
-      </div>
+        )} 
+  
+      </div> */}
 
-      <div className="col-md-5">
+      <div className="">
         <h1 className="bg-dark p-3 text-white">BOOKING {labName}</h1>
         <LabBookingForm
           handleSubmit={handleSubmit}
