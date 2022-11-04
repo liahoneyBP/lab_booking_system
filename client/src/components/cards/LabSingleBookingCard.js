@@ -64,9 +64,9 @@ const SingleBookingCard = ({ lab }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("Values Data ===>", values);
-    const newBookingStartTime = parseInt(values.timeStart);
-    const newBookingEndTime = parseInt(values.timeEnd);
-    const newBookingsDateStart = values.dateStart;
+    const newTimeStart = parseInt(values.timeStart);
+    const newTimeEnd = parseInt(values.timeEnd);
+    const newDateStart = values.dateStart;
 
 
     let bookingTimeClash = false;
@@ -82,14 +82,13 @@ const SingleBookingCard = ({ lab }) => {
       if (pinCode.length === 6) {
 
         // check values from user timeStart can't over than timeEnd
-        if (newBookingStartTime < newBookingEndTime) {
-          console.log("newBookingStart time in new bookings ===>", newBookingStartTime);
-          console.log("newBookingEnd time in new bookings ===>", newBookingEndTime);
+        if (newTimeStart < newTimeEnd) {
+          console.log("newTimeStart ===>", newTimeStart);
+          console.log("newTimeEnd ===>", newTimeEnd);
 
-          console.log("dateStart  in new bookings ===>", newBookingsDateStart);
+          console.log("newDateStart ===>", newDateStart);
 
           console.log("Ok Right ! very good timeStart < timeEnd ")
-
 
 
           getLabBookings(lab._id, user.token).then(labBookingsData => {
@@ -103,50 +102,45 @@ const SingleBookingCard = ({ lab }) => {
 
 
               // Convert existing booking Date objects into number values
-              let existingBookingStart = booking.timeStart
-              let existingBookingEnd = booking.timeEnd
+              let exisTimeStart = booking.timeStart
+              let exisTimeEnd = booking.timeEnd
 
-              let existingDateStart = moment(booking.dateStart).format('YYYY-MM-DD');
+              let exisDateStart = moment(booking.dateStart).format('YYYY-MM-DD');
 
-              console.log("Existing timeStart - timeEnd ===>", existingBookingStart, " - ", existingBookingEnd)
-
-              console.log("Existing dateStart ===>", existingDateStart);
+              console.log("Existing timeStart - timeEnd ===>", exisTimeStart, " - ", exisTimeEnd)
+              console.log("Existing dateStart ===>", exisDateStart);
 
               // Check whether there is a clash between the new booking and the existing booking
 
-              // ex. new ===> 10.10 - 12.20 , exis ===> 8.30 - 13.30
+              
               // eslint-disable-next-line no-mixed-operators
-              if (newBookingStartTime >= existingBookingStart && newBookingStartTime < existingBookingEnd ||
-          
-                // eslint-disable-next-line no-mixed-operators
-                existingBookingStart >= newBookingStartTime && existingBookingStart < newBookingEndTime 
 
+              if (newDateStart === exisDateStart) {
+                console.log("Found newDate = existingDate")
+                 bookingSameDate = true
+              }
 
+              // ex. new ===> 10.10 - 12.20 , exis ===> 8.30 - 13.30
+              if (newTimeStart >= exisTimeStart && newTimeStart < exisTimeEnd ||
+                exisTimeStart >= newTimeStart && exisTimeStart < newTimeEnd 
               ) {
                 // Switch the bookingClash variable if there is a clash
-                return bookingTimeClash = true
+                 bookingTimeClash = true
               }
-
-              if ( newBookingStartTime <= existingBookingStart && newBookingEndTime <= existingBookingEnd ) {
+   
+              /*
+              if ( newTimeStart <= exisTimeStart && newTimeEnd >= exisTimeEnd) {
                 return wrongTime = true
-
               }
-
-
-              if (newBookingsDateStart === existingDateStart) {
-                return bookingSameDate = true
-
-              }
-
-              if (!existingDateStart) {
-              //  return firstBooking = true
-              }
-
+              */
 
             })
 
-            // new book date
-            if (!bookingSameDate) {
+
+
+             // new book date
+             if (!bookingSameDate) {
+              console.log("bookingSameDate ===>", bookingSameDate);
               toast.success(`This is First Booking of Room at the day ${values.dateStart}`, {
                 position: toast.POSITION.TOP_CENTER
               });
@@ -158,7 +152,7 @@ const SingleBookingCard = ({ lab }) => {
                     position: toast.POSITION.TOP_CENTER
                   });
 
-                     navigate(0);
+                   //  navigate(0);
 
                 })
                 .catch((err) => {
@@ -170,7 +164,8 @@ const SingleBookingCard = ({ lab }) => {
             }
 
             // book same date and Check time clash
-            if (bookingSameDate && !bookingTimeClash) {
+            if (bookingSameDate && !bookingTimeClash ) {
+              console.log("bookingSameDate ===>", bookingSameDate, "bookingTimeClash ===>", bookingTimeClash);
               toast.success(`This is Book the same Date and No time clash`, {
                 position: toast.POSITION.TOP_CENTER
               });
@@ -183,7 +178,7 @@ const SingleBookingCard = ({ lab }) => {
                     position: toast.POSITION.TOP_CENTER
                   });
 
-                    navigate(0);
+                 //   navigate(0);
 
                 })
                 .catch((err) => {
@@ -192,36 +187,31 @@ const SingleBookingCard = ({ lab }) => {
                   toast.error(err.response.data.err);
                 })
 
+            } 
+            if ( bookingSameDate && bookingTimeClash) {
+              toast.error(`Duplicate Time, Please Select a new time...`, {
+                position: toast.POSITION.TOP_CENTER
+              });
+
             }
 
             // book same date and existing book
-            if (bookingSameDate && bookingTimeClash) {
+            /*if (bookingSameDate && wrongTime) {
               toast.error(`เวลาทับกัน กรุณาจองใหม่`, {
                 position: toast.POSITION.TOP_CENTER
               });
             }
-
-             // book same date and existing book
-             if ( wrongTime ) {
-              toast.error(`เวลาทับกัน กรุณาจองใหม่`, {
-                position: toast.POSITION.TOP_CENTER
-              });
-            }
-
-
-
+            */
           });
-
-
-
+  
         }
+
         // invalid time when user enter timeStart > timeEnd
-        if (newBookingStartTime > newBookingEndTime) {
+        if (newTimeStart > newTimeEnd) {
           toast.error("Start Time can't over than End Time, Please Try again... !", {
             position: toast.POSITION.TOP_CENTER
           });
         }
-
 
       } else {
         window.alert("Something wrong when generate pinCode, Please Book Again");
