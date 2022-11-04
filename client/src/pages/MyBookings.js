@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Space, Table, Popconfirm, Button } from 'antd';
+import { Space, Table, Popconfirm, Button, Tag } from 'antd';
 
 import { useSelector } from "react-redux";
 import { getUserBookings } from "../functions/bookings";
@@ -13,7 +13,18 @@ import { removeBooking } from "../functions/bookings";
 import { useNavigate } from "react-router-dom";
 
 
+import Modal from 'react-bootstrap/Modal';
 
+import jQuery from "jquery";
+
+
+//my function
+function invokeEscKey() {
+    jQuery.event.trigger({
+        type: 'keypress',
+        which: 27
+    });
+}
 
 
 
@@ -22,6 +33,12 @@ const MyBookings = () => {
     const navigate = useNavigate();
 
     const [userBookings, setUserBookings] = useState([]);
+
+    const [show, setShow] = useState(false);
+
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
+
     let { user } = useSelector((state) => ({ ...state }));
 
 
@@ -96,7 +113,7 @@ const MyBookings = () => {
         }
 
 
-         navigate(0);
+        navigate(0);
     }
 
     const columns = [
@@ -141,16 +158,50 @@ const MyBookings = () => {
             dataIndex: 'purpose',
         },
         {
-            title: 'Check In',
-            key: 'isCheckin',
-            dataIndex: 'isCheckin',
-
+            title: "CheckIn",
+            dataIndex: "isCheckin",
+            render(text, record) {
+                return {
+                    props: {
+                        style: { color: text === "Unconfirm" ? "red" : "green" },
+                    },
+                    children:
+                        <div>{text}</div>
+                };
+            }
         },
         {
             title: 'PinCode',
             key: 'pin',
-            dataIndex: 'pin',
+            dataIndex: "pin",
+            render: (text) => (
+                <>
+                    <Modal show={show} onHide={handleClose}>
+                        <Modal.Header closeButton>
+                            <Modal.Title>Modal {text}</Modal.Title>
+                        </Modal.Header>
+                        <Modal.Body>{text}</Modal.Body>
+                        <Modal.Footer>
+                            <Button variant="secondary" onClick={handleClose}>
+                                Close
+                            </Button>
+                            <Button variant="primary" onClick={handleClose}>
+                                Save Changes
+                            </Button>
+                        </Modal.Footer>
+                    </Modal>
 
+                    {/* <Button onClick={() => { window.alert(`PinCode ===> ${ text }`) }} >
+                        View
+
+                    </Button> */}
+                    <Button onClick={() => { window.alert(`PinCode ===> ${ text }`) }} >
+                        View
+
+                    </Button>
+
+                </>
+            ),
         },
         {
             title: 'Booked At',
@@ -175,27 +226,29 @@ const MyBookings = () => {
     ];
 
     return (
+        <>
 
-        <div className="container-fluid">
-            <div className="row">
-                <div className="col-md-1">
+            <div className="container-fluid">
+                <div className="row">
+                    <div className="col-md-1">
 
-                </div>
+                    </div>
 
-                <div className="col-md-8 m-3">
-                    <h2 className="m-5">My Bookings</h2>
-                    <Table
-                        columns={columns}
-                        dataSource={modifiedData} />
-                </div>
-                {/* <div>
+                    <div className="col-md-8 m-3">
+                        <h2 className="m-5">My Bookings</h2>
+                        <Table
+                            columns={columns}
+                            dataSource={modifiedData} />
+                    </div>
+                    {/* <div>
                     <p>test user bookings</p>
                     {JSON.stringify(userBookings)}
                 </div> */}
+                </div>
+
+
             </div>
-
-
-        </div>
+        </>
     )
 }
 
