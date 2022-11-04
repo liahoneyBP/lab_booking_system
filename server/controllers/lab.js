@@ -170,8 +170,11 @@ exports.getUserBookings = async (req, res) => {
       "$match": {
         "bookings.user.email": req.body.currentUserEmail
       }
-    }
+    },
+    { $sort : { "bookings.createdAt" : -1 } }
+    
   ])
+
   res.json(getBookings);
   console.log("User Email in Backend ===>", req.body.currentUserEmail);
   console.log("get user bookings MyBookings Page ==>", getBookings);
