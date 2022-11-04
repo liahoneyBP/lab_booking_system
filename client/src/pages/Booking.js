@@ -12,7 +12,7 @@ import TextField from '@mui/material/TextField';
 import ButtonGroup from '@mui/material/ButtonGroup';
 import Button from '@mui/material/Button';
 import { styled, alpha } from '@mui/material/styles';
-import { teal, orange, red, pink, blue, brown, black } from '@mui/material/colors';
+import { teal, orange, red, pink, blue, brown } from '@mui/material/colors';
 import classNames from 'clsx';
 import { ViewState } from '@devexpress/dx-react-scheduler';
 import {
@@ -358,8 +358,6 @@ const LabSingleBooking = () => {
 
   const data = getLabBook.map((item) => ({
     ...item,
-    age: Math.floor(Math.random() * 6) + 20,
-
   }))
 
 

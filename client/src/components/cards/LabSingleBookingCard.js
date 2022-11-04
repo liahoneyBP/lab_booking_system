@@ -127,12 +127,6 @@ const SingleBookingCard = ({ lab }) => {
                 // Switch the bookingClash variable if there is a clash
                  bookingTimeClash = true
               }
-   
-              /*
-              if ( newTimeStart <= exisTimeStart && newTimeEnd >= exisTimeEnd) {
-                return wrongTime = true
-              }
-              */
 
             })
 
@@ -152,7 +146,7 @@ const SingleBookingCard = ({ lab }) => {
                     position: toast.POSITION.TOP_CENTER
                   });
 
-                   //  navigate(0);
+                    navigate(0);
 
                 })
                 .catch((err) => {
@@ -178,7 +172,7 @@ const SingleBookingCard = ({ lab }) => {
                     position: toast.POSITION.TOP_CENTER
                   });
 
-                 //   navigate(0);
+                   navigate(0);
 
                 })
                 .catch((err) => {

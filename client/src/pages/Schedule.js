@@ -7,7 +7,7 @@ import TextField from '@mui/material/TextField';
 import ButtonGroup from '@mui/material/ButtonGroup';
 import Button from '@mui/material/Button';
 import { styled, alpha } from '@mui/material/styles';
-import { teal, orange, red, pink, blue, brown } from '@mui/material/colors';
+import { teal, orange, red, pink, blue, brown, cyan, grey} from '@mui/material/colors';
 import classNames from 'clsx';
 import { ViewState } from '@devexpress/dx-react-scheduler';
 import {
@@ -28,7 +28,7 @@ import { getAllUserBookings } from '../functions/bookings';
 
 const Schedule = () => {
 
-  const LOCATIONS = ['15201A', '15201B', '1305A', '1305B', '1205A', '1205B'];
+  const LOCATIONS = ['15201A', '15201B', '1305A', '1305B', '1205A', '1205B', 'LAB5', 'LAB6'];
   const LOCATIONS_SHORT = [1, 2, 3, 4, 5, 6];
   const resources = [{
     fieldName: 'location',
@@ -41,6 +41,8 @@ const Schedule = () => {
       { id: LOCATIONS[3], text: LOCATIONS[3], color: brown },
       { id: LOCATIONS[4], text: LOCATIONS[4], color: pink },
       { id: LOCATIONS[5], text: LOCATIONS[5], color: blue },
+      { id: LOCATIONS[5], text: LOCATIONS[5], color: cyan },
+      { id: LOCATIONS[5], text: LOCATIONS[5], color: grey },
     ],
   }];
 
