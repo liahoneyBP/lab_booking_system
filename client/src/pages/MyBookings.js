@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Space, Table, Popconfirm, Button, Tag } from 'antd';
+import { Table, Popconfirm, Button } from 'antd';
 
 import { useSelector } from "react-redux";
 import { getUserBookings } from "../functions/bookings";
@@ -13,18 +13,10 @@ import { removeBooking } from "../functions/bookings";
 import { useNavigate } from "react-router-dom";
 
 
+import ButtonRB from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 
-import jQuery from "jquery";
 
-
-//my function
-function invokeEscKey() {
-    jQuery.event.trigger({
-        type: 'keypress',
-        which: 27
-    });
-}
 
 
 
@@ -34,10 +26,13 @@ const MyBookings = () => {
 
     const [userBookings, setUserBookings] = useState([]);
 
-    const [show, setShow] = useState(false);
+    const [show, setShow] = useState([]);
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
+
+
+
 
     let { user } = useSelector((state) => ({ ...state }));
 
@@ -63,14 +58,23 @@ const MyBookings = () => {
 
     }))
 
+    // item.bookings.timeStart.toString().slice(0,-2), item.bookings.timeStart.toString().slice(-2)
+
+    var str = "1130";
+    var result = str.slice(0, -2) // get first 2 characters
+    var result2 = str.slice(-2) // get last 2 characters
+
+    console.log("str ===>", result);
+    console.log("str2 ===>", result2);
+
     const modifiedData = data.map(({ ...item }) => ({
         ...item,
         labId: item._id,
         id: item.bookings._id,
         bookedBy: item.bookings.bookedBy,
         dateStart: moment(item.bookings.dateStart).format('LL'),
-        timeStart: item.bookings.timeStart,
-        timeEnd: item.bookings.timeEnd,
+        timeStart: item.bookings.timeStart.toString().slice(0, -2) + ":" + str.slice(-2),
+        timeEnd: item.bookings.timeEnd.toString().slice(0, -2) + ":" + str.slice(-2),
         _id: item.labName,
         position: item.bookings.position,
         description: item.bookings.description,
@@ -117,13 +121,36 @@ const MyBookings = () => {
     }
 
     const columns = [
+        
         {
             title: 'Bookings ID',
             dataIndex: 'id',
         },
         {
+            title: 'Title of Event',
+            key: 'description',
+            dataIndex: "description",
+
+            render: (text) => (
+                <>
+                    <Button color="secondary">{text}</Button>
+
+                </>
+            )
+        },
+        {
             title: 'User Booked By',
-            dataIndex: 'bookedBy',
+            key: 'bookedBy',
+            dataIndex: "bookedBy",
+
+            render: (text) => (
+                <>
+                    <ButtonRB variant="text" onClick={handleShow}>
+                        {text}
+                    </ButtonRB>
+
+                </>
+            )
         },
         {
             title: 'User Email',
@@ -149,10 +176,7 @@ const MyBookings = () => {
             title: 'Position',
             dataIndex: 'position',
         },
-        {
-            title: 'Description',
-            dataIndex: 'description',
-        },
+        
         {
             title: 'Purpose',
             dataIndex: 'purpose',
@@ -166,7 +190,9 @@ const MyBookings = () => {
                         style: { color: text === "Unconfirm" ? "red" : "green" },
                     },
                     children:
-                        <div>{text}</div>
+                        <Button style={{ color: text === "Unconfirm" ? "red" : "green" }}>
+                            {text}
+                        </Button>
                 };
             }
         },
@@ -174,34 +200,15 @@ const MyBookings = () => {
             title: 'PinCode',
             key: 'pin',
             dataIndex: "pin",
+
             render: (text) => (
                 <>
-                    <Modal show={show} onHide={handleClose}>
-                        <Modal.Header closeButton>
-                            <Modal.Title>Modal {text}</Modal.Title>
-                        </Modal.Header>
-                        <Modal.Body>{text}</Modal.Body>
-                        <Modal.Footer>
-                            <Button variant="secondary" onClick={handleClose}>
-                                Close
-                            </Button>
-                            <Button variant="primary" onClick={handleClose}>
-                                Save Changes
-                            </Button>
-                        </Modal.Footer>
-                    </Modal>
-
-                    {/* <Button onClick={() => { window.alert(`PinCode ===> ${ text }`) }} >
-                        View
-
-                    </Button> */}
-                    <Button onClick={() => { window.alert(`PinCode ===> ${ text }`) }} >
-                        View
-
-                    </Button>
+                    <ButtonRB variant="dark" onClick={handleShow}>
+                        {text}
+                    </ButtonRB>
 
                 </>
-            ),
+            )
         },
         {
             title: 'Booked At',
