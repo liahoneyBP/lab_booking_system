@@ -171,8 +171,8 @@ exports.getUserBookings = async (req, res) => {
         "bookings.user.email": req.body.currentUserEmail
       }
     },
-    { $sort : { "bookings.createdAt" : -1 } }
-    
+    { $sort: { "bookings.createdAt": -1 } }
+
   ])
 
   res.json(getBookings);
@@ -224,20 +224,20 @@ exports.removeBooking = async (req, res) => {
 
   const bookingId = req.body.bodyBookingId;
   const labId = req.body.bodyLabId;
-  
 
-  let deleted = await Lab.findOneAndUpdate({ _id : labId},
+
+  let deleted = await Lab.findOneAndUpdate({ _id: labId },
     {
-        $pull : {
-            bookings : {
-                    _id : bookingId
-            }
+      $pull: {
+        bookings: {
+          _id: bookingId
         }
+      }
     },
     { safe: true, new: true },
   )
   res.json(deleted)
- // console.log("LAB ID in Backend is ===>", req.body.bodyLabId);
+  // console.log("LAB ID in Backend is ===>", req.body.bodyLabId);
   console.log("After Backend response ===>", deleted);
 }
 
@@ -246,10 +246,11 @@ exports.removeBooking = async (req, res) => {
 
 
 exports.labBookingLists = async (req, res) => {
+  console.log("User Email in Backend ===>", req.body.emailbody )
   const lists = await Lab.aggregate([
     {
-      $match : {
-        slug : '15201a'
+      $match: {
+        slug: req.params.slug
       }
     },
     {
@@ -257,15 +258,47 @@ exports.labBookingLists = async (req, res) => {
     },
     {
       "$match": {
-        "bookings.user.email": 'bewpinn55@gmail.com'
+        "bookings.user.email": req.body.emailbody
       }
     },
-    
+    { $sort: { "bookings.createdAt": -1 } }
+
   ])
-  
+
   res.json(lists);
   console.log("slug in Backend ===>", req.params.slug)
   console.log("lists  in Backend ===>", lists);
+}
+
+
+
+exports.checkIn = async (req, res) => {
+
+  const labSlug = req.params.slug;
+  const bookingId = req.params.bookingId;
+
+  var query = { slug: labSlug },
+    set = { $set: { "bookings.$[el].isCheckin": 'Confirm' } },
+    arrayFilters = { arrayFilters: [{ "el.pin": req.body.pinbody }] }
+  options = { upsert: true, new: true, setDefaultsOnInsert: true };
+
+  
+
+  console.log("labSlug in Backend is ===>", labSlug);
+  console.log("BOOKING ID Slug in Backend is ===>", bookingId);
+  console.log("Req.body.pinCode in Backind ===>", req.body.pinbody);
+
+  let checkInConfirm = await Lab.findOneAndUpdate(query, set, arrayFilters)
+    .catch(error => console.error(error));
+  /*{ slug : labSlug},
+  {$set: {"bookings.$[el].isCheckin": 'Confirm' } },
+  { 
+    arrayFilters: [{ "el.pin": req.body.pinbody }],
+  },*/
+
+  res.json(checkInConfirm)
+  // console.log("LAB ID in Backend is ===>", req.body.bodyLabId);
+  console.log("After Backend response ===>", checkInConfirm);
 }
 
 

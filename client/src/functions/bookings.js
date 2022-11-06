@@ -74,8 +74,8 @@ export const removeBooking = async ( bookingId, labId, authtoken) =>
 
 
 
-  export const getLabBookingLists = async (slug) =>
-  await axios.get(`${process.env.REACT_APP_API}/lab/booking/lists/${slug}`, {
+  export const getLabBookingLists = async (slug, userEmail) =>
+  await axios.post(`${process.env.REACT_APP_API}/lab/booking/lists/${slug}`,{ emailbody: userEmail }, {
 
   });
 

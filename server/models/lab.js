@@ -27,7 +27,7 @@ const bookingSchema = new Schema({
     type: String,
   },
   pin: {
-    type: Number
+    type: String
   },
   labId: {
     type: Schema.ObjectId,

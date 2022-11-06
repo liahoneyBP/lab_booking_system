@@ -23,6 +23,7 @@ const {
   getLabBookingsBySlug,
   removeBooking,
   labBookingLists,
+  checkIn,
 } = require("../controllers/lab");
 const { default: slugify } = require("slugify");
 
@@ -69,9 +70,11 @@ router.get('/getLabBookingsBySlug/:slug', getLabBookingsBySlug);
 router.put("/removeBooking", authCheck, removeBooking);
 
 
+router.post("/lab/booking/lists/:slug", labBookingLists);
 
 
-router.get("/lab/booking/lists/:slug", labBookingLists);
+// checkIn booking
+router.put("/lab/booking/checkin/:slug/:bookingId", authCheck, checkIn);
 
 
 

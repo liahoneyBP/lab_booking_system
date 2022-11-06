@@ -20,6 +20,8 @@ import Modal from 'react-bootstrap/Modal';
 
 
 
+
+
 const MyBookings = () => {
 
     const navigate = useNavigate();
@@ -73,8 +75,8 @@ const MyBookings = () => {
         id: item.bookings._id,
         bookedBy: item.bookings.bookedBy,
         dateStart: moment(item.bookings.dateStart).format('LL'),
-        timeStart: item.bookings.timeStart.toString().slice(0, -2) + ":" + str.slice(-2),
-        timeEnd: item.bookings.timeEnd.toString().slice(0, -2) + ":" + str.slice(-2),
+        timeStart: item.bookings.timeStart.toString().slice(0, -2) + ":" + item.bookings.timeStart.toString().slice(-2),
+        timeEnd: item.bookings.timeEnd.toString().slice(0, -2) + ":" + item.bookings.timeStart.toString().slice(-2),
         _id: item.labName,
         position: item.bookings.position,
         description: item.bookings.description,
@@ -231,7 +233,6 @@ const MyBookings = () => {
         },
 
     ];
-
     return (
         <>
 
