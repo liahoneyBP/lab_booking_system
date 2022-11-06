@@ -19,6 +19,7 @@ import AllLabs from "./pages/admin/lab/AllLabs"
 import LabSingle from './pages/LabSingle';
 import LabUpdate from "./pages/admin/lab/LabUpdate"
 import LabSingleBooking from './pages/Booking';
+import LabBookingsLists from './pages/LabBookingsLists';
 
 
 import { ToastContainer } from "react-toastify";
@@ -87,6 +88,7 @@ function App() {
         <Route path="/lab/:slug" element={<LabSingle />}></Route>
         <Route  exact path="/admin/lab/:slug" element={ <AdminRoute><LabUpdate /></AdminRoute> } />
         <Route path="/lab/booking/:slug" element={< LabSingleBooking/>}></Route>
+        <Route path="/lab/booking/lists/:slug" element={< LabBookingsLists/>}></Route>
       </Routes>
   
       </React.Fragment>

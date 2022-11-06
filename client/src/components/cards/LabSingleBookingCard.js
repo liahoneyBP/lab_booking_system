@@ -14,9 +14,6 @@ import moment from "moment";
 import "react-toastify/dist/ReactToastify.css";
 
 import { useParams } from 'react-router-dom';
-
-
-
 import cryptoRandomString from 'crypto-random-string';
 
 
@@ -122,7 +119,7 @@ const SingleBookingCard = ({ lab }) => {
             });
 
             if (sameDateAndTimeClash) {
-              toast.error(`SameDate And Time Clash...`, {
+              toast.error(`SameDate And Time Clash, Please Select a new time...`, {
                 position: toast.POSITION.TOP_CENTER
               });
 
@@ -136,7 +133,7 @@ const SingleBookingCard = ({ lab }) => {
                     position: toast.POSITION.TOP_CENTER
                   });
 
-                  //  navigate(0);
+                    navigate(0);
 
                 })
                 .catch((err) => {

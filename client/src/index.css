@@ -61,4 +61,34 @@ code {
 }
 
 
+.inputQRCode {
+    appearance: none;
+    outline: none;
+    border: none;
+    background: #EEE;
+    width: 100%;
+    max-width: 400px;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    margin-right: 1rem;
+}
+.buttonGenerateQRCode, .aQRCode {
+  appearance: none;
+	outline: none;
+	border: none;
+	background: none;
+	cursor: pointer;
+
+	color: #2bcb4b;
+	font-size: 1.5rem;
+	text-decoration: none;
+}
+
+img {
+ 
+    display: block;
+    width: 150px;
+    height: 150px;
+    margin: 1rem auto;
+}
 

@@ -70,7 +70,6 @@ const labSchema = new mongoose.Schema(
     },
     type: {
       type: String,
-      enum: ["Class", "Free Lab"]
     },
 
     capacity: {
@@ -78,6 +77,9 @@ const labSchema = new mongoose.Schema(
     },
     images: {
       type: Array,
+    },
+    qrcode: {
+      type: String,
     },
     equipment: {
       pc: { type: Boolean, default: true },

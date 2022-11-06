@@ -216,6 +216,7 @@ exports.getLabBookingsBySlug = async (req, res) => {
 
 
 
+
 exports.removeBooking = async (req, res) => {
 
   console.log("BOOKING ID in Backend is ===>", req.body.bodyBookingId);
@@ -241,6 +242,31 @@ exports.removeBooking = async (req, res) => {
 }
 
 
+
+
+
+exports.labBookingLists = async (req, res) => {
+  const lists = await Lab.aggregate([
+    {
+      $match : {
+        slug : '15201a'
+      }
+    },
+    {
+      "$unwind": "$bookings"
+    },
+    {
+      "$match": {
+        "bookings.user.email": 'bewpinn55@gmail.com'
+      }
+    },
+    
+  ])
+  
+  res.json(lists);
+  console.log("slug in Backend ===>", req.params.slug)
+  console.log("lists  in Backend ===>", lists);
+}
 
 
 
