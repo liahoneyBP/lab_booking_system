@@ -227,12 +227,12 @@ const AdminDashboard = () => {
 
   const handleDelete = (value) => {
     const dataSource = [...modifiedData];
-    const filteredData = dataSource.filter((item) => item.id !== value.id);
+   // const filteredData = dataSource.filter((item) => item.id !== value.id);
 
     console.log("value.id in front is ===>", value.id);
     console.log("value.labId in front is ===>", value.labId);
 
-    let answer = window.confirm(`Cancel This Booking (${value.description}, bookedBy ${value.bookedBy}) ?`)
+    let answer = window.confirm(`Reject This Booking (${value.description}, bookedBy ${value.bookedBy}) ?`)
     if (answer) {
       console.log('send delete request', value.id, value.labId);
       removeBooking(value.id, value.labId, user.token)
@@ -353,7 +353,7 @@ const AdminDashboard = () => {
       render: (_, record) =>
         modifiedData.length >= 1 ? (
           <Popconfirm
-            title="Are you sure want to Cancel this booking ?"
+            title="Are you sure want to Reject this booking ?"
             onConfirm={() => handleDelete(record)}
           >
             <Button danger type="primary">Reject</Button>
@@ -371,21 +371,13 @@ const AdminDashboard = () => {
       <div className="row">
         <div className="col-md-1 m-2">
           <AdminNav />
-        </div>
-
-        <div className="col-md-9 m-2">
-        <h3>ADMIN DASHBOARD</h3>
-        <hr />
-          <h4>ALL USER BOOKINGS</h4>
-          {/* <h5 className="text-dark p-3">Search/Filter</h5>
-          <Search /> */}
-        
-
+          <h4 className="text-dark p-3">Filter</h4>
+          <hr />
           <Menu defaultOpenKeys={['1', '2', '3']} mode="inline">
             <SubMenu
               key="1"
               title={
-                <span className="h6"><DownSquareOutlined /> Lab Name
+                <span className="h6"><DownSquareOutlined /> Lab
                 </span>}>
               <div style={{ maringTop: "-10px" }} className="pr-5">
                 {showLabName()}
@@ -415,6 +407,16 @@ const AdminDashboard = () => {
 
     
           </Menu>
+        </div>
+
+        <div className="col-md-9 m-2">
+        <h3>ALL USER BOOKINGS</h3>
+        <hr />
+          {/* <h5 className="text-dark p-3">Search/Filter</h5>
+          <Search /> */}
+        
+
+        
           <div className="mt-3">
           <Table
             columns={columns}
