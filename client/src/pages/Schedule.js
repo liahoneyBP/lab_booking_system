@@ -291,7 +291,9 @@ const Schedule = () => {
     <Paper>
       <Scheduler
         data={data}
-        height={700}
+        height={800}
+        width={500}
+
       >
         <ViewState
           currentDate={currentDate}

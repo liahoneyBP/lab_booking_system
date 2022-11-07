@@ -1,14 +1,16 @@
 import React from 'react'
 
-import { formatTime, startTimeSelectOptions, endTimeSelectOptions } from '../../helpers/timeSelections';
 
 import { DatePicker, Space } from 'antd';
-import { Input } from 'antd';
-import { Radio } from 'antd';
 
-import moment from 'moment';
+import Button from '@mui/material/Button';
 
-import { Link } from 'react-router-dom';
+import AccessTimeIcon from '@mui/icons-material/AccessTime';
+import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
+import PersonIcon from '@mui/icons-material/Person';
+import PictureInPictureIcon from '@mui/icons-material/PictureInPicture';
+import ModeStandbyIcon from '@mui/icons-material/ModeStandby';
+import DescriptionIcon from '@mui/icons-material/Description';
 
 const LabBookingForm = ({ handleSubmit, handleChange, values, setValues, user, lab}) => {
 
@@ -25,7 +27,7 @@ const LabBookingForm = ({ handleSubmit, handleChange, values, setValues, user, l
     <form onSubmit={handleSubmit}>
 
       <div className="form-group">
-        <label>Start Time </label>
+        <label>Start Time </label><span><AccessTimeIcon/></span>
         <select
           name="timeStart"
           className="form-control"
@@ -50,7 +52,7 @@ const LabBookingForm = ({ handleSubmit, handleChange, values, setValues, user, l
       </div>
 
       <div className="form-group">
-        <label>End Time </label>
+        <label>End Time </label><span><AccessTimeIcon/></span>
         <select
           name="timeEnd"
           className="form-control"
@@ -75,7 +77,7 @@ const LabBookingForm = ({ handleSubmit, handleChange, values, setValues, user, l
       </div>
 
       <div className="form-group">
-        <label>From Date</label> <br />
+        <label>Date</label> <br/>
         <Space direction="vertical">
           <DatePicker
             onChange={(date, dateString) =>
@@ -85,7 +87,7 @@ const LabBookingForm = ({ handleSubmit, handleChange, values, setValues, user, l
 
         </Space>
       </div>
-      <div className="form-group">
+      {/* <div className="form-group">
         <label>To Date</label> <br />
         <Space direction="vertical">
           <DatePicker
@@ -95,10 +97,10 @@ const LabBookingForm = ({ handleSubmit, handleChange, values, setValues, user, l
           />
 
         </Space>
-      </div>
+      </div> */}
 
       <div className="form-group">
-        <label>Book By</label>
+        <label>Book By</label> 
         <input
           type="text"
           name="bookedBy"
@@ -124,7 +126,7 @@ const LabBookingForm = ({ handleSubmit, handleChange, values, setValues, user, l
       </div>
 
       <div className="form-group">
-        <label>Purpose</label>
+        <label>Purpose</label> 
         <select
           name="purpose"
           className="form-control"
@@ -138,7 +140,7 @@ const LabBookingForm = ({ handleSubmit, handleChange, values, setValues, user, l
 
 
       <div className="form-group">
-        <label>Description</label>
+        <label>Description</label> 
         <input
           type="text"
           name="description"
@@ -150,7 +152,9 @@ const LabBookingForm = ({ handleSubmit, handleChange, values, setValues, user, l
       </div>
 
 
-      <button className="btn btn-outline-info">BOOK</button>
+      <Button variant="contained" color="success" type="submit">
+                 BOOK
+              </Button>
 
       
     </form>
