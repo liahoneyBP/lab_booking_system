@@ -76,11 +76,11 @@ const BookingCheckIn = () => {
                         position: toast.POSITION.TOP_CENTER
                       });
 
-                    navigate('/mybookings');
+                   // navigate('/mybookings');
 
                 })
                 .catch(err => {
-                    if (err.response.status === 400) toast.error(err.res.data);
+                    if (err.response.status === 400) ;
                     console.log(err)
                     window.alert('Check-In Fail')
                 })

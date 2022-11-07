@@ -1,6 +1,6 @@
 /* eslint-disable no-sparse-arrays */
 /* eslint-disable jsx-a11y/alt-text */
-import React , {useSelector} from "react";
+import React, { useSelector } from "react";
 import { Card } from "antd";
 import { Link } from "react-router-dom";
 
@@ -11,7 +11,10 @@ import LabImgDefault from "../../images/LabUtcc_Default.jpg"
 import LabListItems from "./LabListItems";
 
 
-const SingleLabCard = ({ lab}) => {
+import Button from '@mui/material/Button';
+
+
+const SingleLabCard = ({ lab }) => {
   const { images, labName, slug, _id } = lab;
 
   return (
@@ -34,7 +37,9 @@ const SingleLabCard = ({ lab}) => {
         <Card
           actions={[,
             <Link to={`/lab/booking/${slug}`}>
-                  <button className="btn btn-outline-info text-center">MAKE A BOOK</button>
+              <Button variant="contained" color="success">
+                MAKE A BOOK
+              </Button>
             </Link>,
           ]}
         >

@@ -158,6 +158,54 @@ exports.searchFilters = async (req, res) => {
 }
 
 
+const handleQueryUserBookings = async (req, res, query) => {
+  const labs = await Lab.find(
+    { $text: { $search: query } }
+    )
+
+  res.json(labs);
+}
+
+const handleLabName = async (req, res, labName) => {
+  const labs = await Lab.aggregate([
+    {
+      $match: {
+        labName: labName
+      }
+    },
+    {
+      "$unwind": "$bookings"
+    },
+    
+    { $sort: { "bookings.createdAt": -1 } }
+
+  ])
+    .exec();
+
+  res.json(labs);
+}
+
+// Search / Filter / userBookings
+exports.searchFiltersUserBookings = async (req, res) => {
+  const { query, labName } = req.body
+
+ /* if (query) {
+    console.log('query --->', query)
+    await handleQueryUserBookings(req, res, query);
+  } */
+
+  // capcacity [30, 40, 50]
+  if (labName !== undefined) {
+    console.log('labName --->', labName)
+    await handleLabName(req, res, labName);
+  }
+
+
+}
+
+
+
+
 
 // 
 exports.getUserBookings = async (req, res) => {
@@ -186,7 +234,8 @@ exports.getAllUserBookings = async (req, res) => {
   let getAllBookings = await Lab.aggregate([
     {
       "$unwind": "$bookings"
-    }
+    },
+    { $sort: { "bookings.createdAt": -1 } }
   ])
   res.json(getAllBookings);
   console.log("get All bookings krubbb ==>", getAllBookings);
@@ -246,7 +295,7 @@ exports.removeBooking = async (req, res) => {
 
 
 exports.labBookingLists = async (req, res) => {
-  console.log("User Email in Backend ===>", req.body.emailbody )
+  console.log("User Email in Backend ===>", req.body.emailbody)
   const lists = await Lab.aggregate([
     {
       $match: {
@@ -273,32 +322,31 @@ exports.labBookingLists = async (req, res) => {
 
 
 exports.checkIn = async (req, res) => {
+  try {
+    const labSlug = req.params.slug;
+    const bookingId = req.params.bookingId;
 
-  const labSlug = req.params.slug;
-  const bookingId = req.params.bookingId;
+    console.log("labSlug in Backend is ===>", labSlug);
+    console.log("BOOKING ID Slug in Backend is ===>", bookingId);
+    console.log("Req.body.pinCode in Backind ===>", req.body.pinbody);
 
-  var query = { slug: labSlug },
-    set = { $set: { "bookings.$[el].isCheckin": 'Confirm' } },
-    arrayFilters = { arrayFilters: [{ "el.pin": req.body.pinbody }] }
-  options = { upsert: true, new: true, setDefaultsOnInsert: true };
-
+    const checkInConfirm = await Lab.findOneAndUpdate(
+      { slug: labSlug },
+      { $set: { "bookings.$[el].isCheckin": 'Confirm' } },
+      {
+        arrayFilters: [{ "el.pin": req.body.pinbody }],
+      },
+    );
+    console.log("After Backend response ===>", checkInConfirm);
+    res.json(checkInConfirm);
+    
+  } catch (err) {
+    console.log(err);
+    res.status(400).json({
+      err: err.message,
+    });
+  }
   
-
-  console.log("labSlug in Backend is ===>", labSlug);
-  console.log("BOOKING ID Slug in Backend is ===>", bookingId);
-  console.log("Req.body.pinCode in Backind ===>", req.body.pinbody);
-
-  let checkInConfirm = await Lab.findOneAndUpdate(query, set, arrayFilters)
-    .catch(error => console.error(error));
-  /*{ slug : labSlug},
-  {$set: {"bookings.$[el].isCheckin": 'Confirm' } },
-  { 
-    arrayFilters: [{ "el.pin": req.body.pinbody }],
-  },*/
-
-  res.json(checkInConfirm)
-  // console.log("LAB ID in Backend is ===>", req.body.bodyLabId);
-  console.log("After Backend response ===>", checkInConfirm);
 }
 
 

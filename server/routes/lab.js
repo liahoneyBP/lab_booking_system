@@ -24,6 +24,7 @@ const {
   removeBooking,
   labBookingLists,
   checkIn,
+  searchFiltersUserBookings,
 } = require("../controllers/lab");
 const { default: slugify } = require("slugify");
 
@@ -44,6 +45,7 @@ router.get("/labslug/:slug", readSlug);
 
 // search
 router.post('/search/filters', searchFilters)
+router.post('/search/filters/userbookings', searchFiltersUserBookings)
 
 // image lab
 router.get('/lab/image/:labId', image);
