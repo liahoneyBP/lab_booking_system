@@ -185,19 +185,68 @@ const handleLabName = async (req, res, labName) => {
   res.json(labs);
 }
 
+
+const handleCheckInStatus = async (req, res, isCheckin) => {
+  const labs = await Lab.aggregate([
+    {
+      $match: {
+        "bookings.isCheckin": isCheckin
+      }
+    },
+    {
+      "$unwind": "$bookings"
+    },
+    
+    { $sort: { "bookings.createdAt": -1 } }
+
+  ])
+    .exec();
+
+  res.json(labs);
+}
+
+
+const handlePosition = async (req, res, position) => {
+  const labs = await Lab.aggregate([
+    {
+      $match: {
+        "bookings.position": position
+      }
+    },
+    {
+      "$unwind": "$bookings"
+    },
+    
+    { $sort: { "bookings.createdAt": -1 } }
+
+  ])
+    .exec();
+
+  res.json(labs);
+}
+
 // Search / Filter / userBookings
 exports.searchFiltersUserBookings = async (req, res) => {
-  const { query, labName } = req.body
+  const { query, labName, isCheckin, position } = req.body
 
  /* if (query) {
     console.log('query --->', query)
     await handleQueryUserBookings(req, res, query);
   } */
 
-  // capcacity [30, 40, 50]
   if (labName !== undefined) {
     console.log('labName --->', labName)
     await handleLabName(req, res, labName);
+  }
+
+  if (isCheckin !== undefined) {
+    console.log('isCheckin --->', isCheckin)
+    await handleCheckInStatus(req, res, isCheckin);
+  }
+
+  if (position !== undefined) {
+    console.log('position --->', position)
+    await handlePosition(req, res, position);
   }
 
 

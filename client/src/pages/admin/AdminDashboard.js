@@ -35,13 +35,14 @@ const AdminDashboard = () => {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  const [capacity, setCapacity] = useState([0, 0]);
   const [ok, setOk] = useState(false);
+  const [capacity, setCapacity] = useState([0, 0]);
+  
 
   const [labsName, setLabsName] = useState([
     "15201A",
     "15201B",
-    "1305B",
+    "1305A",
     "1305B",
     "1205A",
     "1205B",
@@ -50,7 +51,18 @@ const AdminDashboard = () => {
   ]);
   const [labName, setLabName] = useState('')
 
-  const [floor, setFloor] = useState("");
+  const [checkins, setCheckins] = useState([
+    "Unconfirm",
+    "Confirm",
+  ]);
+  const [checkin, setCheckin] = useState('')
+
+  const [positions, setPositions] = useState([
+    "Lecturer",
+    "Student",
+  ]);
+  const [position, setPosition] = useState('')
+
 
   let dispatch = useDispatch();
   let { search } = useSelector((state) => ({ ...state }));
@@ -98,7 +110,6 @@ const AdminDashboard = () => {
     ))
 
   const handleLabName = (e) => {
-    setCapacity([0, 0]);
     dispatch({
       type: "SEARCH_QUERY",
       payload: { text: "" },
@@ -106,6 +117,57 @@ const AdminDashboard = () => {
     setLabName(e.target.value)
     fetchUserBookings({ labName: e.target.value });
   }
+
+
+  // 4. load labs based on building
+  const showCheckin = () =>
+  checkins.map((c) => (
+      <Radio
+        value={c}
+        name={c}
+        checked={c === checkin}
+        onChange={handleshowCheckin}
+        className="pb-1 pl-4 pr-4"
+      >
+        {c}
+      </Radio>
+    ))
+
+  const handleshowCheckin = (e) => {
+   
+    dispatch({
+      type: "SEARCH_QUERY",
+      payload: { text: "" },
+    });
+    setCheckin(e.target.value)
+    fetchUserBookings({ isCheckin: e.target.value });
+  }
+
+
+  // 4. load labs based on building
+  const showPosition = () =>
+  positions.map((p) => (
+      <Radio
+        value={p}
+        name={p}
+        checked={p === position}
+        onChange={handleshowPosition}
+        className="pb-1 pl-4 pr-4"
+      >
+        {p}
+      </Radio>
+    ))
+
+  const handleshowPosition = (e) => {
+    
+    dispatch({
+      type: "SEARCH_QUERY",
+      payload: { text: "" },
+    });
+    setPosition(e.target.value)
+    fetchUserBookings({ position: e.target.value });
+  }
+
 
 
 
@@ -312,14 +374,16 @@ const AdminDashboard = () => {
         </div>
 
         <div className="col-md-9 m-2">
+        <h3>ADMIN DASHBOARD</h3>
+        <hr />
           <h4>ALL USER BOOKINGS</h4>
           {/* <h5 className="text-dark p-3">Search/Filter</h5>
           <Search /> */}
-          <hr />
+        
 
           <Menu defaultOpenKeys={['1', '2', '3']} mode="inline">
             <SubMenu
-              key="2"
+              key="1"
               title={
                 <span className="h6"><DownSquareOutlined /> Lab Name
                 </span>}>
@@ -327,6 +391,27 @@ const AdminDashboard = () => {
                 {showLabName()}
               </div>
             </SubMenu>
+
+            <SubMenu
+              key="2"
+              title={
+                <span className="h6"><DownSquareOutlined /> Check-In Status
+                </span>}>
+              <div style={{ maringTop: "-10px" }} className="pr-5">
+                {showCheckin()}
+              </div>
+            </SubMenu>
+
+            <SubMenu
+              key="3"
+              title={
+                <span className="h6"><DownSquareOutlined /> Position
+                </span>}>
+              <div style={{ maringTop: "-10px" }} className="pr-5">
+                {showPosition()}
+              </div>
+            </SubMenu>
+
 
     
           </Menu>
