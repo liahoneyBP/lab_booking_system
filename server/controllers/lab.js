@@ -480,5 +480,58 @@ exports.getBookingsID = async (req, res) => {
 }
 
 
+// for admin update booking
+exports.getLabBookingsIDparams = async (req, res) => {
+  const data = await Lab.find({
+    "_id": req.params.labId
+  },
+  {
+    "bookings": {
+      "$elemMatch": {
+        "_id": req.params.bookingId
+      }
+    }
+  })
+  res.json(data);
+  console.log("LAB ID in Backend ===>", req.params.labId)
+  console.log("Booking ID in Backend ===>", req.params.bookingId)
+  console.log("get Bookings by Id  in Backend ===>", data);
+}
+
+
+
+exports.updateBooking = async (req, res) => {
+  const labId = req.params.labId;
+  const bookingId = req.params.bookingId;
+  console.log("REQ.BODY ===>", req.body);
+  console.log("REQ. USER ===>", req.user);
+  try { 
+    const updated = await Lab.findOneAndUpdate(
+      { _id: labId, "bookings._id": bookingId },
+      {$set: {
+        "bookings.$.timeStart" : req.body.timeStart,
+        "bookings.$.timeEnd": req.body.timeEnd,
+        "bookings.$.bookedBy" : req.body.bookedBy,
+        "bookings.$.description": req.body.description,
+        "bookings.$.position" : req.body.position,
+        "bookings.$.purpose": req.body.purpose,
+        "bookings.$.dateStart" : req.body.dateStart,
+        "bookings.$.user": req.user,
+    }},
+      {new: true}
+    );
+    res.json(updated)
+    console.log("UPDATED BACKEND RESPONSE ===>", updated);
+  } catch (err) {
+    console.log('BOOKING UPDATE ERROR ---->', err)
+    // return res.status(400).send('Lab Update Failed')
+    res.status(400).json({
+      err: err.message,
+    });
+  }
+
+}
+
+
 
 

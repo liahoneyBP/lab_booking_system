@@ -20,6 +20,17 @@ export const makeBooking = async (slug, lab, authtoken) =>
     })
 
 
+export const UpdateBookingId = async (labId, bookingId, booking, authtoken) =>
+  await axios.put(`${process.env.REACT_APP_API}/updateBooking/${labId}/${bookingId}`, booking,
+    {
+      headers: {
+        authtoken,
+      },
+
+    })
+
+
+
 
 
 export const getUserBookings = async (userEmail, authtoken) =>
@@ -66,7 +77,7 @@ export const getLabBookingsBySlug = async (slug, authtoken) =>
 
 
 export const removeBooking = async (bookingId, labId, userEmail, authtoken) =>
-  await axios.put(`${process.env.REACT_APP_API}/removeBooking`, { bodyBookingId: bookingId, bodyLabId: labId, userEmailinTable: userEmail}, {
+  await axios.put(`${process.env.REACT_APP_API}/removeBooking`, { bodyBookingId: bookingId, bodyLabId: labId, userEmailinTable: userEmail }, {
     headers: {
       authtoken,
     }
@@ -82,11 +93,21 @@ export const getLabBookingLists = async (slug, userEmail) =>
 
 
 export const getBookingsById = async (slug, bookingId) =>
-  await axios.get(`${process.env.REACT_APP_API}/getLabBookingsBySlug/${slug}`, {bodybookingId: bookingId},
+  await axios.get(`${process.env.REACT_APP_API}/getLabBookingsBySlug/${slug}`, { bodybookingId: bookingId },
     {
-      
+
 
     })
+
+
+// for Admin get BookingId by params in Update Page
+export const getLabBookingsIDparams = async (labId, bookingId, authtoken) =>
+  await axios.get(`${process.env.REACT_APP_API}/getLabBookingsIDparams/${labId}/${bookingId}`, {
+    headers: {
+      authtoken,
+    }
+
+  })
 
 
 

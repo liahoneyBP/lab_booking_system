@@ -27,6 +27,8 @@ const {
   checkIn,
   searchFiltersUserBookings,
   getBookingsID,
+  getLabBookingsIDparams,
+  updateBooking,
 } = require("../controllers/lab");
 const { default: slugify } = require("slugify");
 
@@ -83,6 +85,17 @@ router.put("/lab/booking/checkin/:slug/:bookingId", authCheck, checkIn);
 
 
 router.get('/getBookingsID/:slug', getBookingsID);
+
+
+// get Booking Id in Booking Update page By Admin
+router.get('/getLabBookingsIDparams/:labId/:bookingId', authCheck, adminCheck, getLabBookingsIDparams)
+
+
+
+// Update bookingId
+router.put("/updateBooking/:labId/:bookingId", authCheck, adminCheck, updateBooking);
+
+
 
 
 
@@ -157,7 +170,6 @@ router.put('/makebooking/lab/:slug', authCheck, async (req, res) => {
     });
   }
 })
-
 
 
 

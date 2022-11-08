@@ -9,11 +9,14 @@ import { getAllUserBookings } from "../../functions/bookings";
 import { removeBooking } from "../../functions/bookings";
 import { fetchUserBookingsbyFilter } from "../../functions/lab";
 
+
 import moment from "moment";
 import { toast } from "react-toastify";
 import { Menu, Slider, Radio } from "antd"
 import { DesktopOutlined, DownSquareOutlined  } from "@ant-design/icons";
 import Search from "../../components/forms/Search";
+import { EditOutlined } from "@ant-design/icons";
+import { Link } from "react-router-dom";
 
 import { useNavigate } from "react-router-dom";
 
@@ -205,6 +208,7 @@ const AdminDashboard = () => {
     pin: item.bookings.pin,
     userEmail: item.bookings.user.email,
     createdAt: moment(item.bookings.createdAt).fromNow(),
+    updatedAt: moment(item.bookings.updatedAt).fromNow(),
 
   }
   ))
@@ -228,7 +232,7 @@ const AdminDashboard = () => {
   const handleDelete = (value) => {
     const dataSource = [...modifiedData];
    // const filteredData = dataSource.filter((item) => item.id !== value.id);
-
+    console.log("All VALUE ===>", value);
     console.log("value.id in front is ===>", value.id);
     console.log("value.labId in front is ===>", value.labId);
     console.log("value.userEmail from dynamic data is ===>", value.userEmail);
@@ -362,6 +366,23 @@ const AdminDashboard = () => {
           </Popconfirm>
         ) : null,
     },
+    {
+      title: 'Edit',
+      key: 'edit',
+      render: (_, record) =>
+          modifiedData.length >= 1 ? (
+            
+                  <Link to={`/admin/lab/booking/edit/${record.slug}/${record.labId}/${record.id}`}>
+                      <EditOutlined className="text-warning" />
+                  </Link>
+              
+          ) : null,
+  },
+  {
+    title: 'Latest Update',
+    dataIndex: 'updatedAt',
+
+  },
 
   ];
 

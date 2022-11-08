@@ -11,7 +11,8 @@ import moment from "moment";
 import { removeBooking } from "../functions/bookings";
 
 import { useNavigate } from "react-router-dom";
-
+import { Link } from "react-router-dom";
+import { EditOutlined } from "@ant-design/icons";
 
 import ButtonRB from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
@@ -85,7 +86,7 @@ const MyBookings = () => {
         pin: item.bookings.pin,
         userEmail: item.bookings.user.email,
         createdAt: moment(item.bookings.createdAt).fromNow(),
-      //  updatedAt: moment(item.bookings.createdAt).format('LLLL'),
+        //  updatedAt: moment(item.bookings.createdAt).format('LLLL'),
 
     }
     ))
@@ -124,7 +125,7 @@ const MyBookings = () => {
     }
 
     const columns = [
-        
+
         {
             title: 'Bookings ID',
             dataIndex: 'id',
@@ -179,7 +180,7 @@ const MyBookings = () => {
             title: 'Position',
             dataIndex: 'position',
         },
-        
+
         {
             title: 'Purpose',
             dataIndex: 'purpose',
@@ -199,12 +200,12 @@ const MyBookings = () => {
                 };
             }
         },
-       /* 
-       {
-            title: 'Check-In At',
-            dataIndex: 'updatedAt',
-        },
-        */
+        /* 
+        {
+             title: 'Check-In At',
+             dataIndex: 'updatedAt',
+         },
+         */
         {
             title: 'PinCode',
             key: 'pin',
@@ -240,6 +241,8 @@ const MyBookings = () => {
         },
 
     ];
+
+
     return (
         <>
 
