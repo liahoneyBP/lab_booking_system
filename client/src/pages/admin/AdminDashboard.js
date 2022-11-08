@@ -13,7 +13,7 @@ import { fetchUserBookingsbyFilter } from "../../functions/lab";
 import moment from "moment";
 import { toast } from "react-toastify";
 import { Menu, Slider, Radio } from "antd"
-import { DesktopOutlined, DownSquareOutlined  } from "@ant-design/icons";
+import { DesktopOutlined, DownSquareOutlined } from "@ant-design/icons";
 import Search from "../../components/forms/Search";
 import { EditOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
@@ -22,7 +22,7 @@ import { useNavigate } from "react-router-dom";
 
 import ButtonRB from 'react-bootstrap/Button';
 
-const {SubMenu} = Menu;
+const { SubMenu } = Menu;
 
 
 const AdminDashboard = () => {
@@ -40,7 +40,7 @@ const AdminDashboard = () => {
 
   const [ok, setOk] = useState(false);
   const [capacity, setCapacity] = useState([0, 0]);
-  
+
 
   const [labsName, setLabsName] = useState([
     "15201A",
@@ -100,7 +100,7 @@ const AdminDashboard = () => {
 
   // 4. load labs based on building
   const showLabName = () =>
-  labsName.map((l) => (
+    labsName.map((l) => (
       <Radio
         value={l}
         name={l}
@@ -124,7 +124,7 @@ const AdminDashboard = () => {
 
   // 4. load labs based on building
   const showCheckin = () =>
-  checkins.map((c) => (
+    checkins.map((c) => (
       <Radio
         value={c}
         name={c}
@@ -137,7 +137,7 @@ const AdminDashboard = () => {
     ))
 
   const handleshowCheckin = (e) => {
-   
+
     dispatch({
       type: "SEARCH_QUERY",
       payload: { text: "" },
@@ -149,7 +149,7 @@ const AdminDashboard = () => {
 
   // 4. load labs based on building
   const showPosition = () =>
-  positions.map((p) => (
+    positions.map((p) => (
       <Radio
         value={p}
         name={p}
@@ -162,7 +162,7 @@ const AdminDashboard = () => {
     ))
 
   const handleshowPosition = (e) => {
-    
+
     dispatch({
       type: "SEARCH_QUERY",
       payload: { text: "" },
@@ -231,7 +231,7 @@ const AdminDashboard = () => {
 
   const handleDelete = (value) => {
     const dataSource = [...modifiedData];
-   // const filteredData = dataSource.filter((item) => item.id !== value.id);
+    // const filteredData = dataSource.filter((item) => item.id !== value.id);
     console.log("All VALUE ===>", value);
     console.log("value.id in front is ===>", value.id);
     console.log("value.labId in front is ===>", value.labId);
@@ -245,16 +245,23 @@ const AdminDashboard = () => {
           console.log("Booking Id from front is ==>", value.id);
           console.log("Lab Id from front is ==>", value.labId);
           console.log("After hit API Remove Booking", dataRemove.data);
-          toast.error(`${value.description}, By ${value.bookedBy} is deleted `);
+
+          toast.error(`Deleted Book and Send Notification to user email`, {
+            position: toast.POSITION.TOP_CENTER
+          });
+
+          navigate(0);
+          //  window.alert(`${value.description}, By ${value.bookedBy} is deleted, And Already Send To User Email`);  
         })
+
         .catch(err => {
           if (err.response.status === 400) toast.error(err.response.data);
           console.log(err)
         })
-        
+
     }
 
-    navigate(0);
+
   }
 
   const columns = [
@@ -370,19 +377,19 @@ const AdminDashboard = () => {
       title: 'Edit',
       key: 'edit',
       render: (_, record) =>
-          modifiedData.length >= 1 ? (
-            
-                  <Link to={`/admin/lab/booking/edit/${record.slug}/${record.labId}/${record.id}`}>
-                      <EditOutlined className="text-warning" />
-                  </Link>
-              
-          ) : null,
-  },
-  {
-    title: 'Latest Update',
-    dataIndex: 'updatedAt',
+        modifiedData.length >= 1 ? (
 
-  },
+          <Link to={`/admin/lab/booking/edit/${record.slug}/${record.labId}/${record.id}`}>
+            <EditOutlined className="text-warning" />
+          </Link>
+
+        ) : null,
+    },
+    {
+      title: 'Latest Update',
+      dataIndex: 'updatedAt',
+
+    },
 
   ];
 
@@ -427,23 +434,23 @@ const AdminDashboard = () => {
             </SubMenu>
 
 
-    
+
           </Menu>
         </div>
 
         <div className="col-md-9 m-2">
-        <h3>ALL USER BOOKINGS</h3>
-        <hr />
+          <h3>ALL USER BOOKINGS</h3>
+          <hr />
           {/* <h5 className="text-dark p-3">Search/Filter</h5>
           <Search /> */}
-        
 
-        
+
+
           <div className="mt-3">
-          <Table
-            columns={columns}
-            dataSource={modifiedData} />
-            </div>
+            <Table
+              columns={columns}
+              dataSource={modifiedData} />
+          </div>
         </div>
       </div>
     </div>

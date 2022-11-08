@@ -70,14 +70,13 @@ const BookingCheckIn = () => {
         console.log("This pinCode send ===>", pinCode);
 
         getBookingsById(slug, bookingId)
-        .then((get) => {
-            console.log("Get Bookings By Id ==>", get.data);
-           // console.log("Get Bookings By Id . PIN ===>", get.data[0].pin);
-            const getPinCode = get.data[0].pin;
-            console.log("Get Pin Code For Check ===>", getPinCode);
+        .then((res) => {
+            console.log("Get Bookings By Id in front ==>", res.data);
+            const getPinCode = res.data[0].bookings[0].pin;
             console.log("Pin Code From User Input ===>", pinCode);
+            console.log("Pin Code For Check ===>", getPinCode);
 
-            if ( getPinCode === pinCode) {
+           if ( getPinCode === pinCode) {
                 console.log("PinCode match !")
                 checkIn(pinCode, slug, bookingId, user.token)
                 .then((res) => {
@@ -89,17 +88,13 @@ const BookingCheckIn = () => {
 
                     navigate('/mybookings');
                 })
-              /*  .catch(err => {
-                    if (err.response.status === 400) ;
-                    console.log(err)
-                    window.alert('Check-In Fail')
-                    
-                }) */
+            
             } else {
                 toast.error(`PinCode for check in is invalid, Please Try Again...`, {
                     position: toast.POSITION.TOP_CENTER
                   });
-            }
+            } 
+            
         })
                 
     }

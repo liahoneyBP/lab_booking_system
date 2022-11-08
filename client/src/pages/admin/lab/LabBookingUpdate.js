@@ -195,13 +195,13 @@ const LabBookingUpdate = () => {
                 </div>
 
                 <div className="col-md-10">
-                    <h1>Hello Admin bookings update page</h1>
-
+                    
                     {/* {JSON.stringify(getBooking)} */}
-
                     {
                         getBooking.map((a) => {
                             return (
+                                <>
+                                <h3>Edit Booked Time {a.bookings[0].description}</h3>
 
                                 <Card sx={{ minWidth: 275, mb: 2 }}>
                                     <CardContent >
@@ -214,7 +214,8 @@ const LabBookingUpdate = () => {
 
                                         </Typography>
                                         <Typography sx={{ mb: 1.5 }} color="text.secondary">
-                                            Test
+                                        {slug.toUpperCase()}
+
                                         </Typography>
                                         <Typography variant="body2">
                                             {moment(a.bookings[0].dateStart).format('YYYY-MM-DD')} { } { } <CalendarOutlined />
@@ -232,6 +233,7 @@ const LabBookingUpdate = () => {
 
                                     </CardActions>
                                 </Card>
+                                </>
 
                             )
 

@@ -8,7 +8,7 @@ import { toast } from "react-toastify";
 
 import moment from "moment";
 
-import { removeBooking } from "../functions/bookings";
+import { userRemoveBooking, removeBooking } from "../functions/bookings";
 
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
@@ -107,12 +107,14 @@ const MyBookings = () => {
         let answer = window.confirm(`Cancel This Booking (${value.description}, bookedBy ${value.bookedBy}) ?`)
         if (answer) {
             console.log('send delete request', value.id, value.labId);
-            removeBooking(value.id, value.labId, user.token)
+            removeBooking(value.id, value.labId, value.userEmail, user.token)
                 .then((dataRemove) => {
                     console.log("Booking Id from front is ==>", value.id);
                     console.log("Lab Id from front is ==>", value.labId);
                     console.log("After hit API Remove Booking", dataRemove.data);
-                    toast.error(`${value.description}, By ${value.bookedBy} is deleted `);
+                    toast.error(`Deleted Book and Send Notification to user email`, {
+                        position: toast.POSITION.TOP_CENTER
+                      });
                 })
                 .catch(err => {
                     if (err.response.status === 400) toast.error(err.response.data);

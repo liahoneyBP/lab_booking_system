@@ -84,6 +84,16 @@ export const removeBooking = async (bookingId, labId, userEmail, authtoken) =>
   });
 
 
+export const userRemoveBooking = async (bookingId, labId, userEmail, authtoken) =>
+  await axios.put(`${process.env.REACT_APP_API}/removeBooking`, { bodyBookingId: bookingId, bodyLabId: labId, userEmailinTable: userEmail }, {
+    headers: {
+      authtoken,
+    }
+  });
+
+
+
+
 
 export const getLabBookingLists = async (slug, userEmail) =>
   await axios.post(`${process.env.REACT_APP_API}/lab/booking/lists/${slug}`, { emailbody: userEmail }, {
@@ -93,7 +103,7 @@ export const getLabBookingLists = async (slug, userEmail) =>
 
 
 export const getBookingsById = async (slug, bookingId) =>
-  await axios.get(`${process.env.REACT_APP_API}/getLabBookingsBySlug/${slug}`, { bodybookingId: bookingId },
+  await axios.get(`${process.env.REACT_APP_API}/getBookingsById/${slug}/${bookingId}`,
     {
 
 

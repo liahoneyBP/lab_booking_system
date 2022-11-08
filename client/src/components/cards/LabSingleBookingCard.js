@@ -128,7 +128,7 @@ const SingleBookingCard = ({ lab }) => {
                 .then((response) => {
                   console.log("Data After submit form ===>", response.data);
                   //   navigate(0)
-                  toast.success(`Booked Success`, {
+                  toast.success(`Booked Success, You Can Check PIN in E-mail`, {
                     position: toast.POSITION.TOP_CENTER
                   });
 

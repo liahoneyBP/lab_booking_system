@@ -367,6 +367,60 @@ exports.removeBooking = async (req, res) => {
   console.log("After Backend response ===>", deleted);
 }
 
+/*
+exports.userRemoveBooking = async (req, res) => {
+
+  console.log("BOOKING ID in Backend is ===>", req.body.bodyBookingId);
+  console.log("LAB ID in Backend is ===>", req.body.bodyLabId);
+  console.log("userEmailinTable in Backend ===>", req.body.userEmailinTable);
+
+  const bookingId = req.body.bodyBookingId;
+  const labId = req.body.bodyLabId;
+
+
+  let deleted = await Lab.findOneAndUpdate({ _id: labId },
+    {
+      $pull: {
+        bookings: {
+          _id: bookingId
+        }
+      }
+    },
+    { safe: true, new: true },
+  );
+
+  // for send pinCode to user email
+  let mailTransporter = nodemailer.createTransport({
+    service: "gmail",
+    auth: {
+      user: "labbook022@gmail.com",
+      pass: "xoffjnnwcsgfhhkz"
+    }
+  })
+
+  let details = {
+    from: "labbook022@gmail.com",
+    to: req.body.userEmailinTable,
+    subject: `Your Bookings ID => ${req.body.bodyBookingId} has been cancelled.`,
+    text: `Your Bookings ID => ${req.body.bodyBookingId} has been cancelled. `
+  }
+
+  mailTransporter.sendMail(details, (err)=> {
+    if (err) {
+      console.log("nodemailer error", err)
+    } else {
+      console.log(`Email has send PIN to ==> ${req.user.email} `);
+    }
+  })
+
+
+  res.json(deleted)
+  // console.log("LAB ID in Backend is ===>", req.body.bodyLabId);
+  console.log("After Backend response ===>", deleted);
+}
+*/
+
+
 
 
 
@@ -454,25 +508,19 @@ exports.checkIn = async (req, res) => {
 
 }
 
-
-exports.getBookingsID = async (req, res) => {
+// for get pinCode to compare user input check in
+exports.getBookingsById = async (req, res) => {
   
-  const bookingsbyId = await Lab.aggregate([
-    {
-      $match: {
-        slug: req.params.slug
+  const bookingsbyId = await Lab.find({
+    slug: req.params.slug
+  },
+  {
+    "bookings": {
+      "$elemMatch": {
+        "_id": req.params.bookingId
       }
-    },
-    {
-      "$unwind": "$bookings"
-    },
-    {
-      "$match": {
-        "bookings._id": req.body.bodybookingId
-      }
-    },
-
-  ])
+    }
+  })
 
   res.json(bookingsbyId);
   console.log("slug in Backend ===>", req.params.slug)

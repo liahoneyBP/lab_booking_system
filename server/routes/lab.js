@@ -26,7 +26,7 @@ const {
   labBookingLists,
   checkIn,
   searchFiltersUserBookings,
-  getBookingsID,
+  getBookingsById,
   getLabBookingsIDparams,
   updateBooking,
 } = require("../controllers/lab");
@@ -83,8 +83,8 @@ router.post("/lab/booking/lists/:slug", labBookingLists);
 router.put("/lab/booking/checkin/:slug/:bookingId", authCheck, checkIn);
 
 
-
-router.get('/getBookingsID/:slug', getBookingsID);
+// get pinCode in current BookingId when user try to check-in
+router.get('/getBookingsById/:slug/:bookingId', getBookingsById);
 
 
 // get Booking Id in Booking Update page By Admin
@@ -120,7 +120,7 @@ router.put('/makebooking/lab/:slug', authCheck, async (req, res) => {
               ...req.body
             }
           }
-        }, { new: true, runValidators: true, context: 'query' }
+        }, { new: true, runValidators: true, context: 'query' }    
       ).exec();
 
       console.log("PinCode in Backend ===>", req.body.pin);
@@ -138,7 +138,7 @@ router.put('/makebooking/lab/:slug', authCheck, async (req, res) => {
       let details = {
         from: "labbook022@gmail.com",
         to: req.user.email,
-        subject: `Your Pin => ${req.body.pin}`,
+        subject: `Hello ${req.body.bookedBy} ! This is Your Pin For Check-In => ${req.body.pin}`,
         text: `LAB UTCC Booked by ${req.body.bookedBy}
           Title Of Meeting => ${req.body.description}
           Pin => ${req.body.pin},
@@ -157,6 +157,7 @@ router.put('/makebooking/lab/:slug', authCheck, async (req, res) => {
       
       console.log("req.user ==>", req.user);
       res.json(booked)
+      console.log("get Booked ===>", booked);
 
     }
 
