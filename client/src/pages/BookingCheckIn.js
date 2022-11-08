@@ -5,6 +5,7 @@ import { useParams } from 'react-router-dom';
 
 
 import { checkIn } from "../functions/checkin";
+import { getBookingsById } from "../functions/bookings";
 
 import { Space } from "antd";
 import moment from "moment";
@@ -67,8 +68,18 @@ const BookingCheckIn = () => {
         console.log("This Lab  ===>", slug);
         console.log("This Booking Id ===>", bookingId);
         console.log("This pinCode send ===>", pinCode);
-        
-        checkIn(pinCode, slug, bookingId, user.token)
+
+        getBookingsById(slug, bookingId)
+        .then((get) => {
+            console.log("Get Bookings By Id ==>", get.data);
+           // console.log("Get Bookings By Id . PIN ===>", get.data[0].pin);
+            const getPinCode = get.data[0].pin;
+            console.log("Get Pin Code For Check ===>", getPinCode);
+            console.log("Pin Code From User Input ===>", pinCode);
+
+            if ( getPinCode === pinCode) {
+                console.log("PinCode match !")
+                checkIn(pinCode, slug, bookingId, user.token)
                 .then((res) => {
                     console.log("After Hit Api CHECK IN ===>", res.data);
                     //window.alert('Check-In Success')
@@ -76,15 +87,23 @@ const BookingCheckIn = () => {
                         position: toast.POSITION.TOP_CENTER
                       });
 
-                   // navigate('/mybookings');
-
+                    navigate('/mybookings');
                 })
-                .catch(err => {
+              /*  .catch(err => {
                     if (err.response.status === 400) ;
                     console.log(err)
                     window.alert('Check-In Fail')
-                })
+                    
+                }) */
+            } else {
+                toast.error(`PinCode for check in is invalid, Please Try Again...`, {
+                    position: toast.POSITION.TOP_CENTER
+                  });
+            }
+        })
+                
     }
+    
 
 
     

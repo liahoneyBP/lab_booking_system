@@ -161,7 +161,7 @@ exports.searchFilters = async (req, res) => {
 const handleQueryUserBookings = async (req, res, query) => {
   const labs = await Lab.find(
     { $text: { $search: query } }
-    )
+  )
 
   res.json(labs);
 }
@@ -176,7 +176,7 @@ const handleLabName = async (req, res, labName) => {
     {
       "$unwind": "$bookings"
     },
-    
+
     { $sort: { "bookings.createdAt": -1 } }
 
   ])
@@ -196,7 +196,7 @@ const handleCheckInStatus = async (req, res, isCheckin) => {
     {
       "$unwind": "$bookings"
     },
-    
+
     { $sort: { "bookings.createdAt": -1 } }
 
   ])
@@ -216,7 +216,7 @@ const handlePosition = async (req, res, position) => {
     {
       "$unwind": "$bookings"
     },
-    
+
     { $sort: { "bookings.createdAt": -1 } }
 
   ])
@@ -229,10 +229,10 @@ const handlePosition = async (req, res, position) => {
 exports.searchFiltersUserBookings = async (req, res) => {
   const { query, labName, isCheckin, position } = req.body
 
- /* if (query) {
-    console.log('query --->', query)
-    await handleQueryUserBookings(req, res, query);
-  } */
+  /* if (query) {
+     console.log('query --->', query)
+     await handleQueryUserBookings(req, res, query);
+   } */
 
   if (labName !== undefined) {
     console.log('labName --->', labName)
@@ -369,6 +369,34 @@ exports.labBookingLists = async (req, res) => {
 }
 
 
+/*
+.update(
+  { _id: docId, "messages.senderId": friendId },
+  {
+    $set: { "messages.$[elem].read": true }
+  },
+  {
+    multi: true,
+    strict: false,
+    arrayFilters: [{ "elem.senderId": friendId }]
+  },
+  (err, result) => {
+    if (err) {
+      return res.status(500).json({ message: "Something error occured" + err })
+    } else {
+      return res.status(200).json({ message: "Successfully", result })
+    }
+  }
+)
+*/
+
+/*
+.findOneAndUpdate({slug: req.params.slug, bookings: {$elemMatch: {id: bookingId}}},
+  {$set: {'bookings.$.pin': req.body.pinbody,
+          }}, // list fields you like to change
+  {'new': true, 'safe': true, 'upsert': true});
+  */
+
 
 exports.checkIn = async (req, res) => {
   try {
@@ -395,7 +423,32 @@ exports.checkIn = async (req, res) => {
       err: err.message,
     });
   }
+
+}
+
+
+exports.getBookingsID = async (req, res) => {
   
+  const bookingsbyId = await Lab.aggregate([
+    {
+      $match: {
+        slug: req.params.slug
+      }
+    },
+    {
+      "$unwind": "$bookings"
+    },
+    {
+      "$match": {
+        "bookings._id": req.body.bodybookingId
+      }
+    },
+
+  ])
+
+  res.json(bookingsbyId);
+  console.log("slug in Backend ===>", req.params.slug)
+  console.log("get Bookings by Id  in Backend ===>", bookingsbyId);
 }
 
 

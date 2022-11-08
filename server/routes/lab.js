@@ -25,6 +25,7 @@ const {
   labBookingLists,
   checkIn,
   searchFiltersUserBookings,
+  getBookingsID,
 } = require("../controllers/lab");
 const { default: slugify } = require("slugify");
 
@@ -80,25 +81,8 @@ router.put("/lab/booking/checkin/:slug/:bookingId", authCheck, checkIn);
 
 
 
+router.get('/getBookingsID/:slug', getBookingsID);
 
-
-// Function to calculate the duration of the hours between the start and end of the booking
-/*const durationHours = (bookingStart, bookingEnd) => {
-  // convert the UTC Date objects to Moment.js objeccts
-  let startDateLocal = dateAEST(bookingStart)
-  let endDateLocal = dateAEST(bookingEnd)
-  // calculate the duration of the difference between the two times
-  let difference = moment.duration(endDateLocal.diff(startDateLocal))
-  // return the difference in decimal format
-  return difference.hours() + difference.minutes() / 60
-}
-*/
-
-
-// Function to convert UTC JS Date object to a Moment.js object in AEST
-/*const dateAEST = date => {
-  return momentTimezone(date).tz('Australia/Sydney')
-} */
 
 
 // Make a booking
@@ -110,6 +94,7 @@ router.put('/makebooking/lab/:slug', authCheck, async (req, res) => {
     }
     if (req.body) {
       console.log("Body data ===>", req.body);
+      console.log("PinCode in Backend ===>", req.body.pin);
       const booked = await Lab.findOneAndUpdate(
         { slug: req.params.slug },
         {
@@ -138,6 +123,9 @@ router.put('/makebooking/lab/:slug', authCheck, async (req, res) => {
     });
   }
 })
+
+
+
 
 
 
