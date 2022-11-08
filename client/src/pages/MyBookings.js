@@ -85,6 +85,7 @@ const MyBookings = () => {
         pin: item.bookings.pin,
         userEmail: item.bookings.user.email,
         createdAt: moment(item.bookings.createdAt).fromNow(),
+      //  updatedAt: moment(item.bookings.createdAt).format('LLLL'),
 
     }
     ))
@@ -198,6 +199,12 @@ const MyBookings = () => {
                 };
             }
         },
+       /* 
+       {
+            title: 'Check-In At',
+            dataIndex: 'updatedAt',
+        },
+        */
         {
             title: 'PinCode',
             key: 'pin',

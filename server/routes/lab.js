@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const Lab = require("../models/lab");
+const nodemailer = require('nodemailer');
 
 const momentTimezone = require('moment-timezone')
 
@@ -94,7 +95,7 @@ router.put('/makebooking/lab/:slug', authCheck, async (req, res) => {
     }
     if (req.body) {
       console.log("Body data ===>", req.body);
-      console.log("PinCode in Backend ===>", req.body.pin);
+     
       const booked = await Lab.findOneAndUpdate(
         { slug: req.params.slug },
         {
@@ -108,6 +109,39 @@ router.put('/makebooking/lab/:slug', authCheck, async (req, res) => {
           }
         }, { new: true, runValidators: true, context: 'query' }
       ).exec();
+
+      console.log("PinCode in Backend ===>", req.body.pin);
+      console.log("userEmail in Backend ===>", req.user.email);
+      
+      // for send pinCode to user email
+      let mailTransporter = nodemailer.createTransport({
+        service: "gmail",
+        auth: {
+          user: "labbook022@gmail.com",
+          pass: "etlxmptqbswvujme"
+        }
+      })
+
+      let details = {
+        from: "labbook022@gmail.com",
+        to: req.user.email,
+        subject: `Your Pin => ${req.body.pin}`,
+        text: `LAB UTCC Booked by ${req.body.bookedBy}
+          Title Of Meeting => ${req.body.description}
+          Pin => ${req.body.pin},
+          Date => ${req.body.dateStart}
+          Time => ${req.body.timeStart.toString().slice(0, -2)} : ${req.body.timeStart.toString().slice(-2)} - ${req.body.timeEnd.toString().slice(0, -2)} : ${req.body.timeEnd.toString().slice(-2)}
+        `
+      }
+
+      mailTransporter.sendMail(details, (err)=> {
+        if (err) {
+          console.log("nodemailer error", err)
+        } else {
+          console.log(`Email has send PIN to ==> ${req.user.email} `);
+        }
+      })
+      
       console.log("req.user ==>", req.user);
       res.json(booked)
 
