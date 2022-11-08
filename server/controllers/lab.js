@@ -257,7 +257,7 @@ exports.searchFiltersUserBookings = async (req, res) => {
 
 
 
-// 
+// get user bookings data to display my bookings page
 exports.getUserBookings = async (req, res) => {
 
   let getBookings = await Lab.aggregate([
@@ -279,7 +279,7 @@ exports.getUserBookings = async (req, res) => {
 }
 
 
-// 
+// get All user bookings in all room in database to display Schedule Page
 exports.getAllUserBookings = async (req, res) => {
   let getAllBookings = await Lab.aggregate([
     {
@@ -304,6 +304,7 @@ exports.getLabBookings = async (req, res) => {
 }
 
 
+// get bookings data specific room by slug params in url to display specific bookings data in that room
 exports.getLabBookingsBySlug = async (req, res) => {
   const labBooks = await Lab.findOne(
     { slug: req.params.slug }
@@ -424,7 +425,7 @@ exports.userRemoveBooking = async (req, res) => {
 
 
 
-
+// display booking list that room when user scan check-in page
 exports.labBookingLists = async (req, res) => {
   console.log("User Email in Backend ===>", req.body.emailbody)
   const lists = await Lab.aggregate([
@@ -480,6 +481,7 @@ exports.labBookingLists = async (req, res) => {
   */
 
 
+// checkIn booking
 exports.checkIn = async (req, res) => {
   try {
     const labSlug = req.params.slug;
@@ -508,7 +510,7 @@ exports.checkIn = async (req, res) => {
 
 }
 
-// for get pinCode to compare user input check in
+// get booking data for check pinCode in current BookingId when user try to check-in
 exports.getBookingsById = async (req, res) => {
   
   const bookingsbyId = await Lab.find({
@@ -528,7 +530,7 @@ exports.getBookingsById = async (req, res) => {
 }
 
 
-// for admin update booking
+// get Booking Id in Booking Update page By Admin
 exports.getLabBookingsIDparams = async (req, res) => {
   const data = await Lab.find({
     "_id": req.params.labId
@@ -547,7 +549,7 @@ exports.getLabBookingsIDparams = async (req, res) => {
 }
 
 
-
+// Update bookingId By Admin
 exports.updateBooking = async (req, res) => {
   const labId = req.params.labId;
   const bookingId = req.params.bookingId;

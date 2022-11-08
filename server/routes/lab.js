@@ -34,18 +34,23 @@ const { default: slugify } = require("slugify");
 
 // routes
 
-// create lab
+// create lab By Admin
 router.post("/create-lab", authCheck, adminCheck, create);
+
+// remove lab
+router.delete("/remove-lab/:slug", authCheck, adminCheck, remove);
+
+// update lab
+router.put("/update-lab/:slug", authCheck, adminCheck, update);
+
+// read lab id params
+router.get("/lab/:labId", read);
 
 // get all labs
 router.get("/labs/:count", listAll);
 
-// read lab id
-router.get("/lab/:labId", read);
-
-
+// read lab by slug params
 router.get("/labslug/:slug", readSlug);
-
 
 // search
 router.post('/search/filters', searchFilters)
@@ -55,47 +60,40 @@ router.post('/search/filters/userbookings', searchFiltersUserBookings)
 router.get('/lab/image/:labId', image);
 
 
-// update lab
-router.put("/update-lab/:slug", authCheck, adminCheck, update);
-
-// remove lab
-router.delete("/remove-lab/:slug", authCheck, adminCheck, remove);
 
 
 
+
+
+// get user bookings data to display MyBookings page
 router.post('/getUserBookings', getUserBookings);
 
+// get All user bookings in all room in database to display Schedule Page
 router.get('/getAllUserBookings', getAllUserBookings);
 
+// get existing bookings data in that room to check Time Clash (When user submit form)
 router.post('/getLabBookings', getLabBookings);
 
+// get bookings data specific room by slug params in url to display specific bookings data in that room in Bookings Page
 router.get('/getLabBookingsBySlug/:slug', getLabBookingsBySlug);
 
-
-// remove booking
+// remove booking (Cancel , Reject Book)
 router.put("/removeBooking", authCheck, removeBooking);
 
-
+// display booking list that room when user scan Check-in page
 router.post("/lab/booking/lists/:slug", labBookingLists);
 
-
-// checkIn booking
+// checkIn booking (update status isCheckin in database when user enter valid pin)
 router.put("/lab/booking/checkin/:slug/:bookingId", authCheck, checkIn);
 
-
-// get pinCode in current BookingId when user try to check-in
+// get booking data for check pinCode in current BookingId when user try to check-in
 router.get('/getBookingsById/:slug/:bookingId', getBookingsById);
-
 
 // get Booking Id in Booking Update page By Admin
 router.get('/getLabBookingsIDparams/:labId/:bookingId', authCheck, adminCheck, getLabBookingsIDparams)
 
-
-
-// Update bookingId
+// Update booking (update in database when admin submit form) By Admin
 router.put("/updateBooking/:labId/:bookingId", authCheck, adminCheck, updateBooking);
-
-
 
 
 
