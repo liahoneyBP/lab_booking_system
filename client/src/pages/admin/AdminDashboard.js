@@ -231,11 +231,12 @@ const AdminDashboard = () => {
 
     console.log("value.id in front is ===>", value.id);
     console.log("value.labId in front is ===>", value.labId);
+    console.log("value.userEmail from dynamic data is ===>", value.userEmail);
 
     let answer = window.confirm(`Reject This Booking (${value.description}, bookedBy ${value.bookedBy}) ?`)
     if (answer) {
       console.log('send delete request', value.id, value.labId);
-      removeBooking(value.id, value.labId, user.token)
+      removeBooking(value.id, value.labId, value.userEmail, user.token)
         .then((dataRemove) => {
           console.log("Booking Id from front is ==>", value.id);
           console.log("Lab Id from front is ==>", value.labId);
@@ -246,8 +247,8 @@ const AdminDashboard = () => {
           if (err.response.status === 400) toast.error(err.response.data);
           console.log(err)
         })
+        
     }
-
 
     navigate(0);
   }

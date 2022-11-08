@@ -1,6 +1,7 @@
 const Lab = require("../models/lab");
 const fs = require("fs");
 const slugify = require("slugify");
+const nodemailer = require('nodemailer');
 
 
 exports.create = async (req, res) => {
@@ -319,6 +320,7 @@ exports.removeBooking = async (req, res) => {
 
   console.log("BOOKING ID in Backend is ===>", req.body.bodyBookingId);
   console.log("LAB ID in Backend is ===>", req.body.bodyLabId);
+  console.log("userEmailinTable in Backend ===>", req.body.userEmailinTable);
 
   const bookingId = req.body.bodyBookingId;
   const labId = req.body.bodyLabId;
@@ -333,7 +335,33 @@ exports.removeBooking = async (req, res) => {
       }
     },
     { safe: true, new: true },
-  )
+  );
+
+  // for send pinCode to user email
+  let mailTransporter = nodemailer.createTransport({
+    service: "gmail",
+    auth: {
+      user: "labbook022@gmail.com",
+      pass: "xoffjnnwcsgfhhkz"
+    }
+  })
+
+  let details = {
+    from: "labbook022@gmail.com",
+    to: req.body.userEmailinTable,
+    subject: `Your Bookings ID => ${req.body.bodyBookingId} has been cancelled.`,
+    text: `Your Bookings ID => ${req.body.bodyBookingId} has been cancelled. `
+  }
+
+  mailTransporter.sendMail(details, (err)=> {
+    if (err) {
+      console.log("nodemailer error", err)
+    } else {
+      console.log(`Email has send PIN to ==> ${req.user.email} `);
+    }
+  })
+
+
   res.json(deleted)
   // console.log("LAB ID in Backend is ===>", req.body.bodyLabId);
   console.log("After Backend response ===>", deleted);
