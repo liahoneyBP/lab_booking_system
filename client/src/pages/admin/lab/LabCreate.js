@@ -6,6 +6,7 @@ import { createLab } from "../../../functions/lab";
 import LabCreateForm from "../../../components/forms/LabCreateForm"
 import FileUpload from "../../../components/forms/FileUpload"
 import { LoadingOutlined } from "@ant-design/icons"
+import { useParams } from 'react-router-dom';
 
 import QRCode from "qrcode";
 
@@ -16,18 +17,21 @@ const initialState = {
   floor: "5",
   capacity: "50",
   images: [],
-  qrcode: "",
+  qrcode: ``,
   equipment: {},
   bookings: [],
 }
 
 const LabCreate = () => {
-  const [url, setUrl] = useState('')
-  const [qrcode, setQrcode] = useState()
+  const { slug } = useParams()
+  
 
 
   const [values, setValues] = useState(initialState)
   const [loading, setLoading] = useState(false);
+
+  const [url, setUrl] = useState(`http://localhost:3000/lab/booking/lists/${values.labName}`)
+  const [qrcode, setQrcode] = useState()
 
   // redux
   const { user } = useSelector((state) => ({ ...state }));
@@ -97,14 +101,14 @@ const LabCreate = () => {
           />
 
 
-          {/* <div>
+           <div>
             <h1>QR Code Generator</h1>
             <input
               type="text"
               placeholder=''
               className="inputQRCode"
-              value={`http://localhost:3000/lab/booking/lists/${values.labName}`}
-              onChange={(evt) => setValues(evt.target.value)}
+              value={url}
+              onChange={(e) => setUrl(e.target.value)}
             />
             <button onClick={GenerateQRCode} className="buttonGenerateQRCode">Generate</button>
             {qrcode && <>
@@ -113,7 +117,7 @@ const LabCreate = () => {
             </>
             }
 
-          </div> */}
+          </div> 
 
 
         </div>

@@ -11,6 +11,7 @@ const LabCreateForm = ({handleSubmit, handleChange, values}) =>
     capacity, 
     images, 
     equipment, 
+    qrcode,
     bookings} = values;
   
 return (

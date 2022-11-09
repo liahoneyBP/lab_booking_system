@@ -79,7 +79,7 @@ const LabBookingForm = ({ handleSubmit, handleChange, values, setValues, user, l
 
   return (
     
-    <Segment >
+    <Segment>
     <Form onSubmit={handleSubmit}>
       
 

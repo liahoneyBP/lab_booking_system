@@ -15,7 +15,7 @@ import Button from '@mui/material/Button';
 
 
 const SingleLabCard = ({ lab }) => {
-  const { images, labName, slug, _id } = lab;
+  const { images, labName, slug } = lab;
 
   return (
     <>
