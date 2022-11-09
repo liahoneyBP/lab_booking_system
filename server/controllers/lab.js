@@ -319,12 +319,26 @@ exports.getLabBookingsBySlug = async (req, res) => {
 
 exports.removeBooking = async (req, res) => {
 
-  console.log("BOOKING ID in Backend is ===>", req.body.bodyBookingId);
+ /* console.log("BOOKING ID in Backend is ===>", req.body.bodyBookingId);
   console.log("LAB ID in Backend is ===>", req.body.bodyLabId);
   console.log("userEmailinTable in Backend ===>", req.body.userEmailinTable);
+  */
 
-  const bookingId = req.body.bodyBookingId;
-  const labId = req.body.bodyLabId;
+  console.log("All Value after user hit api Remove ===>", req.body);
+
+  console.log("booking id backend ===>", req.body.id);
+  console.log("lab id backend ===>", req.body.labId);
+  console.log("BookedBy backend ===>", req.body.bookedBy);
+
+  const bookingId = req.body.id;
+  const labId = req.body.labId;
+  const bookedBy = req.body.bookedBy;
+  const labName = req.body.labName;
+  const dateStart = req.body.dateStart;
+  const timeStart = req.body.timeStart;
+  const timeEnd = req.body.timeEnd;
+  const description = req.body.description;
+  const userEmail = req.body.userEmail;
 
 
   let deleted = await Lab.findOneAndUpdate({ _id: labId },
@@ -349,9 +363,15 @@ exports.removeBooking = async (req, res) => {
 
   let details = {
     from: "labbook022@gmail.com",
-    to: req.body.userEmailinTable,
-    subject: `Your Bookings ID => ${req.body.bodyBookingId} has been cancelled.`,
-    text: `Your Bookings ID => ${req.body.bodyBookingId} has been cancelled. `
+    to: userEmail,
+    subject: `Hi ${bookedBy} Your Bookings ID => ${bookingId} at ${labName} has been cancelled.`,
+    text: `Your Bookings ID => ${bookingId} has been cancelled.
+          Title Of Meeting => ${description}
+          At => ${labName}
+          Date => ${dateStart}
+          Time => ${timeStart.toString().slice(0, -2)} : ${timeStart.toString().slice(-2)} - ${timeEnd.toString().slice(0, -2)} : ${timeEnd.toString().slice(-2)}
+       Cancelled.
+          `
   }
 
   mailTransporter.sendMail(details, (err)=> {

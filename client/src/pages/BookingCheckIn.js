@@ -70,42 +70,42 @@ const BookingCheckIn = () => {
         console.log("This pinCode send ===>", pinCode);
 
         getBookingsById(slug, bookingId)
-        .then((res) => {
-            console.log("Get Bookings By Id in front ==>", res.data);
-            const getPinCode = res.data[0].bookings[0].pin;
-            console.log("Pin Code From User Input ===>", pinCode);
-            console.log("Pin Code For Check ===>", getPinCode);
+            .then((res) => {
+                console.log("Get Bookings By Id in front ==>", res.data);
+                const getPinCode = res.data[0].bookings[0].pin;
+                console.log("Pin Code From User Input ===>", pinCode);
+                console.log("Pin Code For Check ===>", getPinCode);
 
-           if ( getPinCode === pinCode) {
-                console.log("PinCode match !")
-                checkIn(pinCode, slug, bookingId, user.token)
-                .then((res) => {
-                    console.log("After Hit Api CHECK IN ===>", res.data);
-                    //window.alert('Check-In Success')
-                    toast.success(`Check In Success`, {
+                if (getPinCode === pinCode) {
+                    console.log("PinCode match !")
+                    checkIn(pinCode, slug, bookingId, user.token)
+                        .then((res) => {
+                            console.log("After Hit Api CHECK IN ===>", res.data);
+                            //window.alert('Check-In Success')
+                            toast.success(`Check In Success`, {
+                                position: toast.POSITION.TOP_CENTER
+                            });
+
+                            navigate('/mybookings');
+                        })
+
+                } else {
+                    toast.error(`PinCode for check in is invalid, Please Try Again...`, {
                         position: toast.POSITION.TOP_CENTER
-                      });
+                    });
+                }
 
-                    navigate('/mybookings');
-                })
-            
-            } else {
-                toast.error(`PinCode for check in is invalid, Please Try Again...`, {
-                    position: toast.POSITION.TOP_CENTER
-                  });
-            } 
-            
-        })
-                
+            })
+
     }
-    
 
 
-    
+
+
 
     useEffect(() => {
     });
-  
+
     return (
 
         <>
@@ -117,15 +117,15 @@ const BookingCheckIn = () => {
                     </div>
 
                     <div className="col-md-8 m-3">
-                        
-                         <h1>Hello Check-in this booking</h1>
-                         <Modal show={show} onHide={handleClose} dialogClassName="my-modal">
-                                                <Modal.Header closeButton>
-                                                    <Modal.Title>Enter Your Code...</Modal.Title>
-                                                </Modal.Header>
 
-                                                <Modal.Body>
-                                                    <div class="d-flex justify-content-center">
+                        <h1>Hello Check-in this booking</h1>
+                        <Modal show={show} onHide={handleClose} dialogClassName="my-modal">
+                            <Modal.Header closeButton>
+                                <Modal.Title>Enter Your Code...</Modal.Title>
+                            </Modal.Header>
+
+                            <Modal.Body>
+                                {/* <div class="d-flex justify-content-center">
                                                         <form >
                                                             <div>
                                                                 <Space >
@@ -137,19 +137,41 @@ const BookingCheckIn = () => {
 
                                                             <ButtonRB onClick={handleSubmit} type='button'>Send Check-In </ButtonRB>
                                                         </form>
-                                                    </div>
+                                                    </div> */}
 
-                                                </Modal.Body>
+                                <div class="container">
+                                    <div class="row row-centered pos">
+                                        <div class="col-lg-8 col-xs-12 col-centered">
+                                            <div class="well">
+                                            <form >
+                                                            <div>
+                                                                <Space >
+                                                                    {fields.map((propsField, index) => (
+                                                                        <input type="text" key={index} {...propsField} class="input-res"/>
+                                                                    ))}
+                                                                </Space>
+                                                            </div>
 
-                                                <Modal.Footer>
-                                                    <Button variant="secondary" onClick={handleClose}>
-                                                        Close
-                                                    </Button>
-                                                    <Button variant="primary" onClick={handleClose}>
-                                                        X
-                                                    </Button>
-                                                </Modal.Footer>
-                                            </Modal>
+                                                            <ButtonRB onClick={handleSubmit} type='button'>Send Check-In </ButtonRB>
+                                                        </form>
+
+                                            </div>
+                                        </div>
+                                    
+                                    </div>
+                                </div>
+
+                            </Modal.Body>
+
+                            <Modal.Footer>
+                                <Button variant="secondary" onClick={handleClose}>
+                                    Close
+                                </Button>
+                                {/* <Button variant="primary" onClick={handleClose}>
+                                    X
+                                </Button> */}
+                            </Modal.Footer>
+                        </Modal>
                     </div>
                     {/* <div>
                     <p>test user bookings</p>

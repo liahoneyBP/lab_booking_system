@@ -1,32 +1,39 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
 
+import Typography from '@mui/material/Typography';
+import Box from '@mui/material/Box';
+
 const LabListItems = ({lab}) => {
     const { details, building, floor, capacity, equipment} = lab;
     
    
     return (
         <>
-        <h1 className='text-center'>Room Info</h1>
+        <h1 className='text-center'> <Box sx={{ fontWeight: 'bold', m: 1, fontFamily: 'Roboto' }}> Room Info </Box></h1>
         <ul className='list-group'>
             <li className='list-group-item'>
-                Details <span className='label label-default label-pill pull-xs-right'>
-                    {details}
+            <Box sx={{ fontWeight: 'bold', m: 1 }}> Details </Box>   
+             <span className='label label-default label-pill pull-xs-right'>
+                    <Box sx={{ fontWeight: 'bold', m: 1, fontSize: 'h6.fontSize' }}>{details} </Box>
                 </span>
             </li>
             <li className='list-group-item'>
-                Building <span className='label label-default label-pill pull-xs-right'>
-                    {building}
+            <Box sx={{ fontWeight: 'bold', m: 1 }}> Building </Box>  
+                <span className='label label-default label-pill pull-xs-right'>
+                   <Box sx={{ fontWeight: 'bold', m: 1, fontSize: 'h6.fontSize' }}> {building}</Box>
                 </span>
             </li>
             <li className='list-group-item'>
-                Floor <span className='label label-default label-pill pull-xs-right'>
-                    {floor}
+            <Box sx={{ fontWeight: 'bold', m: 1 }}> Floor </Box> 
+                <span className='label label-default label-pill pull-xs-right'>
+                     <Box sx={{ fontWeight: 'bold', m: 1 , fontSize: 'h6.fontSize'}}>  {floor}</Box>
                 </span>
             </li>
             <li className='list-group-item'>
-                Capacity <span className='label label-default label-pill pull-xs-right'>
-                    {capacity}
+            <Box sx={{ fontWeight: 'bold', m: 1 }}> Capacity </Box>
+                <span className='label label-default label-pill pull-xs-right'>
+                     <Box sx={{ fontWeight: 'bold', m: 1 , fontSize: 'h6.fontSize'}}> {capacity}</Box>
                 </span>
             </li>
             <li className='list-group-item'>

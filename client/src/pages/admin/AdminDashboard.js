@@ -142,6 +142,8 @@ const AdminDashboard = () => {
       type: "SEARCH_QUERY",
       payload: { text: "" },
     });
+    setPosition('')
+    setLabName('')
     setCheckin(e.target.value)
     fetchUserBookings({ isCheckin: e.target.value });
   }
@@ -168,6 +170,8 @@ const AdminDashboard = () => {
       payload: { text: "" },
     });
     setPosition(e.target.value)
+    setLabName('')
+    setCheckin('')
     fetchUserBookings({ position: e.target.value });
   }
 
@@ -230,7 +234,7 @@ const AdminDashboard = () => {
 
 
   const handleDelete = (value) => {
-    const dataSource = [...modifiedData];
+   // const dataSource = [...modifiedData];
     // const filteredData = dataSource.filter((item) => item.id !== value.id);
     console.log("All VALUE ===>", value);
     console.log("value.id in front is ===>", value.id);
@@ -240,7 +244,9 @@ const AdminDashboard = () => {
     let answer = window.confirm(`Reject This Booking (${value.description}, bookedBy ${value.bookedBy}) ?`)
     if (answer) {
       console.log('send delete request', value.id, value.labId);
-      removeBooking(value.id, value.labId, value.userEmail, user.token)
+      console.log("All Value Before hit api remove ==>", value);
+    
+      removeBooking(value, user.token)
         .then((dataRemove) => {
           console.log("Booking Id from front is ==>", value.id);
           console.log("Lab Id from front is ==>", value.labId);
@@ -269,11 +275,13 @@ const AdminDashboard = () => {
     {
       title: 'Bookings ID',
       dataIndex: 'id',
+      responsive: ["xs"]
     },
     {
       title: 'Title of Event',
       key: 'description',
       dataIndex: "description",
+      responsive: ["sm"],
 
       render: (text) => (
         <>
@@ -286,6 +294,7 @@ const AdminDashboard = () => {
       title: 'User Booked By',
       key: 'bookedBy',
       dataIndex: "bookedBy",
+      responsive: ["sm"],
 
       render: (text) => (
         <>
@@ -299,35 +308,43 @@ const AdminDashboard = () => {
     {
       title: 'User Email',
       dataIndex: 'userEmail',
+      responsive: ["sm"],
     },
     {
       title: 'Date',
       dataIndex: 'dateStart',
+      responsive: ["sm"],
     },
     {
       title: 'Time Start',
       dataIndex: 'timeStart',
+      responsive: ["sm"],
     },
     {
       title: 'Time End',
       dataIndex: 'timeEnd',
+      responsive: ["sm"],
     },
     {
       title: 'Lab',
       dataIndex: '_id',
+      responsive: ["sm"],
     },
     {
       title: 'Position',
       dataIndex: 'position',
+      responsive: ["sm"],
     },
 
     {
       title: 'Purpose',
       dataIndex: 'purpose',
+      responsive: ["sm"],
     },
     {
       title: "CheckIn",
       dataIndex: "isCheckin",
+      responsive: ["sm"],
       render(text, record) {
         return {
           props: {
@@ -344,6 +361,7 @@ const AdminDashboard = () => {
       title: 'PinCode',
       key: 'pin',
       dataIndex: "pin",
+      responsive: ["sm"],
 
       render: (text) => (
         <>
@@ -357,11 +375,13 @@ const AdminDashboard = () => {
     {
       title: 'Booked At',
       dataIndex: 'createdAt',
+      responsive: ["sm"],
 
     },
     {
       title: 'Approval',
       key: 'action',
+      responsive: ["sm"],
       render: (_, record) =>
         modifiedData.length >= 1 ? (
           <Popconfirm
@@ -376,6 +396,7 @@ const AdminDashboard = () => {
     {
       title: 'Edit',
       key: 'edit',
+      responsive: ["sm"],
       render: (_, record) =>
         modifiedData.length >= 1 ? (
 
@@ -388,6 +409,7 @@ const AdminDashboard = () => {
     {
       title: 'Latest Update',
       dataIndex: 'updatedAt',
+      responsive: ["sm"],
 
     },
 
@@ -413,7 +435,7 @@ const AdminDashboard = () => {
               </div>
             </SubMenu>
 
-            <SubMenu
+            {/* <SubMenu
               key="2"
               title={
                 <span className="h6"><DownSquareOutlined /> Check-In Status
@@ -431,7 +453,7 @@ const AdminDashboard = () => {
               <div style={{ maringTop: "-10px" }} className="pr-5">
                 {showPosition()}
               </div>
-            </SubMenu>
+            </SubMenu> */}
 
 
 

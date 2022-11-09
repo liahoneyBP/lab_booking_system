@@ -1,8 +1,11 @@
+//
 import React, { useEffect, useState } from "react";
 import { getLabsByCount } from "../functions/lab";
 import LabCard from "../components/cards/LabCard";
 import Jumbotron from "../components/cards/Jumbotron";
 
+
+// Home Parent Component
 const Home = () => {
   const [labs, setLabs] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -22,7 +25,7 @@ const Home = () => {
   return (
     <>
       <div className="jumbotron text-primary h1 font-weight-bold text-center">
-        <Jumbotron text={["UTCC LAB", "ห้องแล็บ", "หอการค้าไทย"]} />
+        <Jumbotron text={["UTCC LAB", "ห้องแล็บ", "มหาวิทยาลัยหอการค้าไทย"]} />
       </div>
 
       <div className="container">

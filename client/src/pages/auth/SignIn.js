@@ -22,7 +22,7 @@ const SignIn = () => {
   
   
   const [email, setEmail] = useState("gustavogabirea55@gmail.com");
-  const [password, setPassword] = useState("123456");
+  const [password, setPassword] = useState("1234567");
   const [loading, setLoading] = useState(false);
 
 
@@ -107,34 +107,6 @@ const googleSignIn = async () => {
     });
 }
 
-const facebookSignIn = async () => {
-  const provider = new FacebookAuthProvider();
-  signInWithPopup(auth, provider)
-  .then(async (result) => {
-      const { user } = result;
-      const idTokenResult = await user.getIdTokenResult();
-      createOrUpdateUser(idTokenResult.token)
-      .then((res) => {
-        dispatch({
-          type: "LOGGED_IN_USER",
-          payload: {
-            name: res.data.name,
-            email: res.data.email,
-            token: idTokenResult.token,
-            role: res.data.role,
-            _id: res.data._id,
-          },
-        });
-      })
-      
-      navigate("/")
-  })
-  .catch((err) => {
-      console.log(err);
-      toast.error(err.message);
-  });
-}
-
 
   const signinForm = () => (
     <form onSubmit={handleSubmit}>
@@ -197,18 +169,7 @@ const facebookSignIn = async () => {
             >
                 Sign In With Google
           </Button>
-          <Button 
-            disabled
-            onClick={facebookSignIn}
-            type="dark"
-            className="mb-3"
-            block
-            shape="round"
-            icon={<FacebookOutlined />}
-            size="large"
-            >
-                Sign In With Facebook
-          </Button>
+          
           <Link to="/forgot/password" className="float-right text-danger">
             Forgot Password
           </Link>

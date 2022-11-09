@@ -24,7 +24,7 @@ const LabSingle = () => {
     </div>
 
     <div className="row">
-      <div>Room Something</div>
+      <div></div>
     </div>
 
   </div>

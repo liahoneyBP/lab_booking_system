@@ -18,6 +18,7 @@ const Search = () => {
     };
    
     const handleSubmit = (e) => {
+        // e.preventDefault() for browser not reload or refresh
         e.preventDefault()
         navigate.push(`/lab?${text}`);
     }

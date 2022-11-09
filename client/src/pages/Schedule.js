@@ -339,8 +339,6 @@ const Schedule = () => {
 
   const data = allUserBookings.map((item) => ({
     ...item,
-    age: Math.floor(Math.random() * 6) + 20,
-
   }))
 
   // format time to use in Scheduler UI
