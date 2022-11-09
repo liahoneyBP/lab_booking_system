@@ -30,9 +30,9 @@ const LabListItems = ({lab}) => {
                 </span>
             </li>
             <li className='list-group-item'>
-                Equipment <span className='label label-default label-pill pull-xs-right'>
+                 <span className='label label-default label-pill pull-xs-right'>
                     
-                       {equipment}
+                     
                    
                 </span>
             </li>
