@@ -30,7 +30,7 @@ const LabCreate = () => {
   const [values, setValues] = useState(initialState)
   const [loading, setLoading] = useState(false);
 
-  const [url, setUrl] = useState(`http://localhost:3000/lab/booking/lists/${values.labName}`)
+  const [url, setUrl] = useState(`http://localhost:3000/lab/booking/lists/`)
   const [qrcode, setQrcode] = useState()
 
   // redux
