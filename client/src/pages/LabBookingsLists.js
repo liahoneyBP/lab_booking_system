@@ -73,6 +73,7 @@ const LabBookingsLists = () => {
 
                     <div className="col-md-8 m-3">
                         <h2 className="m-5">Hello, {user.name}, Choose your booked for Check In</h2>
+                        <h4 className="m-5">This is your booked in {slug.toUpperCase()} room</h4>
                         {
                             listBookings.map((a) => {
 

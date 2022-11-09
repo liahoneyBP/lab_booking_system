@@ -97,7 +97,7 @@ const LabCreate = () => {
           />
 
 
-          <div>
+          {/* <div>
             <h1>QR Code Generator</h1>
             <input
               type="text"
@@ -113,7 +113,7 @@ const LabCreate = () => {
             </>
             }
 
-          </div>
+          </div> */}
 
 
         </div>

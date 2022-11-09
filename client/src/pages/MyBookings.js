@@ -196,9 +196,11 @@ const MyBookings = () => {
                         style: { color: text === "Unconfirm" ? "red" : "green" },
                     },
                     children:
+                    <Link to={`/lab/booking/lists/${record.slug}`}>
                         <Button style={{ color: text === "Unconfirm" ? "red" : "green" }}>
                             {text}
                         </Button>
+                        </Link>
                 };
             }
         },

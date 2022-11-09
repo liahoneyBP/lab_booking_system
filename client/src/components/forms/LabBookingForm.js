@@ -12,6 +12,12 @@ import PictureInPictureIcon from '@mui/icons-material/PictureInPicture';
 import ModeStandbyIcon from '@mui/icons-material/ModeStandby';
 import DescriptionIcon from '@mui/icons-material/Description';
 
+import { Form, Segment } from 'semantic-ui-react'
+import Select from 'react-select'
+
+import 'semantic-ui-css/semantic.min.css'
+
+
 const LabBookingForm = ({ handleSubmit, handleChange, values, setValues, user, lab}) => {
 
   // 
@@ -23,18 +29,71 @@ const LabBookingForm = ({ handleSubmit, handleChange, values, setValues, user, l
 
   const dateFormat = 'YYYY/MM/DD';
 
+
+  const optionsTimeStart = [
+    { value: '830', label: '8:30 AM' },
+    { value: '920', label: '9:20 AM' },
+    { value: '1010', label: '10:10 AM' },
+    { value: '1100', label: '11:00 AM' },
+    { value: '1130', label: '11:30 AM' },
+    { value: '1220', label: '12:20 pm' },
+    { value: '1310', label: '1:10 PM' },
+    { value: '1400', label: '2:00 PM' },
+    { value: '1430', label: '2:30 PM' },
+    { value: '1520', label: '3:20 PM' },
+    { value: '1610', label: '4:10 PM' },
+    { value: '1700', label: '5:00 PM' },
+    { value: '1730', label: '5:30 PM' },
+    { value: '1820', label: '6:20 PM' },
+  ]
+
+  const optionsTimeEnd = [
+    { value: '920', label: '9:20 AM' },
+    { value: '1010', label: '10:10 AM' },
+    { value: '1100', label: '11:00 AM' },
+    { value: '1130', label: '11:30 AM' },
+    { value: '1220', label: '12:20 pm' },
+    { value: '1310', label: '1:10 PM' },
+    { value: '1400', label: '2:00 PM' },
+    { value: '1430', label: '2:30 PM' },
+    { value: '1520', label: '3:20 PM' },
+    { value: '1610', label: '4:10 PM' },
+    { value: '1700', label: '5:00 PM' },
+    { value: '1730', label: '5:30 PM' },
+    { value: '1820', label: '6:20 PM' },
+    { value: '1910', label: '7:10 PM' },
+  ]
+
+  const optionsPurpose = [
+    { value: 'Schedule Class', label: 'Schedule Class' },
+    { value: 'Special Event', label: 'Special Event' },
+   
+  ]
+
+  const optionsPosition = [
+    { value: 'Lecturer', label: 'Lecturer' },
+    { value: 'Student', label: 'Student' },
+    
+  ]
+
+
   return (
-    <form onSubmit={handleSubmit}>
+    
+    <Segment >
+    <Form onSubmit={handleSubmit}>
+      
 
       <div className="form-group">
         <label>Start Time </label><span><AccessTimeIcon/></span>
-        <select
+        <Select
           name="timeStart"
           className="form-control"
-          onChange={handleChange}
+          onChange={(e) => setValues({ ...values, timeStart: e.value })}
+          options={optionsTimeStart}
+         
+        
         >
-          <option>Please select</option>
-          <option value="830">8:30am</option>,
+          {/* <option value="830">8:30am</option>,
           <option value="920">9:20am</option>,
           <option value="1010">10:10am</option>,
           <option value="1100">11:00am</option>,
@@ -47,19 +106,19 @@ const LabBookingForm = ({ handleSubmit, handleChange, values, setValues, user, l
           <option value="1610">4:10pm</option>,
           <option value="1700">5:00pm</option>,
           <option value="1730">5:30pm</option>,
-          <option value="1820">6:20pm</option>,
-        </select>
+          <option value="1820">6:20pm</option>, */}
+        </Select>
       </div>
 
       <div className="form-group">
         <label>End Time </label><span><AccessTimeIcon/></span>
-        <select
+        <Select
           name="timeEnd"
           className="form-control"
-          onChange={handleChange}
+          onChange={(e) => setValues({ ...values, timeEnd: e.value })}
+          options={optionsTimeEnd}
         >
-          <option>Please select</option>
-          <option value="920">9:20am</option>,
+          {/* <option value="920">9:20am</option>,
           <option value="1010">10:10am</option>,
           <option value="1100">11:00am</option>,
           <option value="1130">11:30am</option>,
@@ -72,8 +131,8 @@ const LabBookingForm = ({ handleSubmit, handleChange, values, setValues, user, l
           <option value="1700">5:00pm</option>,
           <option value="1730">5:30pm</option>,
           <option value="1820">6:20pm</option>,
-          <option value="1910">7:10pm</option>,
-        </select>
+          <option value="1910">7:10pm</option>, */}
+        </Select>
       </div>
 
       <div className="form-group">
@@ -114,33 +173,35 @@ const LabBookingForm = ({ handleSubmit, handleChange, values, setValues, user, l
 
       <div className="form-group">
         <label>Position</label>
-        <select
+        <Select
           name="position"
           className="form-control"
-          onChange={handleChange}
+          options={optionsPosition}
+          onChange={(e) => setValues({ ...values, position: e.value })}
         >
-          <option>Please select</option>
+          {/* <option>Please select</option>
           <option value="Lecturer">Lecturer</option>
-          <option value="Student">Student</option>
-        </select>
+          <option value="Student">Student</option> */}
+        </Select>
       </div>
 
       <div className="form-group">
         <label>Purpose</label> 
-        <select
+        <Select
           name="purpose"
           className="form-control"
-          onChange={handleChange}
+          options={optionsPurpose}
+          onChange={(e) => setValues({ ...values, purpose: e.value })}
         >
-          <option>Please select</option>
+          {/* <option>Please select</option>
           <option value="Schedule Class">Schedule Class</option>
-          <option value="Special Event">Special Event</option>
-        </select>
+          <option value="Special Event">Special Event</option> */}
+        </Select>
       </div>
 
 
       <div className="form-group">
-        <label>Description</label> 
+        <label>Title of Event</label> 
         <input
           type="text"
           name="description"
@@ -156,8 +217,9 @@ const LabBookingForm = ({ handleSubmit, handleChange, values, setValues, user, l
                  BOOK
               </Button>
 
-      
-    </form>
+             
+    </Form>
+    </Segment>
 
   )
 }
