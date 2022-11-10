@@ -7,7 +7,7 @@ const Profile = () => (
       <div className="col-md-2">
         <UserNav />
       </div>
-      <div className="col">user Profile page</div>
+      {/* <div className="col">user Profile page</div> */}
     </div>
   </div>
 );
