@@ -11,7 +11,7 @@ const LoadingToRedirect = () => {
       setCount((currentCount) => --currentCount);
     }, 1000);
     // redirect once count is equal to 0
-    count === 0 && navigate("/");
+    count === 0 && navigate("/sign-in");
     // cleanup
     return () => clearInterval(interval);
   }, [count]);
@@ -19,7 +19,7 @@ const LoadingToRedirect = () => {
   return (
     <div className="container p-5 text-center">
       
-      <p>Redirecting in {count} seconds...</p>
+      <p>Please Sign-In First, Redirecting in {count} seconds...</p>
     </div>
   );
 };

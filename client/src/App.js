@@ -1,5 +1,5 @@
 import React, {  Fragment, useEffect } from 'react';
-import { BrowserRouter as Router , Routes, useParams, Route} from "react-router-dom";
+import { BrowserRouter as Router , Routes, useParams, Route, Navigate} from "react-router-dom";
 import Header from './components/Navbar/Header';
 import Home from './pages/Home'
 import Lab from './pages/Lab'
@@ -60,6 +60,10 @@ function App() {
           })
           .catch((err) => console.log(err));
       }
+      if (!user) {
+        console.log("No User");
+        
+      }
     });
     // cleanup
     return () => unsubscribe();
@@ -76,7 +80,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />}></Route>
         <Route path="/lab" element={<Lab />}></Route>
-        <Route path="/mybookings" element={<MyBookings />}></Route>
+        <Route path="/mybookings" element={ <UserRoute><MyBookings /></UserRoute> } />
         <Route path="/schedule" element={<Schedule />}> </Route>
         <Route path="/sign-up" element={<SignUp />}></Route>
         <Route path="/sign-in" element={<SignIn />}></Route>
@@ -90,7 +94,7 @@ function App() {
         <Route path="/lab/:slug" element={<LabSingle />}></Route>
         <Route  exact path="/admin/lab/:slug" element={ <AdminRoute><LabUpdate /></AdminRoute> } />
         <Route path="/lab/booking/:slug" element={< LabSingleBooking/>}></Route>
-        <Route path="/lab/booking/lists/:slug" element={< LabBookingsLists/>}></Route>
+        <Route path="/lab/booking/lists/:slug" element={ <UserRoute><LabBookingsLists /></UserRoute> } />
         <Route path="/lab/booking/lists/:slug/:bookingId" element={< BookingCheckIn/>}></Route>
         <Route  exact path="/admin/lab/booking/edit/:slug/:labId/:bookingId" element={ <AdminRoute><LabBookingUpdate /></AdminRoute> } />
      

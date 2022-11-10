@@ -37,13 +37,19 @@ const MyBookings = () => {
     let { user } = useSelector((state) => ({ ...state }));
 
 
+
+
     useEffect(() => {
+
         getUserBook()
+
 
     }, [])
 
 
     const getUserBook = () => {
+
+
         getUserBookings(user.email).then(userBokingsData => {
             console.log("USER Email from front is ==>", user.email);
             console.log("User Bookings data from API", userBokingsData.data);
@@ -111,7 +117,7 @@ const MyBookings = () => {
                     console.log("After hit API Remove Booking", dataRemove.data);
                     toast.error(`Deleted Book and Send Notification to user email`, {
                         position: toast.POSITION.TOP_CENTER
-                      });
+                    });
                 })
                 .catch(err => {
                     if (err.response.status === 400) toast.error(err.response.data);
@@ -193,10 +199,10 @@ const MyBookings = () => {
                         style: { color: text === "Unconfirm" ? "red" : "green" },
                     },
                     children:
-                    <Link to={`/lab/booking/lists/${record.slug}`}>
-                        <Button style={{ color: text === "Unconfirm" ? "red" : "green" }}>
-                            {text}
-                        </Button>
+                        <Link to={`/lab/booking/lists/${record.slug}`}>
+                            <Button style={{ color: text === "Unconfirm" ? "red" : "green" }}>
+                                {text}
+                            </Button>
                         </Link>
                 };
             }
@@ -256,11 +262,11 @@ const MyBookings = () => {
                     <div className="col-md-8 m-3">
                         <h2 className="m-5">My Bookings</h2>
                         <div class="table-responsive">
-                        <Table
-                        
-                            columns={columns}
-                            dataSource={modifiedData} />
-                             </div>
+                            <Table
+
+                                columns={columns}
+                                dataSource={modifiedData} />
+                        </div>
                     </div>
                     {/* <div>
                     <p>test user bookings</p>

@@ -1,5 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
+import { Navigate } from "react-router-dom";
 import LoadingToRedirect from "./LoadingToRedirect";
  
 const UserRoute = ({children}) => {
@@ -7,7 +8,9 @@ const UserRoute = ({children}) => {
     return user && user.token ? (
         children
     ) : (
-        <LoadingToRedirect />
+        <>  
+     <Navigate to="/sign-in" />
+     </>
     );
 };
  

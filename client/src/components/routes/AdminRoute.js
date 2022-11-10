@@ -1,17 +1,20 @@
 import React from "react";
 import { Navigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { toast } from "react-toastify";
  
-const UserRoute = ({children}) => {
+const AdminRoute = ({children}) => {
     const { user } = useSelector((state) => ({...state}));
-    return user && user.token ? (
+    return user && user.token && user.role === "admin" ? (
         children
     ) : (
+        <>  
      <Navigate to="/" />
+     </>
     );
 };
  
-export default UserRoute;
+export default AdminRoute;
 
 
 
