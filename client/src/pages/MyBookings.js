@@ -20,9 +20,6 @@ import Modal from 'react-bootstrap/Modal';
 
 
 
-
-
-
 const MyBookings = () => {
 
     const navigate = useNavigate();
@@ -258,9 +255,12 @@ const MyBookings = () => {
 
                     <div className="col-md-8 m-3">
                         <h2 className="m-5">My Bookings</h2>
+                        <div class="table-responsive">
                         <Table
+                        
                             columns={columns}
                             dataSource={modifiedData} />
+                             </div>
                     </div>
                     {/* <div>
                     <p>test user bookings</p>

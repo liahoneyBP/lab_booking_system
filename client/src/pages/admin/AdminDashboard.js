@@ -469,9 +469,11 @@ const AdminDashboard = () => {
 
 
           <div className="mt-3">
+          <div class="table-responsive"> 
             <Table
               columns={columns}
               dataSource={modifiedData} />
+              </div>
           </div>
         </div>
       </div>
