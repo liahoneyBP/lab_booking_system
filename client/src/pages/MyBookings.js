@@ -107,7 +107,7 @@ const MyBookings = () => {
         let answer = window.confirm(`Cancel This Booking (${value.description}, bookedBy ${value.bookedBy}) ?`)
         if (answer) {
             console.log('send delete request', value.id, value.labId);
-            removeBooking(value.id, value.labId, value.userEmail, user.token)
+            removeBooking(value, user.token)
                 .then((dataRemove) => {
                     console.log("Booking Id from front is ==>", value.id);
                     console.log("Lab Id from front is ==>", value.labId);
