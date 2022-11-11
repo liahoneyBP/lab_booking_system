@@ -30,7 +30,7 @@ const LabCreate = () => {
   const [values, setValues] = useState(initialState)
   const [loading, setLoading] = useState(false);
 
-  const [url, setUrl] = useState(`https://vbiroom.netlify.app/lab/booking/lists/`)
+  const [url, setUrl] = useState(`https://vbi-utcc-lab.netlify.app/lab/booking/lists/`)
   const [qrcode, setQrcode] = useState()
 
   // redux
