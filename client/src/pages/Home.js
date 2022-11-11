@@ -25,7 +25,7 @@ const Home = () => {
   return (
     <>
       <div className="jumbotron text-primary h1 font-weight-bold text-center">
-        <Jumbotron text={["UTCC LAB", "ห้องแล็บ", "มหาวิทยาลัยหอการค้าไทย"]} />
+        <Jumbotron text={["UTCC LABS", "ห้องแล็บ", "มหาวิทยาลัยหอการค้าไทย"]} />
       </div>
 
       <div className="container">
