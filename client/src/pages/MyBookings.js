@@ -51,8 +51,8 @@ const MyBookings = () => {
 
 
         getUserBookings(user.email).then(userBokingsData => {
-            console.log("USER Email from front is ==>", user.email);
-            console.log("User Bookings data from API", userBokingsData.data);
+         /*   console.log("USER Email from front is ==>", user.email);
+            console.log("User Bookings data from API", userBokingsData.data); */
             setUserBookings(userBokingsData.data);
         });
     };
@@ -64,14 +64,6 @@ const MyBookings = () => {
 
     }))
 
-    // item.bookings.timeStart.toString().slice(0,-2), item.bookings.timeStart.toString().slice(-2)
-
-    var str = "1130";
-    var result = str.slice(0, -2) // get first 2 characters
-    var result2 = str.slice(-2) // get last 2 characters
-
-    console.log("str ===>", result);
-    console.log("str2 ===>", result2);
 
     const modifiedData = data.map(({ ...item }) => ({
         ...item,
@@ -104,20 +96,22 @@ const MyBookings = () => {
         const dataSource = [...modifiedData];
         const filteredData = dataSource.filter((item) => item.id !== value.id);
 
-        console.log("value.id in front is ===>", value.id);
-        console.log("value.labId in front is ===>", value.labId);
+      /*  console.log("value.id in front is ===>", value.id);
+        console.log("value.labId in front is ===>", value.labId); */
 
         let answer = window.confirm(`Cancel This Booking (${value.description}, bookedBy ${value.bookedBy}) ?`)
         if (answer) {
-            console.log('send delete request', value.id, value.labId);
+          //  console.log('send delete request', value.id, value.labId);
             removeBooking(value, user.token)
                 .then((dataRemove) => {
-                    console.log("Booking Id from front is ==>", value.id);
+                  /*  console.log("Booking Id from front is ==>", value.id);
                     console.log("Lab Id from front is ==>", value.labId);
-                    console.log("After hit API Remove Booking", dataRemove.data);
+                    console.log("After hit API Remove Booking", dataRemove.data); */
                     toast.error(`Deleted Book and Send Notification to user email`, {
                         position: toast.POSITION.TOP_CENTER
                     });
+
+                    navigate(0);
                 })
                 .catch(err => {
                     if (err.response.status === 400) toast.error(err.response.data);
@@ -126,7 +120,7 @@ const MyBookings = () => {
         }
 
 
-        navigate(0);
+        
     }
 
     const columns = [
@@ -207,12 +201,6 @@ const MyBookings = () => {
                 };
             }
         },
-        /* 
-        {
-             title: 'Check-In At',
-             dataIndex: 'updatedAt',
-         },
-         */
         {
             title: 'PinCode',
             key: 'pin',

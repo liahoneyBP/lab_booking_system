@@ -71,42 +71,42 @@ const SingleBookingCard = ({ lab }) => {
 
 
     if (values) {
-      console.log("Pin . length ===> ", values.pin.length);
+     // console.log("Pin . length ===> ", values.pin.length);
       const pinCode = values.pin;
       // check PinCode.length === 6 then can make api
       if (pinCode.length === 6) {
 
         // check values from user timeStart can't over than timeEnd
         if (newTimeStart < newTimeEnd) {
-          console.log("newTimeStart ===>", newTimeStart);
+       /*   console.log("newTimeStart ===>", newTimeStart);
           console.log("newTimeEnd ===>", newTimeEnd);
 
           console.log("newDateStart ===>", newDateStart);
 
-          console.log("Ok Right ! very good timeStart < timeEnd ")
+          console.log("Ok Right ! very good timeStart < timeEnd ") */
 
 
           getLabBookings(lab._id, user.token).then(labBookingsData => {
-            console.log("Lab ID from front is ==>", lab._id);
+        /*    console.log("Lab ID from front is ==>", lab._id);
             console.log("Lab Bookings data API (Existing Data)", labBookingsData.data);
 
-            console.log("Values current ===>", values);
+            console.log("Values current ===>", values); */
 
             labBookingsData.data.forEach(function (value, index) {
-              console.log('forEach with Index ===>', '%d: %s', index, value);
+          //    console.log('forEach with Index ===>', '%d: %s', index, value);
               const ExisDateStart = moment(value.dateStart).format('YYYY-MM-DD');
               const ExisTimeStart = value.timeStart;
               const ExisTimeEnd = value.timeEnd;
               console.log("exisDateStart ===>", ExisDateStart);
               if (ExisDateStart === newDateStart) {
-                console.log(`Oh Wow Found ExisDateStart index at ${index} === newDateStart`)
-                console.log("Value at index ====>", value);
+         /*       console.log(`Oh Wow Found ExisDateStart index at ${index} === newDateStart`)
+                console.log("Value at index ====>", value);                                        */
                 bookingSameDate = true;
                 if (
                   newTimeStart >= ExisTimeStart && newTimeStart < ExisTimeEnd ||
                   ExisTimeStart >= newTimeStart && ExisTimeStart < newTimeEnd) {
-                  console.log("Hey !! We Found Booking SameDate and TimeClash !! Noooo");
-                  console.log(`And index at ${index} We have Time Clash`)
+            /*      console.log("Hey !! We Found Booking SameDate and TimeClash !! Noooo");
+                  console.log(`And index at ${index} We have Time Clash`)                        */
                   sameDateAndTimeClash = true
 
                 }
