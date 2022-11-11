@@ -1,6 +1,6 @@
 /* eslint-disable no-sparse-arrays */
 /* eslint-disable jsx-a11y/alt-text */
-import React, { useSelector } from "react";
+import React from "react";
 import { Card } from "antd";
 import { Link } from "react-router-dom";
 

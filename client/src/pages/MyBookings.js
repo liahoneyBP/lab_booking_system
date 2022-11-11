@@ -8,14 +8,14 @@ import { toast } from "react-toastify";
 
 import moment from "moment";
 
-import { userRemoveBooking, removeBooking } from "../functions/bookings";
+import { removeBooking } from "../functions/bookings";
 
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { EditOutlined } from "@ant-design/icons";
 
 import ButtonRB from 'react-bootstrap/Button';
-import Modal from 'react-bootstrap/Modal';
+
 
 
 

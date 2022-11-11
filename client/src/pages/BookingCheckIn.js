@@ -8,7 +8,7 @@ import { checkIn } from "../functions/checkin";
 import { getBookingsById } from "../functions/bookings";
 
 import { Space } from "antd";
-import moment from "moment";
+
 
 import { toast } from "react-toastify";
 
@@ -41,7 +41,7 @@ const BookingCheckIn = () => {
     const [show, setShow] = useState(true);
 
     const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
+   // const handleShow = () => setShow(true);
 
 
     // for Pin Input

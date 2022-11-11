@@ -6,11 +6,6 @@ import { DatePicker, Space } from 'antd';
 import Button from '@mui/material/Button';
 
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
-import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
-import PersonIcon from '@mui/icons-material/Person';
-import PictureInPictureIcon from '@mui/icons-material/PictureInPicture';
-import ModeStandbyIcon from '@mui/icons-material/ModeStandby';
-import DescriptionIcon from '@mui/icons-material/Description';
 
 import { Form, Segment } from 'semantic-ui-react'
 import Select from 'react-select'
@@ -24,11 +19,7 @@ const LabBookingForm = ({ handleSubmit, handleChange, values, setValues, user, l
   const {
     description,
     bookedBy,
-    pin,
   } = values;
-
-  const dateFormat = 'YYYY/MM/DD';
-
 
   const optionsTimeStart = [
     { value: '830', label: '8:30 AM' },

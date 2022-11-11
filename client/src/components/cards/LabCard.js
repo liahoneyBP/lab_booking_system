@@ -1,18 +1,16 @@
 import React from 'react'
-import { Card, Typography } from 'antd'
-import { EyeOutlined } from '@ant-design/icons'
+import { Card } from 'antd'
 import LabImgDefault from "../../images/LabUtcc_Default.jpg"
 import { Link } from "react-router-dom"
-import ButtonRB from 'react-bootstrap/Button';
 import ButtonMUI from '@mui/material/Button';
 
 import TypographyMUI from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 
-import 'antd/dist/antd.css';
+import 'antd/dist/antd.min.css';
 
 const { Meta } = Card;
-const { Title } = Typography;
+
 
 const LabCard = ({ lab }) => {
   // destructure

@@ -3,8 +3,6 @@ import { Select } from "antd";
 
 
 
-const { Option } = Select;
-
 const LabUpdateForm = ({
   handleSubmit,
   handleChange,
@@ -19,9 +17,6 @@ const LabUpdateForm = ({
     details,
     floor,
     capacity,
-    images,
-    equipment,
-    bookings
   } = values;
 
 

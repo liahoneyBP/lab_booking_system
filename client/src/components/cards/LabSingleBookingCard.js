@@ -1,11 +1,8 @@
 /* eslint-disable jsx-a11y/alt-text */
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
-import Card from "antd/lib/card/Card";
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
-import { Carousel } from 'react-responsive-carousel';
 import { useNavigate } from "react-router-dom";
-import LabImgDefault from "../../images/LabUtcc_Default.jpg"
 import LabBookingForm from "../forms/LabBookingForm";
 import { makeBooking } from "../../functions/bookings";
 import { getLabBookings } from "../../functions/bookings";
@@ -41,10 +38,10 @@ const SingleBookingCard = ({ lab }) => {
 
   const navigate = useNavigate();
 
-  const { images, labName, details, capacity, _id } = lab;
+  const {  labName } = lab;
   const [values, setValues] = useState(initialState)
 
-  const [allUserBookings, setAllUserBookings] = useState([]);
+ 
 
 
 
