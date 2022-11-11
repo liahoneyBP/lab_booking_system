@@ -43,7 +43,7 @@ const Lab = () => {
 
     // 1. load labs by fedault on page load
     const loadAllLabs = () => {
-        getLabsByCount().then(lab => {
+        getLabsByCount(6).then(lab => {
             setLabs(lab.data);
             setLoading(false);
         });
