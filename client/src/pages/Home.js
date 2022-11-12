@@ -7,6 +7,8 @@ import Jumbotron from "../components/cards/Jumbotron";
 import Stack from '@mui/material/Stack';
 import LinearProgress from '@mui/material/LinearProgress';
 
+import Box from '@mui/material/Box';
+
 // Home Parent Component
 const Home = () => {
   const [labs, setLabs] = useState([]);
@@ -34,7 +36,7 @@ const Home = () => {
         <div className="row">
           {loading ? (
             <>
-              <h4 className="text-success">Loading...</h4>
+              <Box sx={{ fontWeight: 'bold', m: 1, fontFamily: 'monospace' }}>Loading</Box>
               <Stack sx={{ width: '100%', color: 'grey.500' }} spacing={3}>
                 <LinearProgress color="secondary" />
                 <LinearProgress color="secondary" />

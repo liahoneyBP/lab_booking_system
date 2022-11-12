@@ -9,8 +9,8 @@ import { Menu, Slider, Radio } from "antd"
 import { DesktopOutlined, DownSquareOutlined } from "@ant-design/icons";
 import Box from '@mui/material/Box';
 
-import Stack from '@mui/material/Stack';
-import LinearProgress from '@mui/material/LinearProgress';
+
+import { Alert, Spin } from 'antd';
 
 const { SubMenu } = Menu;
 
@@ -18,7 +18,7 @@ const { SubMenu } = Menu;
 const Lab = () => {
     const [labs, setLabs] = useState([]);
     const [loading, setLoading] = useState(false);
-    const [capacity, setCapacity] = useState([0, 0]);
+    const [capacity, setCapacity] = useState([0, 50]);
     const [ok, setOk] = useState(false);
 
     const [buildings, setBuildings] = useState([
@@ -199,11 +199,14 @@ const Lab = () => {
                             <h2 className="m-1">Labs</h2>
                         )}
 
-                        {labs.length < 1 && <Stack sx={{ width: '100%', color: 'grey.500' }} spacing={2}>
-                            <LinearProgress color="secondary" />
-                            <LinearProgress color="success" />
-                            <LinearProgress color="inherit" />
-                        </Stack>}
+                        {labs.length < 1 && 
+                        <Spin tip="Loading...">
+                            <Alert
+                                message="Room Booking in University of the thai chamber of commerce"
+                                description="Please Enter Field..."
+                                type="info"
+                            />
+                        </Spin>}
 
                         <div className="row pb-5">
                             {labs.map((lab) => (

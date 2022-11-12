@@ -160,7 +160,7 @@ const googleSignIn = async () => {
 
           <Button 
             onClick={googleSignIn}
-            type="dark"
+            type="danger"
             className="mb-3"
             block
             shape="default"
