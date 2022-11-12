@@ -22,6 +22,13 @@ const AdminNav = () => (
         </Link>
       </li>
 
+      <li className="nav-item">
+        <Link to="/admin/lab/genQrCode" className="nav-link">
+          QrCode Gen
+        </Link>
+      </li>
+
+
       
     </ul>
   </nav>

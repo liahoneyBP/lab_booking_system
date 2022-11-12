@@ -8,7 +8,7 @@ import FileUpload from "../../../components/forms/FileUpload"
 import { LoadingOutlined } from "@ant-design/icons"
 import { useParams } from 'react-router-dom';
 
-import QRCode from "qrcode";
+
 
 const initialState = {
   labName: "",
@@ -25,33 +25,11 @@ const initialState = {
 const LabCreate = () => {
   const { slug } = useParams()
   
-
-
   const [values, setValues] = useState(initialState)
   const [loading, setLoading] = useState(false);
 
-  const [url, setUrl] = useState(`https://vbi-utcc-lab.netlify.app/lab/booking/lists/`)
-  const [qrcode, setQrcode] = useState()
-
   // redux
   const { user } = useSelector((state) => ({ ...state }));
-
-  const GenerateQRCode = () => {
-    QRCode.toDataURL(url, {
-      width: 800,
-      margin: 1,
-      color: {
-        dark: '#ffffffff',
-        light: '#000000ff'
-      }
-    }, (err, url) => {
-      if (err) return console.error(err)
-
-      console.log("URL ==>", url)
-      setQrcode(url)
-    })
-  }
-
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -99,26 +77,6 @@ const LabCreate = () => {
             handleChange={handleChange}
             values={values}
           />
-
-
-           <div>
-            <h1>QR Code Generator</h1>
-            <input
-              type="text"
-              placeholder=''
-              className="inputQRCode"
-              value={url}
-              onChange={(e) => setUrl(e.target.value)}
-            />
-            <button onClick={GenerateQRCode} className="buttonGenerateQRCode">Generate</button>
-            {qrcode && <>
-              <img src={qrcode} />
-              <a href={qrcode} download="qrcode.png" className="aQRCode" >Download</a>
-            </>
-            }
-
-          </div> 
-
 
         </div>
 

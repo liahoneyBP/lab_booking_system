@@ -22,6 +22,7 @@ import LabSingleBooking from './pages/Booking';
 import LabBookingsLists from './pages/LabBookingsLists';
 import BookingCheckIn from './pages/BookingCheckIn';
 import LabBookingUpdate from './pages/admin/lab/LabBookingUpdate';
+import LabGenQrCode from './pages/admin/lab/LabGenQrCode';
 
 
 import { ToastContainer } from "react-toastify";
@@ -97,6 +98,7 @@ function App() {
         <Route path="/lab/booking/lists/:slug" element={ <UserRoute><LabBookingsLists /></UserRoute> } />
         <Route path="/lab/booking/lists/:slug/:bookingId" element={< BookingCheckIn/>}></Route>
         <Route  exact path="/admin/lab/booking/edit/:slug/:labId/:bookingId" element={ <AdminRoute><LabBookingUpdate /></AdminRoute> } />
+        <Route  exact path="/admin/lab/genQrCode" element={ <AdminRoute><LabGenQrCode /></AdminRoute> } />
      
       </Routes>
   
