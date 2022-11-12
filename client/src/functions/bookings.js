@@ -24,8 +24,6 @@ export const UpdateBookingId = async (labId, bookingId, booking, authtoken) =>
 
 
 
-
-
 export const getUserBookings = async (userEmail, authtoken) =>
   await axios.post(`${process.env.REACT_APP_API}/getUserBookings`, { currentUserEmail: userEmail },
     {

@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { getLab } from "../functions/lab";
-import SingleLabCard from "../components/cards/LabSingleCard";
 import { useParams } from 'react-router-dom';
+
+import SingleLabCard from "../components/cards/LabSingleCard";
+
+import { getLab } from "../functions/lab";
 
 const LabSingle = () => {
   const [lab, setLabs] = useState({});

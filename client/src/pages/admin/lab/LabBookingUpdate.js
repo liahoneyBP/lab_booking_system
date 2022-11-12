@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from "react";
 import AdminNav from "../../../components/Navbar/AdminNav";
-
 import { useSelector } from "react-redux";
-
-
 import { useNavigate } from "react-router-dom";
+import { useParams } from 'react-router-dom';
 
 import LabBookingForm from "../../../components/forms/LabBookingForm";
 import { getLabBookingsIDparams } from "../../../functions/bookings";
@@ -23,7 +21,7 @@ import { toast } from "react-toastify";
 import { CalendarOutlined, FieldTimeOutlined } from "@ant-design/icons"
 
 
-import { useParams } from 'react-router-dom';
+
 
 
 var initialState = {

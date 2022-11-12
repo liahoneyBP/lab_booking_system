@@ -1,55 +1,35 @@
 import React, { useEffect, useState } from "react";
-import { Table, Popconfirm, Button } from 'antd';
-
 import { useSelector } from "react-redux";
-import { getUserBookings } from "../functions/bookings";
+import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
-import { toast } from "react-toastify";
+import { getUserBookings } from "../functions/bookings";
+import { removeBooking } from "../functions/bookings";
 
 import moment from "moment";
 
-import { removeBooking } from "../functions/bookings";
-
-import { useNavigate } from "react-router-dom";
-import { Link } from "react-router-dom";
-import { EditOutlined } from "@ant-design/icons";
-
+import { Table, Popconfirm, Button } from 'antd';
+import { toast } from "react-toastify";
 import ButtonRB from 'react-bootstrap/Button';
 
 
-
-
-
 const MyBookings = () => {
-
     const navigate = useNavigate();
 
     const [userBookings, setUserBookings] = useState([]);
-
     const [show, setShow] = useState([]);
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
-
-
-
     let { user } = useSelector((state) => ({ ...state }));
 
-
-
-
     useEffect(() => {
-
         getUserBook()
-
-
     }, [])
 
 
     const getUserBook = () => {
-
-
         getUserBookings(user.email).then(userBokingsData => {
          /*   console.log("USER Email from front is ==>", user.email);
             console.log("User Bookings data from API", userBokingsData.data); */
@@ -57,13 +37,11 @@ const MyBookings = () => {
         });
     };
 
-
     const data = userBookings.map((item) => ({
         ...item,
         age: Math.floor(Math.random() * 6) + 20,
 
     }))
-
 
     const modifiedData = data.map(({ ...item }) => ({
         ...item,
@@ -118,9 +96,6 @@ const MyBookings = () => {
                     console.log(err)
                 })
         }
-
-
-        
     }
 
     const columns = [
@@ -193,11 +168,10 @@ const MyBookings = () => {
                         style: { color: text === "Unconfirm" ? "red" : "green" },
                     },
                     children:
-                        <Link to={`/lab/booking/lists/${record.slug}`}>
                             <Button style={{ color: text === "Unconfirm" ? "red" : "green" }}>
                                 {text}
                             </Button>
-                        </Link>
+                       
                 };
             }
         },

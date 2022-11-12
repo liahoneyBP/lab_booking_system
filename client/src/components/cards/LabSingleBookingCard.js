@@ -33,18 +33,12 @@ var initialState = {
 const SingleBookingCard = ({ lab }) => {
 
   // router
-  // eslint-disable-next-line no-undef
   const { slug } = useParams()
 
   const navigate = useNavigate();
 
   const {  labName } = lab;
   const [values, setValues] = useState(initialState)
-
- 
-
-
-
 
   const { user } = useSelector((state) => ({ ...state }));
 
@@ -103,9 +97,11 @@ const SingleBookingCard = ({ lab }) => {
                 console.log("Value at index ====>", value);                                        */
                 bookingSameDate = true;
                 if (
+                  // eg. newTime-endTime 10:00 - 12:00 , exisTime-endTime 8:00 - 13:00
                   newTimeStart >= ExisTimeStart && newTimeStart < ExisTimeEnd ||
+                  // eg. exitsTime-endTime 11:00 - 15:00 , 11:00 - 14:00
                   ExisTimeStart >= newTimeStart && ExisTimeStart < newTimeEnd) {
-            /*      console.log("Hey !! We Found Booking SameDate and TimeClash !! Noooo");
+            /*    console.log("Hey !! We Found Booking SameDate and TimeClash !! Noooo");
                   console.log(`And index at ${index} We have Time Clash`)                        */
                   sameDateAndTimeClash = true
 
@@ -157,10 +153,6 @@ const SingleBookingCard = ({ lab }) => {
       }
 
     }
-
-    // navigate('/mybookings');
-    // window.location.reload();
-    // toast.success(`Booked Success`);
   };
 
   const handleChange = (e) => {
@@ -170,24 +162,8 @@ const SingleBookingCard = ({ lab }) => {
   };
 
 
-
-
-
   return (
     <>
-
-      {/* <div className="col-md-7">
-        { {images && images.length ? (<Carousel showArrows={true} autoPlay infiniteLoop>
-          {images && images.map((i) =>
-            <img
-              src={i.url}
-              key={i.public_id} />)}
-        </Carousel>) : (
-          <Card cover={<img src={LabImgDefault} className="mb-3" />}></Card>
-        )} 
-  
-      </div> */}
-
       <div className="">
         <h1 className="bg-dark p-3 text-white">BOOKING {labName}</h1>
         <LabBookingForm
@@ -197,7 +173,6 @@ const SingleBookingCard = ({ lab }) => {
           setValues={setValues}
           lab={lab}
           user={user}
-
         />
       </div>
 
@@ -206,8 +181,6 @@ const SingleBookingCard = ({ lab }) => {
         <p>TEST ALL BOOKINGS IN THIS LAB</p>
         {JSON.stringify(labBookings)}
       </div> */}
-
-
 
     </>
   );

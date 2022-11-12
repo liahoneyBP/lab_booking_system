@@ -1,30 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-
+import { useNavigate } from "react-router-dom";
 import { useParams } from 'react-router-dom';
-
 
 import { checkIn } from "../functions/checkin";
 import { getBookingsById } from "../functions/bookings";
 
 import { Space } from "antd";
-
-
 import { toast } from "react-toastify";
-
-
 import Button from '@mui/material/Button';
-
-
-
 import ButtonRB from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-
-import { useNavigate } from "react-router-dom";
-
 import { usePinInput } from 'react-pin-input-hook'
-
-
 
 
 
@@ -96,13 +83,9 @@ const BookingCheckIn = () => {
                 }
 
             })
-
     }
 
-
-
-
-
+    
     useEffect(() => {
     });
 
@@ -125,19 +108,6 @@ const BookingCheckIn = () => {
                             </Modal.Header>
 
                             <Modal.Body>
-                                {/* <div class="d-flex justify-content-center">
-                                                        <form >
-                                                            <div>
-                                                                <Space >
-                                                                    {fields.map((propsField, index) => (
-                                                                        <input type="text" key={index} {...propsField} />
-                                                                    ))}
-                                                                </Space>
-                                                            </div>
-
-                                                            <ButtonRB onClick={handleSubmit} type='button'>Send Check-In </ButtonRB>
-                                                        </form>
-                                                    </div> */}
 
                                 <div class="container">
                                     <div class="row row-centered pos">

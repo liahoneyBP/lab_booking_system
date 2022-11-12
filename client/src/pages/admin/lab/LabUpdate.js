@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from "react";
 import AdminNav from "../../../components/Navbar/AdminNav";
-import { toast } from "react-toastify";
 import { useSelector } from "react-redux";
-import { getLab, updateLab } from "../../../functions/lab";
-import FileUpload from "../../../components/forms/FileUpload";
-import { LoadingOutlined } from "@ant-design/icons";
-import LabUpdateForm from "../../../components/forms/LabUpdateForm";
+import {  useParams } from 'react-router-dom';
 import { useNavigate } from "react-router-dom";
 
-import {  useParams } from 'react-router-dom';
+import LabUpdateForm from "../../../components/forms/LabUpdateForm";
+
+import { LoadingOutlined } from "@ant-design/icons";
+import { toast } from "react-toastify";
+
+import { getLab, updateLab } from "../../../functions/lab";
+import FileUpload from "../../../components/forms/FileUpload";
 
 
 const initialState = {

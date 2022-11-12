@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { getLab } from "../functions/lab";
-import SingleBookingCard from "../components/cards/LabSingleBookingCard";
 import { useParams } from 'react-router-dom';
 import { useSelector } from "react-redux";
 
+import { getLab } from "../functions/lab";
+import SingleBookingCard from "../components/cards/LabSingleBookingCard";
 
 import { createStore } from 'redux';
 import { connect, Provider } from 'react-redux';

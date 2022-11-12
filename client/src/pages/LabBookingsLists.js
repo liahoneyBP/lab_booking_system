@@ -1,40 +1,19 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { getLabBookingLists } from "../functions/bookings";
 import { useParams } from 'react-router-dom';
+import { Link } from "react-router-dom";
+
+import { getLabBookingLists } from "../functions/bookings";
 
 import moment from "moment";
 
-import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
-
 import Typography from '@mui/material/Typography';
-
 import { CalendarOutlined, FieldTimeOutlined } from "@ant-design/icons"
-
 import ButtonRB from 'react-bootstrap/Button';
 
-
-
-
-import { Link } from "react-router-dom";
-
-
-
-
-
-
-
-const bull = (
-    <Box
-        component="span"
-        sx={{ display: 'inline-block', mx: '2px', transform: 'scale(0.8)' }}
-    >
-        •
-    </Box>
-);
 
 const LabBookingsLists = () => {
 
@@ -43,10 +22,6 @@ const LabBookingsLists = () => {
     let { user } = useSelector((state) => ({ ...state }));
 
     const { slug } = useParams()
-
-    //const { slug } = match.params;
-
-    
 
     useEffect(() => {
         loadAllListsBookings();
@@ -58,11 +33,8 @@ const LabBookingsLists = () => {
         getLabBookingLists(slug, user.email).then((res) => setListBookings(res.data));
     }
 
-
     return (
-
         <>
-
             <div className="container-fluid">
                 <div className="row">
                     <div className="col-md-1">

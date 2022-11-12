@@ -81,23 +81,7 @@ const LabBookingForm = ({ handleSubmit, handleChange, values, setValues, user, l
           className="form-control"
           onChange={(e) => setValues({ ...values, timeStart: e.value })}
           options={optionsTimeStart}
-         
-        
         >
-          {/* <option value="830">8:30am</option>,
-          <option value="920">9:20am</option>,
-          <option value="1010">10:10am</option>,
-          <option value="1100">11:00am</option>,
-          <option value="1130">11:30am</option>,
-          <option value="1220">12:20pm</option>,
-          <option value="1310">1:10pm</option>,
-          <option value="1400">2:00pm</option>,
-          <option value="1430">2:30pm</option>,
-          <option value="1520">3:20pm</option>,
-          <option value="1610">4:10pm</option>,
-          <option value="1700">5:00pm</option>,
-          <option value="1730">5:30pm</option>,
-          <option value="1820">6:20pm</option>, */}
         </Select>
       </div>
 
@@ -109,20 +93,6 @@ const LabBookingForm = ({ handleSubmit, handleChange, values, setValues, user, l
           onChange={(e) => setValues({ ...values, timeEnd: e.value })}
           options={optionsTimeEnd}
         >
-          {/* <option value="920">9:20am</option>,
-          <option value="1010">10:10am</option>,
-          <option value="1100">11:00am</option>,
-          <option value="1130">11:30am</option>,
-          <option value="1220">12:20pm</option>,
-          <option value="1310">1:10pm</option>,
-          <option value="1400">2:00pm</option>,
-          <option value="1430">2:30pm</option>,
-          <option value="1520">3:20pm</option>,
-          <option value="1610">4:10pm</option>,
-          <option value="1700">5:00pm</option>,
-          <option value="1730">5:30pm</option>,
-          <option value="1820">6:20pm</option>,
-          <option value="1910">7:10pm</option>, */}
         </Select>
       </div>
 
@@ -170,9 +140,7 @@ const LabBookingForm = ({ handleSubmit, handleChange, values, setValues, user, l
           options={optionsPosition}
           onChange={(e) => setValues({ ...values, position: e.value })}
         >
-          {/* <option>Please select</option>
-          <option value="Lecturer">Lecturer</option>
-          <option value="Student">Student</option> */}
+          
         </Select>
       </div>
 
@@ -184,9 +152,7 @@ const LabBookingForm = ({ handleSubmit, handleChange, values, setValues, user, l
           options={optionsPurpose}
           onChange={(e) => setValues({ ...values, purpose: e.value })}
         >
-          {/* <option>Please select</option>
-          <option value="Schedule Class">Schedule Class</option>
-          <option value="Special Event">Special Event</option> */}
+
         </Select>
       </div>
 
