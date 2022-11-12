@@ -9,6 +9,9 @@ import { Menu, Slider, Radio } from "antd"
 import { DesktopOutlined, DownSquareOutlined } from "@ant-design/icons";
 import Box from '@mui/material/Box';
 
+import Stack from '@mui/material/Stack';
+import LinearProgress from '@mui/material/LinearProgress';
+
 const { SubMenu } = Menu;
 
 
@@ -188,12 +191,19 @@ const Lab = () => {
 
                     <div className="col-md-9 mt-3">
                         {loading ? (
-                            <h4 className="text-danger">Loading...</h4>
+                            <>
+                                <span></span>
+
+                            </>
                         ) : (
                             <h2 className="m-1">Labs</h2>
                         )}
 
-                        {labs.length < 1 && <p className="text-danger">No Labs Found, Please Refresh</p>}
+                        {labs.length < 1 && <Stack sx={{ width: '100%', color: 'grey.500' }} spacing={2}>
+                            <LinearProgress color="secondary" />
+                            <LinearProgress color="success" />
+                            <LinearProgress color="inherit" />
+                        </Stack>}
 
                         <div className="row pb-5">
                             {labs.map((lab) => (

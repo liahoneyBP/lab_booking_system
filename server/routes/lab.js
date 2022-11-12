@@ -32,6 +32,7 @@ const {
 } = require("../controllers/lab");
 const { default: slugify } = require("slugify");
 
+
 // routes
 
 // create lab By Admin

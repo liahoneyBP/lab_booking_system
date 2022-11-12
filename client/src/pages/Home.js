@@ -4,6 +4,8 @@ import { getLabsByCount } from "../functions/lab";
 import LabCard from "../components/cards/LabCard";
 import Jumbotron from "../components/cards/Jumbotron";
 
+import Stack from '@mui/material/Stack';
+import LinearProgress from '@mui/material/LinearProgress';
 
 // Home Parent Component
 const Home = () => {
@@ -30,6 +32,18 @@ const Home = () => {
 
       <div className="container">
         <div className="row">
+          {loading ? (
+            <>
+              <h4 className="text-success">Loading...</h4>
+              <Stack sx={{ width: '100%', color: 'grey.500' }} spacing={3}>
+                <LinearProgress color="secondary" />
+                <LinearProgress color="secondary" />
+                <LinearProgress color="secondary" />
+              </Stack>
+            </>
+          ) : (
+            <span></span>
+          )}
           {labs.map((lab) => (
             <div key={lab._id} className="col-md-4">
               <LabCard lab={lab} />
