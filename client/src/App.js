@@ -94,7 +94,7 @@ function App() {
         <Route  exact path="/admin/labs" element={ <AdminRoute><AllLabs /></AdminRoute> } />
         <Route path="/lab/:slug" element={<LabSingle />}></Route>
         <Route  exact path="/admin/lab/:slug" element={ <AdminRoute><LabUpdate /></AdminRoute> } />
-        <Route path="/lab/booking/:slug" element={< LabSingleBooking/>}></Route>
+        <Route path="/lab/booking/:slug" element={ <UserRoute><LabSingleBooking /></UserRoute>} />
         <Route path="/lab/booking/lists/:slug" element={ <UserRoute><LabBookingsLists /></UserRoute> } />
         <Route path="/lab/booking/lists/:slug/:bookingId" element={< BookingCheckIn/>}></Route>
         <Route  exact path="/admin/lab/booking/edit/:slug/:labId/:bookingId" element={ <AdminRoute><LabBookingUpdate /></AdminRoute> } />
