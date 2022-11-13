@@ -82,10 +82,7 @@ const labSchema = new mongoose.Schema(
       type: String,
     },
     equipment: {
-      pc: { type: Boolean, default: true },
-      mac: { type: Boolean, default: false },
-      projector: { type: Boolean, default: true },
-      whiteBoard: { type: Boolean, default: true },
+      type: Array,
     },
     bookings: [bookingSchema]
   },

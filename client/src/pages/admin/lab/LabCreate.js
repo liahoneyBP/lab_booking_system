@@ -12,13 +12,13 @@ import { useParams } from 'react-router-dom';
 
 const initialState = {
   labName: "",
-  building: "5",
-  details: "ห้องแล็บ Test",
-  floor: "5",
-  capacity: "50",
+  building: "",
+  details: "",
+  floor: "",
+  capacity: "",
   images: [],
   qrcode: ``,
-  equipment: {},
+  equipment: [],
   bookings: [],
 }
 
@@ -46,10 +46,16 @@ const LabCreate = () => {
       });
   };
 
+
   const handleChange = (e) => {
     setValues({ ...values, [e.target.name]: e.target.value });
-    //console.log(e.target.name, " ----- ", e.target.value);
+    
+    console.log(e.target.name, " ----- ", e.target.value);
+    console.log("Values ==>", values);
+    
   }
+
+  
 
   return (
     <div className="container-fluid">
@@ -76,6 +82,7 @@ const LabCreate = () => {
             handleSubmit={handleSubmit}
             handleChange={handleChange}
             values={values}
+            setValues={setValues}
           />
 
         </div>

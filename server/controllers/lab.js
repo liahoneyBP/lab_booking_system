@@ -7,10 +7,11 @@ const nodemailer = require('nodemailer');
 exports.create = async (req, res) => {
 
   try {
-    console.log(req.body);
+    console.log("Req.body ===>", req.body);
     req.body.slug = slugify(req.body.labName);
     const newLab = await new Lab(req.body).save();
     res.json(newLab);
+    
   } catch (err) {
     console.log(err);
     // res.status(400).send("Create product failed");

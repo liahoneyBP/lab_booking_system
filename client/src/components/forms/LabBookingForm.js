@@ -73,7 +73,6 @@ const LabBookingForm = ({ handleSubmit, handleChange, values, setValues, user, l
     <Segment>
     <Form onSubmit={handleSubmit}>
       
-
       <div className="form-group">
         <label>Start Time </label><span><AccessTimeIcon/></span>
         <Select
