@@ -71,7 +71,6 @@ const labSchema = new mongoose.Schema(
     type: {
       type: String,
     },
-
     capacity: {
       type: Number,
     },
@@ -87,6 +86,5 @@ const labSchema = new mongoose.Schema(
     bookings: [bookingSchema]
   },
 );
-
 
 module.exports = mongoose.model("Lab", labSchema);
