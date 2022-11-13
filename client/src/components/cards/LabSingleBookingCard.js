@@ -62,6 +62,7 @@ const SingleBookingCard = ({ lab }) => {
     let sameDateAndNotimeClash = false;
 
 
+
     if (values) {
       const pinCode = values.pin;
       if (pinCode.length === 6) {
@@ -144,6 +145,7 @@ const SingleBookingCard = ({ lab }) => {
       }
 
     }
+    
   };
 
   const handleChange = (e) => {

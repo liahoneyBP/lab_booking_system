@@ -28,7 +28,6 @@ const LabGenQrCode = () => {
     }
 
 
-
     return (
         <div className="container-fluid">
             <div className="row">

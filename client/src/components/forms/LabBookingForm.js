@@ -71,7 +71,7 @@ const LabBookingForm = ({ handleSubmit, handleChange, values, setValues, user, l
   return (
     
     <Segment>
-    <Form onSubmit={handleSubmit}>
+    <Form onSubmit={handleSubmit} >
       
       <div className="form-group">
         <label>Start Time </label><span><AccessTimeIcon/></span>
@@ -80,6 +80,8 @@ const LabBookingForm = ({ handleSubmit, handleChange, values, setValues, user, l
           className="form-control"
           onChange={(e) => setValues({ ...values, timeStart: e.value })}
           options={optionsTimeStart}
+          required
+          
         >
         </Select>
       </div>
@@ -91,6 +93,8 @@ const LabBookingForm = ({ handleSubmit, handleChange, values, setValues, user, l
           className="form-control"
           onChange={(e) => setValues({ ...values, timeEnd: e.value })}
           options={optionsTimeEnd}
+          required
+          
         >
         </Select>
       </div>
@@ -99,6 +103,7 @@ const LabBookingForm = ({ handleSubmit, handleChange, values, setValues, user, l
         <label>Date</label> <br/>
         <Space direction="vertical">
           <DatePicker
+           
             onChange={(date, dateString) =>
               setValues({ ...values, dateStart: dateString })
             }
@@ -127,6 +132,7 @@ const LabBookingForm = ({ handleSubmit, handleChange, values, setValues, user, l
           className="form-control"
           value={bookedBy}
           onChange={handleChange}
+          required
 
         />
       </div>
@@ -138,6 +144,7 @@ const LabBookingForm = ({ handleSubmit, handleChange, values, setValues, user, l
           className="form-control"
           options={optionsPosition}
           onChange={(e) => setValues({ ...values, position: e.value })}
+          required
         >
           
         </Select>
@@ -150,6 +157,7 @@ const LabBookingForm = ({ handleSubmit, handleChange, values, setValues, user, l
           className="form-control"
           options={optionsPurpose}
           onChange={(e) => setValues({ ...values, purpose: e.value })}
+          required
         >
 
         </Select>
@@ -164,6 +172,7 @@ const LabBookingForm = ({ handleSubmit, handleChange, values, setValues, user, l
           className="form-control"
           value={description}
           onChange={handleChange}
+          required
 
         />
       </div>
