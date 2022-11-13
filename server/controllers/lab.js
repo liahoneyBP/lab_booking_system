@@ -187,7 +187,7 @@ const handleLabName = async (req, res, labName) => {
   res.json(labs);
 }
 
-
+/*
 const handleCheckInStatus = async (req, res, isCheckin) => {
   const labs = await Lab.aggregate([
     {
@@ -206,6 +206,7 @@ const handleCheckInStatus = async (req, res, isCheckin) => {
 
   res.json(labs);
 }
+*/
 
 
 const handlePosition = async (req, res, position) => {

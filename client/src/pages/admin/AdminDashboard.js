@@ -58,6 +58,7 @@ const AdminDashboard = () => {
   const [positions, setPositions] = useState([
     "Lecturer",
     "Student",
+    "Admin",
   ]);
   const [position, setPosition] = useState('')
 
@@ -166,7 +167,6 @@ const AdminDashboard = () => {
     });
     setPosition(e.target.value)
     setLabName('')
-    setCheckin('')
     fetchUserBookings({ position: e.target.value });
   }
 
@@ -430,23 +430,24 @@ const AdminDashboard = () => {
               </div>
             </SubMenu>
 
+        
             {/* <SubMenu
               key="2"
-              title={
-                <span className="h6"><DownSquareOutlined /> Check-In Status
-                </span>}>
-              <div style={{ maringTop: "-10px" }} className="pr-5">
-                {showCheckin()}
-              </div>
-            </SubMenu>
-
-            <SubMenu
-              key="3"
               title={
                 <span className="h6"><DownSquareOutlined /> Position
                 </span>}>
               <div style={{ maringTop: "-10px" }} className="pr-5">
                 {showPosition()}
+              </div>
+            </SubMenu> */}
+{/* 
+            <SubMenu
+              key="3"
+              title={
+                <span className="h6"><DownSquareOutlined /> Check-In Status
+                </span>}>
+              <div style={{ maringTop: "-10px" }} className="pr-5">
+                {showCheckin()}
               </div>
             </SubMenu> */}
 
