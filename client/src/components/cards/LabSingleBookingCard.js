@@ -28,8 +28,6 @@ var initialState = {
 };
 
 
-
-
 const SingleBookingCard = ({ lab }) => {
 
   // router
@@ -37,7 +35,7 @@ const SingleBookingCard = ({ lab }) => {
 
   const navigate = useNavigate();
 
-  const {  labName } = lab;
+  const { labName } = lab;
   const [values, setValues] = useState(initialState)
 
   const { user } = useSelector((state) => ({ ...state }));
@@ -65,44 +63,31 @@ const SingleBookingCard = ({ lab }) => {
 
 
     if (values) {
-     // console.log("Pin . length ===> ", values.pin.length);
       const pinCode = values.pin;
-      // check PinCode.length === 6 then can make api
       if (pinCode.length === 6) {
-
         // check values from user timeStart can't over than timeEnd
+
         if (newTimeStart < newTimeEnd) {
-       /*   console.log("newTimeStart ===>", newTimeStart);
-          console.log("newTimeEnd ===>", newTimeEnd);
-
-          console.log("newDateStart ===>", newDateStart);
-
-          console.log("Ok Right ! very good timeStart < timeEnd ") */
-
 
           getLabBookings(lab._id, user.token).then(labBookingsData => {
-        /*    console.log("Lab ID from front is ==>", lab._id);
-            console.log("Lab Bookings data API (Existing Data)", labBookingsData.data);
-
-            console.log("Values current ===>", values); */
 
             labBookingsData.data.forEach(function (value, index) {
-          //    console.log('forEach with Index ===>', '%d: %s', index, value);
+              //    console.log('forEach with Index ===>', '%d: %s', index, value);
               const ExisDateStart = moment(value.dateStart).format('YYYY-MM-DD');
               const ExisTimeStart = value.timeStart;
               const ExisTimeEnd = value.timeEnd;
               console.log("exisDateStart ===>", ExisDateStart);
               if (ExisDateStart === newDateStart) {
-         /*       console.log(`Oh Wow Found ExisDateStart index at ${index} === newDateStart`)
-                console.log("Value at index ====>", value);                                        */
+                /*       console.log(`Oh Wow Found ExisDateStart index at ${index} === newDateStart`)
+                       console.log("Value at index ====>", value);                                        */
                 bookingSameDate = true;
                 if (
                   // eg. newTime-endTime 10:00 - 12:00 , exisTime-endTime 8:00 - 13:00
                   newTimeStart >= ExisTimeStart && newTimeStart < ExisTimeEnd ||
                   // eg. exitsTime-endTime 11:00 - 15:00 , 11:00 - 14:00
                   ExisTimeStart >= newTimeStart && ExisTimeStart < newTimeEnd) {
-            /*    console.log("Hey !! We Found Booking SameDate and TimeClash !! Noooo");
-                  console.log(`And index at ${index} We have Time Clash`)                        */
+                  /*    console.log("Hey !! We Found Booking SameDate and TimeClash !! Noooo");
+                        console.log(`And index at ${index} We have Time Clash`)                        */
                   sameDateAndTimeClash = true
 
                 }
@@ -125,7 +110,7 @@ const SingleBookingCard = ({ lab }) => {
                     position: toast.POSITION.TOP_CENTER
                   });
 
-                    navigate(0);
+                  navigate(0);
 
                 })
                 .catch((err) => {
@@ -135,7 +120,7 @@ const SingleBookingCard = ({ lab }) => {
                 })
 
             }
-          
+
           });
 
         }
@@ -143,6 +128,12 @@ const SingleBookingCard = ({ lab }) => {
         // invalid time when user enter timeStart > timeEnd
         if (newTimeStart > newTimeEnd) {
           toast.error("Start Time can't over than End Time, Please Try again... !", {
+            position: toast.POSITION.TOP_CENTER
+          });
+        }
+
+        if (newTimeStart === newTimeEnd) {
+          toast.error("Start Time can't Equal End Time, Please Try again... !", {
             position: toast.POSITION.TOP_CENTER
           });
         }
