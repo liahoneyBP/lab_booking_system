@@ -64,6 +64,7 @@ const LabBookingForm = ({ handleSubmit, handleChange, values, setValues, user, l
   const optionsPosition = [
     { value: 'Lecturer', label: 'Lecturer' },
     { value: 'Student', label: 'Student' },
+    { value: 'Admin', label: 'Admin' },
     
   ]
 
