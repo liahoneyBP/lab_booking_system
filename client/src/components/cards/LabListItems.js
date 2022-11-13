@@ -34,7 +34,7 @@ const LabListItems = ({ lab }) => {
                     </span>
                 </li>
                 <li className='list-group-item'>
-                    <Box sx={{ fontWeight: 'bold', m: 1 }}> EQUIPMENT </Box>
+                    {/* <Box sx={{ fontWeight: 'bold', m: 1 }}> EQUIPMENT </Box> */}
                     <span className='label label-default label-pill pull-xs-right'>
                         
 
