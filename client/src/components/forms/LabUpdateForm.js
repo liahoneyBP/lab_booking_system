@@ -1,6 +1,9 @@
 import React from "react";
 import { Select } from "antd";
 
+import SelectR from 'react-select';
+import makeAnimated from "react-select/animated";
+
 
 
 const LabUpdateForm = ({
@@ -18,6 +21,14 @@ const LabUpdateForm = ({
     floor,
     capacity,
   } = values;
+
+  const optionsEquipment = [
+    { value: 'PC', label: 'PC' },
+    { value: 'PROJECTOR', label: 'PROJECTOR' },
+    { value: 'WHITEBOARD', label: 'WHITEBOARD' },
+    { value: 'MAC', label: 'MAC' },
+    { value: 'TELEVISION', label: 'TELEVISION' },
+  ]
 
 
 
@@ -79,10 +90,19 @@ const LabUpdateForm = ({
         />
       </div>
 
+      
+    
+      <div className="form-group">
+        <label>Equipment </label><span></span>
+        <SelectR
+          isMulti = {true}
+          options={optionsEquipment}
+          closeMenuOnSelect={false}
+          onChange={(e) => setValues({ ...values, equipment: e })}
+          />
+      </div>
 
-
-      <br />
-      <button className="btn btn-outline-info">Save</button>
+      <button className="btn btn-outline-info mt-5">Save</button>
     </form>
   );
 };

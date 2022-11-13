@@ -9,10 +9,14 @@ import LinearProgress from '@mui/material/LinearProgress';
 
 import Box from '@mui/material/Box';
 
+
+
 // Home Parent Component
 const Home = () => {
   const [labs, setLabs] = useState([]);
   const [loading, setLoading] = useState(false);
+
+  
 
   useEffect(() => {
     loadAllLabs();
@@ -28,6 +32,8 @@ const Home = () => {
 
   return (
     <>
+    
+    
       <div className="jumbotron text-primary h1 font-weight-bold text-center">
         <Jumbotron text={["UTCC LABS", "ห้องแล็บ", "มหาวิทยาลัยหอการค้าไทย"]} />
       </div>

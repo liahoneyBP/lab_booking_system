@@ -22,6 +22,7 @@ const LabCreateForm = ({ handleSubmit, handleChange, setValues, values }) => {
     { value: 'PROJECTOR', label: 'PROJECTOR' },
     { value: 'WHITEBOARD', label: 'WHITEBOARD' },
     { value: 'MAC', label: 'MAC' },
+    { value: 'TELEVISION', label: 'TELEVISION' },
   ]
 
 
@@ -82,7 +83,7 @@ const LabCreateForm = ({ handleSubmit, handleChange, setValues, values }) => {
         />
       </div>
 
-      {/* <div className="form-group">
+      <div className="form-group">
         <label>Equipment </label><span></span>
         <Select
           isMulti = {true}
@@ -90,7 +91,7 @@ const LabCreateForm = ({ handleSubmit, handleChange, setValues, values }) => {
           closeMenuOnSelect={false}
           onChange={(e) => setValues({ ...values, equipment: e })}
           />
-      </div> */}
+      </div>
 
       
 

@@ -17,12 +17,12 @@ const LabCard = ({ lab }) => {
   const { images, labName, details, slug, capacity } = lab;
   return (
     <Card
-      style={{ margin: 5 }}
+      style={{ margin:5,}}
       cover={
         // eslint-disable-next-line jsx-a11y/alt-text
         <img
           src={images && images.length ? images[0].url : LabImgDefault}
-          style={{ height: "150px", objectFit: "cover" }}
+          style={{ height: "250px",  objectFit: "cover",}}
           className="p-1"
         />
       }
@@ -45,7 +45,7 @@ const LabCard = ({ lab }) => {
       {/* <p style={{color: "white"}}>{details && details.substring(0, 40)}</p> */}
       <TypographyMUI component="div">
         <Box sx={{ fontFamily: 'Monospace', fontSize: 'h7.fontSize', m: 1, color: 'black' }}>
-          {details && details.substring(0, 40)}
+          {details && details.substring(0, 50)}
         </Box>
       </TypographyMUI>
       <Meta

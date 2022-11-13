@@ -1,4 +1,4 @@
-import React, {  Fragment, useEffect } from 'react';
+import React, {  Fragment, useEffect, useState } from 'react';
 import { BrowserRouter as Router , Routes, useParams, Route, Navigate} from "react-router-dom";
 import Header from './components/Navbar/Header';
 import Home from './pages/Home'
@@ -34,10 +34,10 @@ import { currentUser } from "./functions/auth"
 
 
 
-
 function App() {
 
   const dispatch = useDispatch();
+
 
   // to check firebase auth state
   useEffect(() => {
@@ -79,6 +79,7 @@ function App() {
       <Header />
       <ToastContainer />
       <Routes>
+      
         <Route path="/" element={<Home />}></Route>
         <Route path="/lab" element={<Lab />}></Route>
         <Route path="/mybookings" element={ <UserRoute><MyBookings /></UserRoute> } />

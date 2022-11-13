@@ -208,7 +208,7 @@ const Lab = () => {
                             />
                         </Spin>}
 
-                        <div className="row pb-5">
+                        <div className="row m-1">
                             {labs.map((lab) => (
                                 <div key={lab._id} className="col-md-4 mt-3">
                                     <LabCard lab={lab} />
