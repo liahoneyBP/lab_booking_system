@@ -11,11 +11,11 @@ import { useParams } from 'react-router-dom';
 
 
 const initialState = {
-  labName: "",
-  building: "",
-  details: "",
-  floor: "",
-  capacity: "",
+  labName: "15201C",
+  building: "15",
+  details: "ห้องแล็บใหม่",
+  floor: "2",
+  capacity: "50",
   images: [],
   qrcode: ``,
   equipment: [],
