@@ -93,7 +93,7 @@ const SingleBookingCard = ({ lab }) => {
 
       if (pinCode.length === 6) {
         // check values from user timeStart can't over than timeEnd
-        if ( values.position === 'admin' && user.role !== 'admin') {
+        if ( values.position === 'Admin' && user.role !== 'admin') {
           window.alert("You Are Not Admin");
           navigate(0)
         }
