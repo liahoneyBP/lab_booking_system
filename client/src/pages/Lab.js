@@ -31,7 +31,17 @@ const Lab = () => {
         "2",
         "3",
     ])
+
     const [floor, setFloor] = useState("");
+
+    
+    const [equipment, setEquipment] = useState("");
+
+    const [equipments, setEquipments] = useState([
+        "PC",
+        "MAC",
+    ])
+    
 
     let dispatch = useDispatch();
     let { search } = useSelector((state) => ({ ...state }));
@@ -140,6 +150,32 @@ const Lab = () => {
     }
 
 
+    const showEquipments = () =>
+        equipments.map((e) => (
+            <Radio
+                value={e}
+                name={e}
+                checked={e === equipment}
+                onChange={handleEquipment}
+                className="pb-1 pl-4 pr-4"
+            >
+                {e}
+            </Radio>
+        ))
+
+    const handleEquipment = (e) => {
+        setCapacity([0, 0]);
+        setBuilding("");
+        setFloor('')
+        dispatch({
+            type: "SEARCH_QUERY",
+            payload: { text: "" },
+        });
+        setEquipment(e.target.value)
+        fetchLabs({ equipment: e.target.value });
+    }
+
+
     return (
         <>
             <div className="container-fluid">
@@ -152,7 +188,7 @@ const Lab = () => {
                         <Search />
                         <hr />
 
-                        <Menu defaultOpenKeys={['1', '2', '3']} mode="inline">
+                        <Menu defaultOpenKeys={['1', '2', '3', '4']} mode="inline">
                             <SubMenu key="1" title={<span className="h6"><DesktopOutlined /> Capacity</span>}>
                                 <div className="">
                                     <Slider
@@ -184,6 +220,16 @@ const Lab = () => {
                                     </span>}>
                                 <div className="pl-4 pr-4">
                                     {showFloors()}
+                                </div>
+                            </SubMenu>
+
+                            <SubMenu
+                                key="4"
+                                title={
+                                    <span className="h6"><DownSquareOutlined /> Equipment
+                                    </span>}>
+                                <div className="pl-4 pr-4">
+                                    {showEquipments()}
                                 </div>
                             </SubMenu>
                         </Menu>

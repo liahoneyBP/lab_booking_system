@@ -120,16 +120,24 @@ const handleFloor = async (req, res, floor) => {
   res.json(labs);
 }
 
-const handleType = async (req, res, type) => {
-  const labs = await Lab.find({ type })
-    .exec();
+const handleEquipment = async (req, res, equipment) => {
+  const labs = await Lab.aggregate([
+    {
+      "$match": {
+        "equipment.value": equipment
+      }
+    },
+    { $sort: { "bookings.updateddAt": -1 } }
+
+  ])
+  console.log('Equipment Filter BACKEND ===>', labs);
 
   res.json(labs);
 }
 
 // Search / Filter
 exports.searchFilters = async (req, res) => {
-  const { query, capacity, building, floor, type } = req.body
+  const { query, capacity, building, floor, equipment } = req.body
 
   if (query) {
     console.log('query --->', query)
@@ -152,9 +160,9 @@ exports.searchFilters = async (req, res) => {
     await handleFloor(req, res, floor);
   }
 
-  if (type) {
-    console.log("type --->", type);
-    await handleType(req, res, type);
+  if (equipment) {
+    console.log("equipment --->", equipment);
+    await handleEquipment(req, res, equipment);
   }
 
 }
