@@ -28,7 +28,7 @@ import { getAllUserBookings } from '../functions/bookings';
 
 const Schedule = () => {
 
-  const LOCATIONS = ['15201A', '15201B', '1305A', '1305B', '1205A', '1205B', 'LAB5', 'LAB6'];
+  const LOCATIONS = ['15201A', '15201B', '1305A', '1305B', '1205A', '1205B'];
   const LOCATIONS_SHORT = [1, 2, 3, 4, 5, 6];
   const resources = [{
     fieldName: 'location',

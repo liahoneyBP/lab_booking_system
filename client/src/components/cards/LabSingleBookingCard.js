@@ -18,8 +18,8 @@ var initialState = {
   timeStart: "",
   timeEnd: "",
   title: "",
-  bookedBy: "",
-  description: "",
+  bookedBy: "Tanawut M",
+  description: "Open House Event",
   position: "",
   purpose: "",
   dateStart: "",
@@ -61,13 +61,39 @@ const SingleBookingCard = ({ lab }) => {
     let sameDateAndTimeClash = false;
     let sameDateAndNotimeClash = false;
 
+    if (!values.dateStart) {
+      window.alert('Please Select Date')
+      navigate(0)
+    }
+
+    if (values.dateStart) {
+      console.log("dateStart ===>", values.dateStart)
+      var c = new Date();
+      var cr = c.toISOString().substring(0, 10);
+      console.log("Current ===>", cr)
+
+      var dateInput = new Date(`${values.dateStart}`);
+      var currentDate = new Date(`${cr}`)
+      console.log("date Input ===>", dateInput);
+      console.log("current Date ===>", currentDate);
+    
+      if (dateInput < currentDate) {
+        alert("Invalid Date, Date Input Can't Less than Current Date");
+
+        navigate(0)
+      }
+      
+    }
 
 
     if (values) {
       const pinCode = values.pin;
+      const valuesDateCurrent = new Date();
+      const valuesFromUser = values.dateStart;
+
       if (pinCode.length === 6) {
         // check values from user timeStart can't over than timeEnd
-        if ( values.position === 'admin' && user.role !== 'admin') {
+        if (values.position === 'Admin' && user.role !== 'admin') {
           window.alert("You Are Not Admin");
           navigate(0)
         }
@@ -149,7 +175,7 @@ const SingleBookingCard = ({ lab }) => {
       }
 
     }
-    
+
   };
 
   const handleChange = (e) => {
