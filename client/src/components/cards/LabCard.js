@@ -23,14 +23,13 @@ const LabCard = ({ lab }) => {
         <img
           src={images && images.length ? images[0].url : LabImgDefault}
           style={{ height: "250px",  objectFit: "cover",}}
-          className="p-1"
+         // className="p-1"
+          className="pic"
         />
       }
       actions={[
         <Link to={`/lab/${slug}`}>
-          <ButtonMUI variant="outlined" color="success">
-            View Lab
-          </ButtonMUI>
+          <ButtonMUI variant="contained">VIEW</ButtonMUI>
         </Link>,
 
 

@@ -14,6 +14,7 @@ import LabListItems from "./LabListItems";
 import Button from '@mui/material/Button';
 
 
+
 const SingleLabCard = ({ lab }) => {
   const { images, labName, slug } = lab;
 
