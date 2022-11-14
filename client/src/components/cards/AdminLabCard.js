@@ -27,7 +27,7 @@ const AdminLabCard = ({lab, handleRemove}) => {
         >
             <Meta 
             title={labName}
-            description={`${details && details.substring(0, 40)}...`}
+            description={`${details && details.substring(0, 50)}...`}
 
              />
         </Card>

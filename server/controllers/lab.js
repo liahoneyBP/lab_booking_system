@@ -185,47 +185,44 @@ const handleLabName = async (req, res, labName) => {
     .exec();
 
   res.json(labs);
+  console.log("LABNAME FILTER AFTER API ==>",labs);
 }
 
-/*
+
 const handleCheckInStatus = async (req, res, isCheckin) => {
   const labs = await Lab.aggregate([
     {
-      $match: {
+      "$unwind": "$bookings"
+    },
+    {
+      "$match": {
         "bookings.isCheckin": isCheckin
       }
     },
-    {
-      "$unwind": "$bookings"
-    },
-
-    { $sort: { "bookings.createdAt": -1 } }
+    { $sort: { "bookings.updateddAt": -1 } }
 
   ])
-    .exec();
-
   res.json(labs);
+  console.log('isCheckin API ===>',labs )
 }
-*/
+
 
 
 const handlePosition = async (req, res, position) => {
   const labs = await Lab.aggregate([
     {
-      $match: {
+      "$unwind": "$bookings"
+    },
+    {
+      "$match": {
         "bookings.position": position
       }
     },
-    {
-      "$unwind": "$bookings"
-    },
-
     { $sort: { "bookings.createdAt": -1 } }
 
   ])
-    .exec();
-
   res.json(labs);
+  console.log('POSITION API ===>',labs )
 }
 
 // Search / Filter / userBookings
@@ -250,6 +247,7 @@ exports.searchFiltersUserBookings = async (req, res) => {
   if (position !== undefined) {
     console.log('position --->', position)
     await handlePosition(req, res, position);
+    
   }
 
 

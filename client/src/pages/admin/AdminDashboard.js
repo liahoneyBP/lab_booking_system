@@ -44,8 +44,7 @@ const AdminDashboard = () => {
     "1305B",
     "1205A",
     "1205B",
-    "LAB5",
-    "LAB6",
+
   ]);
   const [labName, setLabName] = useState('')
 
@@ -114,7 +113,34 @@ const AdminDashboard = () => {
       payload: { text: "" },
     });
     setLabName(e.target.value)
+
     fetchUserBookings({ labName: e.target.value });
+  }
+
+
+  // 4. load labs based on building
+  const showPosition = () =>
+    positions.map((p) => (
+      <Radio
+        value={p}
+        name={p}
+        checked={p === position}
+        onChange={handleshowPosition}
+        className="pb-1 pl-4 pr-4"
+      >
+        {p}
+      </Radio>
+    ))
+
+  const handleshowPosition = (e) => {
+
+    dispatch({
+      type: "SEARCH_QUERY",
+      payload: { text: "" },
+    });
+    setPosition(e.target.value)
+   // setLabName('')
+    fetchUserBookings({ position: e.target.value });
   }
 
 
@@ -144,31 +170,6 @@ const AdminDashboard = () => {
     fetchUserBookings({ isCheckin: e.target.value });
   }
 
-
-  // 4. load labs based on building
-  const showPosition = () =>
-    positions.map((p) => (
-      <Radio
-        value={p}
-        name={p}
-        checked={p === position}
-        onChange={handleshowPosition}
-        className="pb-1 pl-4 pr-4"
-      >
-        {p}
-      </Radio>
-    ))
-
-  const handleshowPosition = (e) => {
-
-    dispatch({
-      type: "SEARCH_QUERY",
-      payload: { text: "" },
-    });
-    setPosition(e.target.value)
-    setLabName('')
-    fetchUserBookings({ position: e.target.value });
-  }
 
 
 
@@ -431,7 +432,7 @@ const AdminDashboard = () => {
             </SubMenu>
 
         
-            {/* <SubMenu
+            <SubMenu
               key="2"
               title={
                 <span className="h6"><DownSquareOutlined /> Position
@@ -439,8 +440,8 @@ const AdminDashboard = () => {
               <div style={{ maringTop: "-10px" }} className="pr-5">
                 {showPosition()}
               </div>
-            </SubMenu> */}
-{/* 
+            </SubMenu>
+
             <SubMenu
               key="3"
               title={
@@ -449,7 +450,7 @@ const AdminDashboard = () => {
               <div style={{ maringTop: "-10px" }} className="pr-5">
                 {showCheckin()}
               </div>
-            </SubMenu> */}
+            </SubMenu>
 
 
 
