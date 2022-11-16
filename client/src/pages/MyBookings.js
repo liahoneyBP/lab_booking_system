@@ -39,7 +39,7 @@ const MyBookings = () => {
 
     const data = userBookings.map((item) => ({
         ...item,
-        age: Math.floor(Math.random() * 6) + 20,
+     
 
     }))
 
@@ -58,7 +58,7 @@ const MyBookings = () => {
         isCheckin: item.bookings.isCheckin,
         pin: item.bookings.pin,
         userEmail: item.bookings.user.email,
-        createdAt: moment(item.bookings.createdAt).fromNow(),
+        createdAt: moment(item.bookings.createdAt).format('LLL'),
         //  updatedAt: moment(item.bookings.createdAt).format('LLLL'),
 
     }
