@@ -174,7 +174,7 @@ or have made a reservation and haven't used it yet let various possibilities let
 The development of web -application Lab room reservations helps to reduce such errors as it allows administrators to view various booking information, and user can view information Schedule the availability of the room. via web application making it possible for anyone to check the lab usage schedule
 Including the date and time of use and booking a lab by yourself
 ### Planning
- ![Plan ](docs/plan_lab_booking.png)
+ ![Plan ](docs/plan_lab_booking_.png)
 ### Architecture System Design
 ![Architecture system design ](docs/Architecture_System_Design.png)
 ### Use Case Diagram
