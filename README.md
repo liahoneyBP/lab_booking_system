@@ -163,7 +163,7 @@ These instructions will get you a copy of the project up and running on your loc
 https://www.canva.com/design/DAFJ8krtxbs/bw89nLkokXWuH-0K89aMNA/edit
 ### Trello Board
 https://trello.com/invite/b/wv8LaGC0/99f35b22a729f06b97d01473a68e1b19/labbookingyear4project
-- ![Trello Board ](docs/trelloBoard_lab_booking.png)
+![Trello Board ](docs/trelloBoard_lab_booking.png)
 
 
 
@@ -178,7 +178,7 @@ Including the date and time of use and booking a lab by yourself
 #### Architecture System Design
 ![Architecture system design ](docs/Architecture_System_Design.png)
 #### Use Case Diagram
-![Use Case Diagram ](docs/UseCaseDiagram.png)
+![Use Case Diagram ](docs/Use_Case_Diagram.png)
 #### ER Diagram 
 ![ER Diagram ](docs/ER_Labbooking_ver2.png)
 
