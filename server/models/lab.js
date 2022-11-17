@@ -8,8 +8,6 @@ const bookingSchema = new Schema({
   dateEnd: Date,
   timeStart: Number,
   timeEnd: Number,
-  duration: Number,
-  recurring: [],
   position: {
     type: String
   },
@@ -68,17 +66,11 @@ const labSchema = new mongoose.Schema(
     floor: {
       type: Number,
     },
-    type: {
-      type: String,
-    },
     capacity: {
       type: Number,
     },
     images: {
       type: Array,
-    },
-    qrcode: {
-      type: String,
     },
     equipment: {
       type: Array,
