@@ -148,7 +148,7 @@ These instructions will get you a copy of the project up and running on your loc
  for redirect sign-up complete and forgot password and your path api.
 - For firebase authentication you need to register and create your project
   at https://firebase.google.com/ and Enabled Sign-in method likes Email/Password , Google and config SDK (in Project Setting > General > SDK setup and configuration) and add to server/config/
-- your .env in server, you have to config mongodbURL, PORT and cloudinary api 
+- your .env in `server`, you have to config mongodbURL, PORT and cloudinary api 
 - For Cloudinary Api, create account and config your SDK likes name, key, secret 
  go to https://cloudinary.com/
 
@@ -167,19 +167,19 @@ https://trello.com/invite/b/wv8LaGC0/99f35b22a729f06b97d01473a68e1b19/labbooking
 
 
 
-#### Problem
+### Problem
 Conventional lab room reservations such as how to record a reservation in a document or a user must book directly through the administrator. Causing many times to change the date and time may be inconvenient and may cause mistakes or booking duplicate and overlapping booking rooms.
 or have made a reservation and haven't used it yet let various possibilities let others Lose the chance at that Lab.
-#### Solution
+### Solution
 The development of web -application Lab room reservations helps to reduce such errors as it allows administrators to view various booking information, and user can view information Schedule the availability of the room. via web application making it possible for anyone to check the lab usage schedule
 Including the date and time of use and booking a lab by yourself
-#### Planning
+### Planning
  ![Plan ](docs/plan_lab_booking.png)
-#### Architecture System Design
+### Architecture System Design
 ![Architecture system design ](docs/Architecture_System_Design.png)
-#### Use Case Diagram
+### Use Case Diagram
 ![Use Case Diagram ](docs/Use_Case_Diagram.png)
-#### ER Diagram 
+### ER Diagram 
 ![ER Diagram ](docs/ER_Labbooking_ver2.png)
 
 
