@@ -187,6 +187,10 @@ Including the date and time of use and booking a lab by yourself
 - Figma
 https://www.figma.com/file/adJZia1KLtQprGd8skvCHK/wireframe_%E0%B8%88%E0%B8%AD%E0%B8%87%E0%B9%81%E0%B8%A5%E0%B9%87%E0%B8%9A_high?node-id=0%3A1&t=JpTAJOsycJt8dcvb-1
 
+### API
+- Postman
+https://www.postman.com/collections/f37cf21407e43ae3c830
+
 ### Technologies
 
 - React.js
