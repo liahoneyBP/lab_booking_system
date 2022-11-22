@@ -165,7 +165,7 @@ const MyBookings = () => {
             render(text, record) {
                 return {
                     props: {
-                        style: { color: text === "Unconfirm" ? "red" : "green" },
+                        style: { color: text === "Unconfirmed" ? "red" : "green" },
                     },
                     children:
                             <Button style={{ color: text === "Unconfirm" ? "red" : "green" }}>
