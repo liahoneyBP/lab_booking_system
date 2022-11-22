@@ -16,7 +16,7 @@ const bookingSchema = new Schema({
   },
   isCheckin: {
     type: String,
-    default: 'Unconfirm'
+    default: 'Unconfirmed'
   },
   description: {
     type: String
