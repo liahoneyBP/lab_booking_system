@@ -168,7 +168,7 @@ const MyBookings = () => {
                         style: { color: text === "Unconfirmed" ? "red" : "green" },
                     },
                     children:
-                            <Button style={{ color: text === "Unconfirm" ? "red" : "green" }}>
+                            <Button style={{ color: text === "Unconfirmed" ? "red" : "green" }}>
                                 {text}
                             </Button>
                        

@@ -521,7 +521,7 @@ exports.checkIn = async (req, res) => {
 
     const checkInConfirm = await Lab.findOneAndUpdate(
       { slug: labSlug },
-      { $set: { "bookings.$[el].isCheckin": 'Confirm' } },
+      { $set: { "bookings.$[el].isCheckin": 'Confirmed' } },
       {
         arrayFilters: [{ "el.pin": req.body.pinbody }],
       },
