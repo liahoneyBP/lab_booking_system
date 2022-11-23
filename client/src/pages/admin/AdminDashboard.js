@@ -49,8 +49,8 @@ const AdminDashboard = () => {
   const [labName, setLabName] = useState('')
 
   const [checkins, setCheckins] = useState([
-    "Unconfirm",
-    "Confirm",
+    "Unconfirmed",
+    "Confirmed",
   ]);
   const [checkin, setCheckin] = useState('')
 
@@ -344,10 +344,10 @@ const AdminDashboard = () => {
       render(text, record) {
         return {
           props: {
-            style: { color: text === "Unconfirm" ? "red" : "green" },
+            style: { color: text === "Unconfirmed" ? "red" : "green" },
           },
           children:
-            <Button style={{ color: text === "Unconfirm" ? "red" : "green" }}>
+            <Button style={{ color: text === "Unconfirmed" ? "red" : "green" }}>
               {text}
             </Button>
         };
