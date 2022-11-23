@@ -111,5 +111,12 @@ export const getLabBookingsIDparams = async (labId, bookingId, authtoken) =>
   })
 
 
+export const readUser = async (userId) =>
+  await axios.post(`${process.env.REACT_APP_API}/readUser`, { userIdBody: userId }, {
+
+  });
+
+
+
 
 

@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import LabBookingForm from "../forms/LabBookingForm";
 import { makeBooking } from "../../functions/bookings";
 import { getLabBookings } from "../../functions/bookings";
+import { readUser } from "../../functions/bookings";
 import { toast } from 'react-toastify';
 import moment from "moment";
 import "react-toastify/dist/ReactToastify.css";
@@ -124,6 +125,11 @@ const SingleBookingCard = ({ lab }) => {
                 }
 
               }
+
+              readUser(user._id).then(res => {
+                console.log("RES READ USER ID ===>", res.data._id);
+              })
+
             });
 
             if (sameDateAndTimeClash) {
@@ -131,7 +137,13 @@ const SingleBookingCard = ({ lab }) => {
                 position: toast.POSITION.TOP_CENTER
               });
 
-            } else {
+            } 
+            /*if () {
+
+            
+            }*/
+            else {
+              console.log("User ID When Booking ===>", user._id);
 
               makeBooking(slug, values, user.token)
                 .then((response) => {
@@ -141,7 +153,9 @@ const SingleBookingCard = ({ lab }) => {
                     position: toast.POSITION.TOP_CENTER
                   });
 
-                  navigate(0);
+
+
+                //  navigate(0);
 
                 })
                 .catch((err) => {
