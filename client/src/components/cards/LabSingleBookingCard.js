@@ -27,6 +27,7 @@ var initialState = {
   position: "",
   purpose: "",
   dateStart: "",
+  tel: "",
   pin: `${cryptoRandomString({ length: 6, type: 'numeric' })}`,
 
 };

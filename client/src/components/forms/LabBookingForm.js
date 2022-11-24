@@ -19,6 +19,7 @@ const LabBookingForm = ({ handleSubmit, handleChange, values, setValues, user, l
   const {
     description,
     bookedBy,
+    tel,
   } = values;
 
   const optionsTimeStart = [
@@ -172,6 +173,19 @@ const LabBookingForm = ({ handleSubmit, handleChange, values, setValues, user, l
           name="description"
           className="form-control"
           value={description}
+          onChange={handleChange}
+          required
+
+        />
+      </div>
+
+      <div className="form-group">
+        <label>Tel</label> 
+        <input
+          type="number"
+          name="tel"
+          className="form-control"
+          value={tel}
           onChange={handleChange}
           required
 

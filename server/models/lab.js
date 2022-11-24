@@ -14,6 +14,9 @@ const bookingSchema = new Schema({
   bookedBy: {
     type: String
   },
+  tel: {
+    type: Number
+  },
   isCheckin: {
     type: String,
     default: 'Unconfirmed'
