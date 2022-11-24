@@ -7,7 +7,7 @@ import TextField from '@mui/material/TextField';
 import ButtonGroup from '@mui/material/ButtonGroup';
 import Button from '@mui/material/Button';
 import { styled, alpha } from '@mui/material/styles';
-import { teal, orange, red, pink, blue, brown, cyan, grey} from '@mui/material/colors';
+import { teal, orange, red, pink, blue, brown, cyan, grey } from '@mui/material/colors';
 import classNames from 'clsx';
 import { ViewState } from '@devexpress/dx-react-scheduler';
 import {
@@ -33,7 +33,7 @@ const Schedule = () => {
   const resources = [{
     fieldName: 'location',
     title: 'Location',
-  
+
     instances: [
       { id: LOCATIONS[0], text: LOCATIONS[0], color: teal },
       { id: LOCATIONS[1], text: LOCATIONS[1], color: orange },
@@ -58,6 +58,7 @@ const Schedule = () => {
     shortButtonText: `${PREFIX}-shortButtonText`,
     title: `${PREFIX}-title`,
     bookedBy: `${PREFIX}-bookedBy`,
+    tel: `${PREFIX}-tel`,
     textContainer: `${PREFIX}-textContainer`,
     time: `${PREFIX}-time`,
     text: `${PREFIX}-text`,
@@ -98,6 +99,12 @@ const Schedule = () => {
     },
     [`& .${classes.container}`]: {
       width: '100%',
+    },
+    [`& .${classes.tel}`]: {
+      fontWeight: 'bold',
+      overflow: 'hidden',
+      textOverflow: 'ellipsis',
+      whiteSpace: 'nowrap',
     },
   }));
   // #FOLD_BLOCK
@@ -208,6 +215,9 @@ const Schedule = () => {
             {formatDate(data.endDate, { hour: 'numeric', minute: 'numeric' })}
           </div>
         </div>
+        <div className={classes.tel}>
+           Tel 0{data.tel}
+          </div>
       </div>
     </StyledAppointmentsAppointmentContent>
   );
@@ -346,7 +356,7 @@ const Schedule = () => {
   // format for date console.log("data.map dateStart ===>", moment(item.bookings.dateStart).format(`YYYY,MM,DD,`)
   // format for time console.log( " get all elements, except last 2 elements ====>", item.bookings.timeStart.toString().slice(0,-2),
   // "get last 2 elements  ===>", item.bookings.timeStart.toString().slice(-2), )
-  
+
   // way 2 ==> 22-10-31T08:45
   // arr.slice(Math.max(arr.length - 2, 0)) for last 2 elements
   // `${moment(item.bookings.dateStart).format('YYYY-MM-DD')}` for 2022-10-31T00:00:00.000+00:00 to 2022-10-31
@@ -357,9 +367,10 @@ const Schedule = () => {
     ...item,
     title: `${item.bookings.description}`,
     bookedBy: `${item.bookings.bookedBy}`,
-    startDate: new Date(moment(item.bookings.dateStart).format('YYYY'), moment(item.bookings.dateStart).month(), moment(item.bookings.dateStart).format('DD'), item.bookings.timeStart.toString().slice(0,-2), item.bookings.timeStart.toString().slice(-2)),
-    endDate: new Date(moment(item.bookings.dateStart).format('YYYY'), moment(item.bookings.dateStart).month() , moment(item.bookings.dateStart).format('DD'), item.bookings.timeEnd.toString().slice(0,-2), item.bookings.timeEnd.toString().slice(-2)),
+    startDate: new Date(moment(item.bookings.dateStart).format('YYYY'), moment(item.bookings.dateStart).month(), moment(item.bookings.dateStart).format('DD'), item.bookings.timeStart.toString().slice(0, -2), item.bookings.timeStart.toString().slice(-2)),
+    endDate: new Date(moment(item.bookings.dateStart).format('YYYY'), moment(item.bookings.dateStart).month(), moment(item.bookings.dateStart).format('DD'), item.bookings.timeEnd.toString().slice(0, -2), item.bookings.timeEnd.toString().slice(-2)),
     location: `${item.labName}`,
+    tel: `${item.bookings.tel}`
   }
   ))
 
