@@ -4,9 +4,12 @@ import { useSelector } from "react-redux";
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import { useNavigate } from "react-router-dom";
 import LabBookingForm from "../forms/LabBookingForm";
+
 import { makeBooking } from "../../functions/bookings";
 import { getLabBookings } from "../../functions/bookings";
 import { readUser } from "../../functions/bookings";
+import { incrementBooked } from "../../functions/bookings";
+
 import { toast } from 'react-toastify';
 import moment from "moment";
 import "react-toastify/dist/ReactToastify.css";
@@ -61,6 +64,9 @@ const SingleBookingCard = ({ lab }) => {
     let behindTime = false;
     let sameDateAndTimeClash = false;
     let sameDateAndNotimeClash = false;
+    let maxBookedUser = false;
+    let datePast = false;
+    let userNotAdmin = false;
 
     if (!values.dateStart) {
       window.alert('Please Select Date')
@@ -75,32 +81,36 @@ const SingleBookingCard = ({ lab }) => {
 
       var dateInput = new Date(`${values.dateStart}`);
       var currentDate = new Date(`${cr}`)
-      console.log("date Input ===>", dateInput);
-      console.log("current Date ===>", currentDate);
-    
+  
       if (dateInput < currentDate) {
-        alert("Invalid Date, Date Input Can't Less than Current Date");
-
-        navigate(0)
+      datePast = true
       }
-      
     }
 
-
     if (values) {
+      
+      readUser(user._id).then(res => {
+        const max = res.data.maxBooked;
+        console.log("Get Check User Bookings Amount ===>", max);
+        if (max === 3 || max >= 3) {
+          maxBookedUser = true;
+        }
+      })
+      
       const pinCode = values.pin;
       const valuesDateCurrent = new Date();
       const valuesFromUser = values.dateStart;
 
       if (pinCode.length === 6) {
-        // check values from user timeStart can't over than timeEnd
+        
         if ( values.position === 'Admin' && user.role !== 'admin') {
-          window.alert("You Are Not Admin");
-          navigate(0)
+          
+           userNotAdmin = true;
         }
-
+// check values from user timeStart can't over than timeEnd
         if (newTimeStart < newTimeEnd) {
 
+        
           getLabBookings(lab._id, user.token).then(labBookingsData => {
 
             labBookingsData.data.forEach(function (value, index) {
@@ -125,11 +135,6 @@ const SingleBookingCard = ({ lab }) => {
                 }
 
               }
-
-              readUser(user._id).then(res => {
-                console.log("RES READ USER ID ===>", res.data._id);
-              })
-
             });
 
             if (sameDateAndTimeClash) {
@@ -138,12 +143,31 @@ const SingleBookingCard = ({ lab }) => {
               });
 
             } 
-            /*if () {
 
+            if (maxBookedUser) {
+              toast.error(`Out Of Limit Bookings (3)`, {
+                position: toast.POSITION.TOP_CENTER
+              });
+            }
+
+            if (datePast) {
+              toast.error(`Invalid Date, Date entered can't be less than current date.`, {
+                position: toast.POSITION.TOP_CENTER
+              });
+            }
+
+            if (userNotAdmin) {
+              toast.error(`You Are Not Admin.`, {
+                position: toast.POSITION.TOP_CENTER
+              });
+            }
             
-            }*/
             else {
               console.log("User ID When Booking ===>", user._id);
+
+              incrementBooked(user._id, user.token).then(res => {
+                console.log("Increment Booked User", res.data)
+              })
 
               makeBooking(slug, values, user.token)
                 .then((response) => {
@@ -212,13 +236,10 @@ const SingleBookingCard = ({ lab }) => {
           user={user}
         />
       </div>
-
-
       {/* <div>
         <p>TEST ALL BOOKINGS IN THIS LAB</p>
         {JSON.stringify(labBookings)}
       </div> */}
-
     </>
   );
 }

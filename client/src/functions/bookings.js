@@ -118,5 +118,17 @@ export const readUser = async (userId) =>
 
 
 
+export const incrementBooked = async (userId, authtoken) =>
+  await axios.put(`${process.env.REACT_APP_API}/incrementBooked`, { userIdBody: userId }, {
+    headers: {
+      authtoken
+    }
+
+  });
+
+
+
+
+
 
 
