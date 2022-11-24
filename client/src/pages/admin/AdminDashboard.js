@@ -204,6 +204,7 @@ const AdminDashboard = () => {
     position: item.bookings.position,
     description: item.bookings.description,
     purpose: item.bookings.purpose,
+    tel: item.bookings.tel,
     isCheckin: item.bookings.isCheckin,
     pin: item.bookings.pin,
     userEmail: item.bookings.user.email,
@@ -335,6 +336,11 @@ const AdminDashboard = () => {
     {
       title: 'Purpose',
       dataIndex: 'purpose',
+      responsive: ["sm"],
+    },
+    {
+      title: 'Tel',
+      dataIndex: 'tel',
       responsive: ["sm"],
     },
     {
