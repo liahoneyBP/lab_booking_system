@@ -100,6 +100,7 @@ const LabSingleBooking = () => {
     container: `${PREFIX}-container`,
     weekendCell: `${PREFIX}-weekendCell`,
     weekEnd: `${PREFIX}-weekEnd`,
+    tel: `${PREFIX}-tel`,
   };
   // #FOLD_BLOCK
   const StyledAppointmentsAppointmentContent = styled(Appointments.AppointmentContent)(() => ({
@@ -134,6 +135,12 @@ const LabSingleBooking = () => {
     },
     [`& .${classes.container}`]: {
       width: '100%',
+    },
+    [`& .${classes.tel}`]: {
+      fontWeight: 'bold',
+      overflow: 'hidden',
+      textOverflow: 'ellipsis',
+      whiteSpace: 'nowrap',
     },
   }));
   // #FOLD_BLOCK
@@ -243,6 +250,9 @@ const LabSingleBooking = () => {
           <div className={classes.time}>
             {formatDate(data.endDate, { hour: 'numeric', minute: 'numeric' })}
           </div>
+        </div>
+        <div className={classes.tel}>
+          Tel 0{data.tel}
         </div>
       </div>
     </StyledAppointmentsAppointmentContent>
@@ -368,6 +378,7 @@ const LabSingleBooking = () => {
     startDate: new Date(moment(item.dateStart).format('YYYY'), moment(item.dateStart).month(), moment(item.dateStart).format('DD'), item.timeStart.toString().slice(0,-2), item.timeStart.toString().slice(-2)),
     endDate: new Date(moment(item.dateStart).format('YYYY'), moment(item.dateStart).month() , moment(item.dateStart).format('DD'), item.timeEnd.toString().slice(0,-2), item.timeEnd.toString().slice(-2)),
     location: `${slug.toUpperCase()}`,
+    tel: `${item.tel}`,
   }
   ))
 
