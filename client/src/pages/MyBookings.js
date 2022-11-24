@@ -55,6 +55,7 @@ const MyBookings = () => {
         position: item.bookings.position,
         description: item.bookings.description,
         purpose: item.bookings.purpose,
+        tel: item.bookings.tel,
         isCheckin: item.bookings.isCheckin,
         pin: item.bookings.pin,
         userEmail: item.bookings.user.email,
@@ -158,6 +159,10 @@ const MyBookings = () => {
         {
             title: 'Purpose',
             dataIndex: 'purpose',
+        },
+        {
+            title: 'Tel',
+            dataIndex: 'tel',
         },
         {
             title: "CheckIn",
