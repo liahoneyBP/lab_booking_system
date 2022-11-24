@@ -18,8 +18,15 @@ const { SubMenu } = Menu;
 const Lab = () => {
     const [labs, setLabs] = useState([]);
     const [loading, setLoading] = useState(false);
-    const [capacity, setCapacity] = useState([0, 50]);
+    // const [capacity, setCapacity] = useState([0, 50]);
     const [ok, setOk] = useState(false);
+
+    const [capacitys, setCapacitys] = useState([
+        "30",
+        "40",
+        "50"
+    ]);
+    const [capacity, setCapacity] = useState('')
 
     const [buildings, setBuildings] = useState([
         "1",
@@ -34,14 +41,14 @@ const Lab = () => {
 
     const [floor, setFloor] = useState("");
 
-    
+
     const [equipment, setEquipment] = useState("");
 
     const [equipments, setEquipments] = useState([
         "PC",
         "MAC",
     ])
-    
+
 
     let dispatch = useDispatch();
     let { search } = useSelector((state) => ({ ...state }));
@@ -88,19 +95,45 @@ const Lab = () => {
         fetchLabs({ capacity });
     }, [ok])
 
-    const handleSlider = (value) => {
+    /* const handleSlider = (value) => {
+         dispatch({
+             type: "SEARCH_QUERY",
+             payload: { text: "" },
+         });
+         setCapacity(value);
+         setBuilding("");
+         setTimeout(() => {
+             setOk(!ok);
+         }, 300)
+     }*/
+
+    //  load labs based on capacity
+    const showCapacitys = () =>
+        capacitys.map((c) => (
+            <Radio
+                value={c}
+                name={c}
+                checked={c === capacity}
+                onChange={handleCapacity}
+                className="pb-1 pl-4 pr-4"
+            >
+                {c}
+            </Radio>
+        ))
+
+    const handleCapacity = (e) => {
+        setBuilding('');
+
         dispatch({
             type: "SEARCH_QUERY",
             payload: { text: "" },
         });
-        setCapacity(value);
-        setBuilding("");
-        setTimeout(() => {
-            setOk(!ok);
-        }, 300)
+        setCapacity(e.target.value)
+        fetchLabs({ capacity: e.target.value });
     }
 
-    // 4. load labs based on building
+
+    //  load labs based on building
     const showBuildings = () =>
         buildings.map((b) => (
             <Radio
@@ -124,7 +157,7 @@ const Lab = () => {
         fetchLabs({ building: e.target.value });
     }
 
-    // 5. load labs based on floor
+    //  load labs based on floor
     const showFloors = () =>
         floors.map((f) => (
             <Radio
@@ -189,17 +222,13 @@ const Lab = () => {
                         <hr />
 
                         <Menu defaultOpenKeys={['1', '2', '3', '4']} mode="inline">
-                            <SubMenu key="1" title={<span className="h6"><DesktopOutlined /> Capacity</span>}>
-                                <div className="">
-                                    <Slider
-                                        className="ml-4 mr-4"
-                                        tipFormatter={(v) => `${v} ที่นั่ง`}
-                                        range
-                                        value={capacity}
-                                        onChange={handleSlider}
-
-                                    />
-
+                            <SubMenu
+                                key="1"
+                                title={
+                                    <span className="h6"><DownSquareOutlined /> Capacity
+                                    </span>}>
+                                <div style={{ maringTop: "-10px" }} className="pr-5">
+                                    {showCapacitys()}
                                 </div>
                             </SubMenu>
 
@@ -245,14 +274,14 @@ const Lab = () => {
                             <h2 className="m-1">Labs</h2>
                         )}
 
-                        {labs.length < 1 && 
-                        <Spin tip="Loading...">
-                            <Alert
-                                message="Room Booking in University of the thai chamber of commerce"
-                                description="Please Enter Field..."
-                                type="info"
-                            />
-                        </Spin>}
+                        {labs.length < 1 &&
+                            <Spin tip="Loading...">
+                                <Alert
+                                    message="Room Booking in University of the thai chamber of commerce"
+                                    description="Please Enter Field..."
+                                    type="info"
+                                />
+                            </Spin>}
 
                         <div className="row m-1">
                             {labs.map((lab) => (

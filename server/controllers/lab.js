@@ -88,7 +88,7 @@ const handleQuery = async (req, res, query) => {
   res.json(labs);
 }
 
-
+/*
 const handleCapacity = async (req, res, capacity) => {
   try {
     let labs = await Lab.find({
@@ -104,6 +104,14 @@ const handleCapacity = async (req, res, capacity) => {
   } catch (err) {
     console.log(err);
   }
+}
+*/
+
+const handleCapacity = async (req, res, capacity) => {
+  const labs = await Lab.find({ capacity })
+    .exec();
+
+  res.json(labs);
 }
 
 const handleBuilding = async (req, res, building) => {
@@ -145,8 +153,14 @@ exports.searchFilters = async (req, res) => {
   }
 
   // capcacity [30, 40, 50]
-  if (capacity !== undefined) {
+ /* if (capacity !== undefined) {
     console.log('capacity --->', capacity)
+    await handleCapacity(req, res, capacity);
+  }
+  */
+
+  if (capacity) {
+    console.log("capacity --->", capacity);
     await handleCapacity(req, res, capacity);
   }
 
