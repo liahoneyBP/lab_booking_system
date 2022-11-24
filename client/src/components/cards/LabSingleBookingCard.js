@@ -67,6 +67,7 @@ const SingleBookingCard = ({ lab }) => {
     let maxBookedUser = false;
     let datePast = false;
     let userNotAdmin = false;
+    let roleUser = false;
 
     if (!values.dateStart) {
       window.alert('Please Select Date')
@@ -81,36 +82,42 @@ const SingleBookingCard = ({ lab }) => {
 
       var dateInput = new Date(`${values.dateStart}`);
       var currentDate = new Date(`${cr}`)
-  
+
       if (dateInput < currentDate) {
-      datePast = true
+        datePast = true
       }
     }
 
     if (values) {
-      
+
       readUser(user._id).then(res => {
         const max = res.data.maxBooked;
         console.log("Get Check User Bookings Amount ===>", max);
-        if (max === 3 || max >= 3) {
+        if ( user.role === "user") {
+         // window.alert("Role User")
+          roleUser = true;
+
+        }
+        if ( roleUser && max >= 3) {
           maxBookedUser = true;
         }
+
       })
-      
+
       const pinCode = values.pin;
       const valuesDateCurrent = new Date();
       const valuesFromUser = values.dateStart;
 
       if (pinCode.length === 6) {
-        
-        if ( values.position === 'Admin' && user.role !== 'admin') {
-          
-           userNotAdmin = true;
+
+        if (values.position === 'Admin' && user.role !== 'admin') {
+
+          userNotAdmin = true;
         }
-// check values from user timeStart can't over than timeEnd
+        // check values from user timeStart can't over than timeEnd
         if (newTimeStart < newTimeEnd) {
 
-        
+
           getLabBookings(lab._id, user.token).then(labBookingsData => {
 
             labBookingsData.data.forEach(function (value, index) {
@@ -142,7 +149,7 @@ const SingleBookingCard = ({ lab }) => {
                 position: toast.POSITION.TOP_CENTER
               });
 
-            } 
+            }
 
             if (maxBookedUser) {
               toast.error(`Out Of Limit Bookings (3)`, {
@@ -161,8 +168,8 @@ const SingleBookingCard = ({ lab }) => {
                 position: toast.POSITION.TOP_CENTER
               });
             }
-            
-            else {
+
+            if (!sameDateAndNotimeClash && !maxBookedUser && !datePast && !userNotAdmin) {
               console.log("User ID When Booking ===>", user._id);
 
               incrementBooked(user._id, user.token).then(res => {
@@ -176,10 +183,7 @@ const SingleBookingCard = ({ lab }) => {
                   toast.success(`Booked Success, You Can Check PIN in E-mail`, {
                     position: toast.POSITION.TOP_CENTER
                   });
-
-
-
-                //  navigate(0);
+                  navigate(0);
 
                 })
                 .catch((err) => {
@@ -188,7 +192,34 @@ const SingleBookingCard = ({ lab }) => {
                   toast.error(err.response.data.err);
                 })
 
+
             }
+
+            /* else {
+               console.log("User ID When Booking ===>", user._id);
+ 
+               incrementBooked(user._id, user.token).then(res => {
+                 console.log("Increment Booked User", res.data)
+               })
+ 
+               makeBooking(slug, values, user.token)
+                 .then((response) => {
+                   console.log("Data After submit form ===>", response.data);
+                   //   navigate(0)
+                   toast.success(`Booked Success, You Can Check PIN in E-mail`, {
+                     position: toast.POSITION.TOP_CENTER
+                   });
+                   navigate(0);
+ 
+                 })
+                 .catch((err) => {
+                   console.log(err);
+                   if (err.response.status === 400) toast.error(err.response.data);
+                   toast.error(err.response.data.err);
+                 })
+ 
+             }
+             */
 
           });
 
