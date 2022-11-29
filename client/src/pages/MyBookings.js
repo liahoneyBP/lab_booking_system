@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 
 import { getUserBookings } from "../functions/bookings";
 import { removeBooking } from "../functions/bookings";
+import { reduceBooked } from "../functions/bookings";
 
 import moment from "moment";
 
@@ -81,6 +82,10 @@ const MyBookings = () => {
         let answer = window.confirm(`Cancel This Booking (${value.description}, bookedBy ${value.bookedBy}) ?`)
         if (answer) {
           //  console.log('send delete request', value.id, value.labId);
+          reduceBooked(user._id, user.token)
+          .then((reduceBook) => {
+            console.log("Reduce book =>", reduceBook);
+          })
             removeBooking(value, user.token)
                 .then((dataRemove) => {
                   /*  console.log("Booking Id from front is ==>", value.id);

@@ -28,6 +28,18 @@ exports.incrementBooked = async (req, res) => {
 
 }
 
+exports.reduceBooked = async (req, res) => {
+    const userId = req.body.userIdBody;
+    console.log("User ID in Backend ===>", userId);
+    let reduce = await User.updateOne(
+        {_id: userId},
+        { $inc: { maxBooked: -1 } }
+    )
+    console.log('reduce booked', reduce);
+    res.json(reduce);
+
+}
+
 
 
 

@@ -12,6 +12,7 @@ const { authCheck, adminCheck } = require("../middlewares/auth");
 const {
   readUser,
   incrementBooked,
+  reduceBooked,
 } = require("../controllers/user");
 const { default: slugify } = require("slugify");
 
@@ -26,6 +27,9 @@ router.post("/readUser", readUser);
 
 // incrementBooked
 router.put("/incrementBooked", authCheck, incrementBooked);
+
+// reduceBooked
+router.put("/reduceBooked", authCheck, reduceBooked);
 
 
 
