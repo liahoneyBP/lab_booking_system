@@ -7,11 +7,12 @@ import { useDispatch } from "react-redux";
 import { getAllUserBookings } from "../../functions/bookings";
 import { removeBooking } from "../../functions/bookings";
 import { fetchUserBookingsbyFilter } from "../../functions/lab";
+import { reduceBookedbyEmail } from "../../functions/bookings";
 
 import moment from "moment";
 import { toast } from "react-toastify";
 import { Menu, Radio } from "antd"
-import {  DownSquareOutlined } from "@ant-design/icons";
+import { DownSquareOutlined } from "@ant-design/icons";
 import { EditOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
@@ -139,7 +140,7 @@ const AdminDashboard = () => {
       payload: { text: "" },
     });
     setPosition(e.target.value)
-   // setLabName('')
+    // setLabName('')
     fetchUserBookings({ position: e.target.value });
   }
 
@@ -224,42 +225,50 @@ const AdminDashboard = () => {
     getAllUserBookings().then(userAllBokingsData => {
       // get Api All bookings in database and store in state
       setAllUserBookings(userAllBokingsData.data);
-   //   console.log("ALL USER BOOKINGS Admin Dashboard Page ===>", userAllBokingsData.data);
+      //   console.log("ALL USER BOOKINGS Admin Dashboard Page ===>", userAllBokingsData.data);
 
     });
   };
 
 
   const handleDelete = (value) => {
-   // const dataSource = [...modifiedData];
+    // const dataSource = [...modifiedData];
     // const filteredData = dataSource.filter((item) => item.id !== value.id);
- /*   console.log("All VALUE ===>", value);
-    console.log("value.id in front is ===>", value.id);
-    console.log("value.labId in front is ===>", value.labId);
-    console.log("value.userEmail from dynamic data is ===>", value.userEmail); */
+    /*   console.log("All VALUE ===>", value);
+       console.log("value.id in front is ===>", value.id);
+       console.log("value.labId in front is ===>", value.labId);
+       console.log("value.userEmail from dynamic data is ===>", value.userEmail); */
+    console.log("All VALUE ===>", value);
+
+    reduceBookedbyEmail(value.userEmail, user.token)
+      .then((reduceBook) => {
+        console.log("User Email in front =>", user.Email);
+        console.log("Reduce book =>", reduceBook);
+      })
+
 
     let answer = window.confirm(`Reject This Booking (${value.description}, bookedBy ${value.bookedBy}) ?`)
     if (answer) {
-   /*   console.log('send delete request', value.id, value.labId);
-      console.log("All Value Before hit api remove ==>", value);   */
-    
+      /*   console.log('send delete request', value.id, value.labId);
+         console.log("All Value Before hit api remove ==>", value);   */
+
       removeBooking(value, user.token)
         .then((dataRemove) => {
-    /*      console.log("Booking Id from front is ==>", value.id);
-          console.log("Lab Id from front is ==>", value.labId);
-          console.log("After hit API Remove Booking", dataRemove.data);   */
+          /*      console.log("Booking Id from front is ==>", value.id);
+                console.log("Lab Id from front is ==>", value.labId);
+                console.log("After hit API Remove Booking", dataRemove.data);   */
 
           toast.error(`Deleted Book and Send Notification to user email`, {
             position: toast.POSITION.TOP_CENTER
           });
 
-          navigate(0);
+          // navigate(0);
           //  window.alert(`${value.description}, By ${value.bookedBy} is deleted, And Already Send To User Email`);  
         })
 
         .catch(err => {
           if (err.response.status === 400) toast.error(err.response.data);
-      //    console.log(err)
+          //    console.log(err)
         })
 
     }
@@ -437,7 +446,7 @@ const AdminDashboard = () => {
               </div>
             </SubMenu>
 
-        
+
             <SubMenu
               key="2"
               title={
@@ -472,11 +481,11 @@ const AdminDashboard = () => {
 
 
           <div className="mt-3">
-          <div class="table-responsive"> 
-            <Table
-              columns={columns}
-              dataSource={modifiedData} />
-              </div>
+            <div class="table-responsive">
+              <Table
+                columns={columns}
+                dataSource={modifiedData} />
+            </div>
           </div>
         </div>
       </div>

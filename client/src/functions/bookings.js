@@ -135,6 +135,18 @@ export const reduceBooked = async (userId, authtoken) =>
   });
 
 
+export const reduceBookedbyEmail = async (userEmail, authtoken) =>
+  await axios.put(`${process.env.REACT_APP_API}/reduceBookedbyEmail`, { userEmailBody: userEmail }, {
+    headers: {
+      authtoken
+    }
+
+  });
+
+
+
+
+
 
 
 

@@ -13,6 +13,7 @@ const {
   readUser,
   incrementBooked,
   reduceBooked,
+  reduceBookedbyEmail,
 } = require("../controllers/user");
 const { default: slugify } = require("slugify");
 
@@ -30,6 +31,11 @@ router.put("/incrementBooked", authCheck, incrementBooked);
 
 // reduceBooked
 router.put("/reduceBooked", authCheck, reduceBooked);
+
+// reduceBooked
+router.put("/reduceBookedbyEmail", authCheck, reduceBookedbyEmail);
+
+
 
 
 

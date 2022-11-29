@@ -40,6 +40,19 @@ exports.reduceBooked = async (req, res) => {
 
 }
 
+exports.reduceBookedbyEmail = async (req, res) => {
+    const userEmail = req.body.userEmailBody;
+    console.log("User Email in Backend ===>", userEmail);
+    let reduce = await User.updateOne(
+        {email: userEmail},
+        { $inc: { maxBooked: -1 } }
+    )
+    console.log('reduce booked', reduce);
+    res.json(reduce);
+
+}
+
+
 
 
 
