@@ -64,7 +64,7 @@ const SingleBookingCard = ({ lab }) => {
     let wrongTime = false;
     let behindTime = false;
     let sameDateAndTimeClash = false;
-    let sameDateAndNotimeClash = false;
+   // let sameDateAndNotimeClash = false;
     let maxBookedUser = false;
     let datePast = false;
     let userNotAdmin = false;
@@ -170,7 +170,7 @@ const SingleBookingCard = ({ lab }) => {
               });
             }
 
-            if (!sameDateAndNotimeClash && !maxBookedUser && !datePast && !userNotAdmin) {
+            if (!sameDateAndTimeClash && !maxBookedUser && !datePast && !userNotAdmin) {
               console.log("User ID When Booking ===>", user._id);
 
               incrementBooked(user._id, user.token).then(res => {
@@ -195,32 +195,6 @@ const SingleBookingCard = ({ lab }) => {
 
 
             }
-
-            /* else {
-               console.log("User ID When Booking ===>", user._id);
- 
-               incrementBooked(user._id, user.token).then(res => {
-                 console.log("Increment Booked User", res.data)
-               })
- 
-               makeBooking(slug, values, user.token)
-                 .then((response) => {
-                   console.log("Data After submit form ===>", response.data);
-                   //   navigate(0)
-                   toast.success(`Booked Success, You Can Check PIN in E-mail`, {
-                     position: toast.POSITION.TOP_CENTER
-                   });
-                   navigate(0);
- 
-                 })
-                 .catch((err) => {
-                   console.log(err);
-                   if (err.response.status === 400) toast.error(err.response.data);
-                   toast.error(err.response.data.err);
-                 })
- 
-             }
-             */
 
           });
 
