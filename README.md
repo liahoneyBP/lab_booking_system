@@ -168,11 +168,10 @@ https://trello.com/invite/b/wv8LaGC0/99f35b22a729f06b97d01473a68e1b19/labbooking
 
 
 ### Problem
-Conventional lab room reservations such as how to record a reservation in a document or a user must book directly through the administrator. Causing many times to change the date and time may be inconvenient and may cause mistakes or booking duplicate and overlapping booking rooms.
-or have made a reservation and haven't used it yet let various possibilities let others Lose the chance at that Lab.
+The computer assemblage contains the necessary parts for the practical semester in the university, the main purpose of which is to facilitate students and to be able to access computers.
+However, with what to do directly through caring. This will cause complicated bookings and cause errors or duplicates of the usage schedule that we must have.
 ### Solution
-The development of web -application Lab room reservations helps to reduce such errors as it allows administrators to view various booking information, and user can view information Schedule the availability of the room. via web application making it possible for anyone to check the lab usage schedule
-Including the date and time of use and booking a lab by yourself
+Therefore, we came up with the idea of ​​developing a web-application that allows students and staff to check the schedule and reserve computer labs online. with the developed system Make computer lab management more efficient
 ### Planning
  ![Plan ](docs/plan_lab_booking_.png)
 ### Architecture System Design
