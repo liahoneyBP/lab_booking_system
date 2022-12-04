@@ -262,7 +262,7 @@ const AdminDashboard = () => {
             position: toast.POSITION.TOP_CENTER
           });
 
-          // navigate(0);
+           navigate(0);
           //  window.alert(`${value.description}, By ${value.bookedBy} is deleted, And Already Send To User Email`);  
         })
 

@@ -184,7 +184,7 @@ const SingleBookingCard = ({ lab }) => {
                   toast.success(`Booked Success, You Can Check PIN in E-mail`, {
                     position: toast.POSITION.TOP_CENTER
                   });
-                  //navigate(0);
+                  navigate(0);
 
                 })
                 .catch((err) => {
