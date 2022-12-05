@@ -209,8 +209,8 @@ const AdminDashboard = () => {
     isCheckin: item.bookings.isCheckin,
     pin: item.bookings.pin,
     userEmail: item.bookings.user.email,
-    createdAt: moment(item.bookings.createdAt).fromNow(),
-    updatedAt: moment(item.bookings.updatedAt).fromNow(),
+    createdAt: moment(item.bookings.createdAt).format('LLL'),
+    updatedAt: moment(item.bookings.updatedAt).format('LLL'),
 
   }
   ))
