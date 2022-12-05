@@ -379,7 +379,7 @@ exports.removeBooking = async (req, res) => {
     service: "gmail",
     auth: {
       user: "labbook022@gmail.com",
-      pass: "xoffjnnwcsgfhhkz"
+      pass: "kvgjnqjeyxkbidjq"
     }
   })
 
