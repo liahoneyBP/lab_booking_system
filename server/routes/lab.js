@@ -140,7 +140,7 @@ router.put('/makebooking/lab/:slug', authCheck, async (req, res) => {
         service: "gmail",
         auth: {
           user: "labbook022@gmail.com",
-          pass: "etlxmptqbswvujme"
+          pass: "sifflesgvkfzauwk"
         }
       })
 

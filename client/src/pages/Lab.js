@@ -26,6 +26,8 @@ const Lab = () => {
         "40",
         "50"
     ]);
+
+
     const [capacity, setCapacity] = useState('')
 
     const [buildings, setBuildings] = useState([
@@ -63,7 +65,7 @@ const Lab = () => {
 
     // 1. load labs by fedault on page load
     const loadAllLabs = () => {
-        getLabsByCount(6).then(lab => {
+        getLabsByCount().then(lab => {
             setLabs(lab.data);
             setLoading(false);
         });
