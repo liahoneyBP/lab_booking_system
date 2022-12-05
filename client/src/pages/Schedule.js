@@ -24,11 +24,34 @@ import {
 import moment from 'moment';
 
 import { getAllUserBookings } from '../functions/bookings';
+import { getLabsByCount } from '../functions/lab';
 
 
 const Schedule = () => {
 
-  const LOCATIONS = ['15201A', '15201B', '1305A', '1305B', '1205A', '1205B'];
+  
+  const [labsName, setLabsName] = useState([]);
+
+  const getAllLab = () => {
+    getLabsByCount().then(allLab => {
+      // get Api
+      setLabsName(allLab.data);
+    });
+  };
+
+  const LOCATIONS = []
+  // push all lab name to array LOCATIONS to use in SCHEDULER UI
+  labsName.forEach(lb => {
+    LOCATIONS.push(lb.labName);
+    console.log("LOCATIONS ===>", LOCATIONS);
+  })
+
+  useEffect(() => {
+    getAllLab();
+  },[])
+
+
+  //const LOCATIONS = ['15201A', '15201B', '1305A', '1305B', '1205A', '1205B'];
   const LOCATIONS_SHORT = [1, 2, 3, 4, 5, 6];
   const resources = [{
     fieldName: 'location',
