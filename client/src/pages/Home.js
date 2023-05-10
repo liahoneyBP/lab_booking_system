@@ -1,23 +1,13 @@
-//
 import React, { useEffect, useState } from "react";
 import { getLabsByCount } from "../functions/lab";
 import LabCard from "../components/cards/LabCard";
 import Jumbotron from "../components/cards/Jumbotron";
-
-import Stack from '@mui/material/Stack';
-import LinearProgress from '@mui/material/LinearProgress';
-
-import Box from '@mui/material/Box';
-
-
+import { Alert, Spin } from "antd";
 
 // Home Parent Component
 const Home = () => {
   const [labs, setLabs] = useState([]);
   const [loading, setLoading] = useState(false);
-
-
-
 
   useEffect(() => {
     loadAllLabs();
@@ -33,8 +23,6 @@ const Home = () => {
 
   return (
     <>
-    
-    
       <div className="jumbotron text-primary h1 font-weight-bold text-center">
         <Jumbotron text={["UTCC LABS", "ห้องแล็บ", "มหาวิทยาลัยหอการค้าไทย"]} />
       </div>
@@ -43,12 +31,12 @@ const Home = () => {
         <div className="row">
           {loading ? (
             <>
-              <Box sx={{ fontWeight: 'bold', m: 1, fontFamily: 'monospace' }}>Loading</Box>
-              <Stack sx={{ width: '100%', color: 'grey.500' }} spacing={3}>
-                <LinearProgress color="secondary" />
-                <LinearProgress color="secondary" />
-                <LinearProgress color="secondary" />
-              </Stack>
+              <Spin tip="Loading...">
+                <Alert
+                  message="Room Booking in University of the thai chamber of commerce"
+                  type="info"
+                />
+              </Spin>
             </>
           ) : (
             <span></span>
